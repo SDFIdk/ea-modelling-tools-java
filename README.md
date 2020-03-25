@@ -6,7 +6,7 @@ Set of tools, written in Java, to support model driven development.
 
 Copy the data modelling tools to a location on your computer.
 
-Set user environment variables `JAVACMD` and `DMT_HOME` using the [https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx](`setx`) command on the Windows command line. `JAVACMD` must point to the java.exe in a **32-bit** Java installation and is used in the .bat-files. `DMT_HOME` is used when invoking the .bat-files from within a script in Enterprise Architect.
+Set user environment variables `JAVACMD` and `DMT_HOME` using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx) command on the Windows command line. `JAVACMD` must point to the java.exe in a **32-bit** Java installation and is used in the .bat-files (it is defined by the appassembler-maven-plugin). `DMT_HOME` is used when invoking the .bat-files from within a script in Enterprise Architect (it is defined by this project).
 
 ```
 SETX JAVACMD "C:\path\to\OpenJDK\x86-32_11.0.2_9\jdk-11.0.2+9\bin\java.exe"
@@ -44,7 +44,7 @@ The options will be shown in the output. Output is with the logging configuratio
 
 ## Building the tools
 
-[http://maven.apache.org/download.cgi](Maven) version 3.6 or later is needed to build the project, see also pom.xml.
+[Maven](http://maven.apache.org/download.cgi) version 3.6 or later is needed to build the project, see also pom.xml.
 
 The project has a dependency on the Enterprise Architect Java API, which can be installed by executing the following command:
 
@@ -52,7 +52,7 @@ The project has a dependency on the Enterprise Architect Java API, which can be 
 mvn install:install-file -Dfile="C:\Program Files (x86)\Sparx Systems\EA\Java API\eaapi.jar" -DgroupId=org.sparx -DartifactId=eaapi -Dversion=15.1.1525 -Dpackaging=jar
 ```
       
-See also [https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html](Guide to installing 3rd party JARs).
+See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html).
 
 `mvn package` invokes the assemble goal of the appassembler-maven-plugin. It creates the following structure:
 
@@ -69,7 +69,7 @@ See also [https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html](
 |           *.jar
 ```
 
-`mvn verify` verifies the code using the static code analyser tools [https://checkstyle.org/](CheckStyle), [https://pmd.github.io/](PMD) and [https://spotbugs.github.io/](SpotBugs).
+`mvn verify` verifies the code using the static code analyser tools [CheckStyle](https://checkstyle.org/), [PMD](https://pmd.github.io/) and [SpotBugs](https://spotbugs.github.io/).
 
 `mvn site` creates an overview of the projects, include CheckStyle, PMD and SpotBugs reports.
 
