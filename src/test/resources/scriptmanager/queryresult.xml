@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<EADATA version="1.0" exporter="Enterprise Architect">
+    <Dataset_0><Data><Row><ScriptCategory>3955A83E-9E54-4810-8053-FACC68CD4782</ScriptCategory><ScriptName>{2972D622-7D4D-432a-821D-1D5D35205E59}</ScriptName><ScriptAuthor/><Notes>&lt;Group Type="NORMAL" Notes=""/&gt;
+</Notes><Script>A normal script group</Script></Row><Row><ScriptCategory>605A62F7-BCD0-4845-A8D0-7DC45B4D2E3F</ScriptCategory><ScriptName>{8D855156-6C49-4269-9F5B-D3D881E68BCA}</ScriptName><ScriptAuthor>{2972D622-7D4D-432a-821D-1D5D35205E59}</ScriptAuthor><Notes>&lt;Script Name="A Jscript" Type="Internal" Language="JScript"/&gt;
+</Notes><Script>!INC Local Scripts.EAConstants-JScript
+
+function main() {
+    // TODO: Enter script code here!
+}
+
+main();</Script></Row><Row><ScriptCategory>605A62F7-BCD0-4845-A8D0-7DC45B4D2E3F</ScriptCategory><ScriptName>{210E02F9-1584-48f5-8089-14CB000C852A}</ScriptName><ScriptAuthor>{2972D622-7D4D-432a-821D-1D5D35205E59}</ScriptAuthor><Notes>&lt;Script Name="A VBScript" Type="Internal" Language="VBScript"/&gt;
+</Notes><Script>option explicit
+
+!INC Local Scripts.EAConstants-VBScript
+
+sub main
+    ' TODO: Enter script code here!
+end sub
+
+main</Script></Row><Row><ScriptCategory>605A62F7-BCD0-4845-A8D0-7DC45B4D2E3F</ScriptCategory><ScriptName>{03F01D54-98C9-42bf-B814-B93CE80A78E1}</ScriptName><ScriptAuthor>{2972D622-7D4D-432a-821D-1D5D35205E59}</ScriptAuthor><Notes>&lt;Script Name="JavaScript containing many different characters" Type="Internal" Language="JavaScript"/&gt;
+</Notes><Script>!INC Local Scripts.EAConstants-JScript
+ 
+function main()
+{
+// Danish
+/*
+Æ Ø Å
+æ ø å
+ */
+
+// Faroese
+/*
+A Á Ð ÍÓ Ú Ý Æ Ø
+a á ð í ó ú ý æ ø
+*/
+
+// German
+/*
+Ä Ö Ü ẞ
+ä ö ü ß
+*/
+
+// Norwegian
+/*
+Â É È Ê Ó Ò Ô
+â é è ê ó ò ô
+*/
+
+// Arabic
+/*
+ ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي
+*/
+
+// Japanese
+/*
+いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす
+イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセス 
+*/
+
+// Serbo-Croatian
+/*
+А Б В Г Д Ђ Е Ж З И Ј К Л Љ М Н Њ О П Р С Т Ћ У Ф Х Ц Ч Џ Ш
+а б в г д ђ е ж з и ј к л љ м н њ о п р с т ћ у ф х ц ч џ ш
+*/
+}
+
+main();</Script></Row></Data></Dataset_0></EADATA>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+  <!-- See http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html -->
+  <id>dist</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>${assembleDirectory}/${myBinFolder}</directory>
+      <outputDirectory>${myBinFolder}</outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>${assembleDirectory}/${myConfigurationDirectory}</directory>
+      <outputDirectory>${myConfigurationDirectory}</outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>${assembleDirectory}/${myRepositoryName}</directory>
+      <outputDirectory>${myRepositoryName}</outputDirectory>
+    </fileSet>
+    <fileSet>
+      <directory>${assembleDirectory}/${logsDirectory}</directory>
+      <outputDirectory>${logsDirectory}</outputDirectory>
+    </fileSet>
+  </fileSets>
+</assembly>
