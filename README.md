@@ -6,7 +6,7 @@ Set of tools, written in Java, to support model driven development.
 
 Copy the data modelling tools to a location on your computer.
 
-Set user environment variables `JAVACMD` and `DMT_HOME` using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx) command on the Windows command line. `JAVACMD` must point to the java.exe in a **32-bit** Java installation and is used in the .bat-files (it is defined by the appassembler-maven-plugin). `DMT_HOME` is used when invoking the .bat-files from within a script in Enterprise Architect (it is defined by this project).
+Set user environment variables `JAVACMD` and `DMT_HOME` using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line. `JAVACMD` must point to the java.exe in a **32-bit** Java installation and is used in the .bat-files (the name `JAVACMD` is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler)). `DMT_HOME` is used when invoking the .bat-files from within a script in Enterprise Architect (the name `DMT_HOME` is defined by this project).
 
 ```
 SETX JAVACMD "C:\path\to\OpenJDK\x86-32_11.0.2_9\jdk-11.0.2+9\bin\java.exe"
