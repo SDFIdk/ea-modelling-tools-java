@@ -1,6 +1,6 @@
 # Data Modelling Tools
 
-Set of tools, written in Java, to support model driven development.
+This project contains a set of tools, written in Java, to support model driven development.
 
 ## Using the tools
 
@@ -40,7 +40,7 @@ on a command line, e.g.
 %DMT_HOME%\bin\export-scripts.bat
 ```
 
-The options will be shown in the output. Output is with the logging configuration that comes with the tools (config\logback.xml) shown in the command line, in the Script Window Enterprise Architect and it is saved in file log\output.log.
+The options will be shown in the output. The output is produced with the logging configuration that comes with the tools (config\logback.xml). It is shown in the command line and in the Script Window Enterprise Architect and it is saved in file log\output.log.
 
 ## Building the tools
 
@@ -77,4 +77,7 @@ See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mi
 
 ## Adding applications
 
-Add a new application by creating a class that extends from `AbstractApplication`. It must have a main method. Create a new `program` entry in pom.xml in `/project/build/plugins/plugin[artifactId='appassembler-maven-plugin']/executions/execution/configuration/programs`.
+To add a new application:
+
+1. Create a class that extends from `AbstractApplication` and add a [main method](https://docs.oracle.com/javase/tutorial/getStarted/application/#MAIN) to it.
+2. Create a new `program` entry in pom.xml in `/project/build/plugins/plugin[artifactId='appassembler-maven-plugin']/executions/execution/configuration/programs`.
