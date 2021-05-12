@@ -4,6 +4,8 @@ This project contains a set of tools, written in Java, to support model driven d
 
 ## Using the tools
 
+### In Enterprise Architect
+
 Copy the data modelling tools to a location on your computer.
 
 Set user environment variables `JAVACMD` and `DMT_HOME` using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line. `JAVACMD` must point to the java.exe in a **32-bit** Java installation and is used in the .bat-files (the name `JAVACMD` is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler)). `DMT_HOME` is used when invoking the .bat-files from within a script in Enterprise Architect (the name `DMT_HOME` is defined by this project).
@@ -42,6 +44,10 @@ on a command line, e.g.
 
 The options will be shown in the output. The output is produced with the logging configuration that comes with the tools (config\logback.xml). It is shown in the command line and in the Script Window Enterprise Architect and it is saved in file log\output.log.
 
+### In an Integrated Development Environment (IDE)
+
+Find the process id of the Enterprise Architect process using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) commmand: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`. Provide that process id as option `-eapid` to the main class you want to run.
+
 ## Building the tools
 
 [Maven](http://maven.apache.org/download.cgi) version 3.6 or later is needed to build the project, see also pom.xml.
@@ -74,6 +80,8 @@ See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mi
 `mvn site` creates an overview of the projects, include CheckStyle, PMD and SpotBugs reports.
 
 `mvn versions:display-plugin-updates` finds the plugin versions that should be updated.
+
+See more information about Maven's build lifecyle on http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html.
 
 ## Adding applications
 

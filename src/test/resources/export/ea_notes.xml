@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<note>Virkeligheden er i stadig forandring. En <a href="$element://{C6BF25C6-B7D5-4a2d-9BC3-D203DBD94642}"><font color="#0000ff"><u>forretningsobjektinstans</u></font></a> kan blive &#230;ndret af <a href="$element://{BD08CBBC-27B9-41ea-B4D0-5CE45FB1F9D7}"><font color="#0000ff"><u>&#230;ndringer</u></font></a> (f.eks. huset f&#229;r et nyt tag); en forretningsobjektinstans kan dermed &#230;ndre sig over <a href="$element://{99CA4DE6-D3A9-4c22-98DD-BDD173A1D3D3}"><font color="#0000ff"><u>tid</u></font></a>.
+
+Man kan derfor stille f&#248;lgende tre sp&#248;rgsm&#229;l om en forretningsobjektstans:
+<ul>
+	<li>Hvordan er forretningsobjektinstansen lige nu?</li>
+	<li>Hvordan var forretningsobjektinstansen p&#229; et givet tidspunkt i fortiden?</li>
+	<li>Hvordan vil forretningsobjektinstansen v&#230;re p&#229; et givet tidspunkt i fremtiden?</li>
+</ul>
+
+N&#229;r man f.eks. er interesseret i et hus’ udseende (farve, form, osv.), kan sp&#248;rgsm&#229;lene formuleres som f&#248;lgende:
+<ul>
+	<li>Hvordan ser huset ud lige nu?</li>
+	<li>Hvordan s&#229; huset ud p&#229; et givet tidspunkt i fortiden?</li>
+	<li>Hvordan vil huset se ud p&#229; et givet tidspunkt i fremtiden?</li>
+</ul>
+
+N&#229;r man f.eks. er interesseret i en persons helbredsm&#230;ssige tilstand (blodtryk, v&#230;gt, osv.), kan sp&#248;rgsm&#229;lene formuleres som f&#248;lgende:
+<ul>
+	<li>Hvordan har personen det lige nu?</li>
+	<li>Hvordan havde personen det p&#229; et givet tidspunkt i fortiden?</li>
+	<li>Hvordan vil personen have det p&#229; et givet tidspunkt i fremtiden?</li>
+</ul>
+
+Vores viden om virkeligheden er ogs&#229; i stadig forandring.
+
+Man kan derfor stille f&#248;lgende to sp&#248;rgsm&#229;l: 
+<ul>
+	<li>Hvad ved vi nu? Eller rettere sagt, hvad tror vi nu?</li>
+	<li>Hvad troede vi p&#229; et givet tidspunkt i fortiden?</li>
+</ul>
+
+En <a href="$element://{F4346560-3BB7-4b87-A5B9-DB8D2CD83829}"><font color="#0000ff"><u>dataobjektinstans</u></font></a> kan derfor ogs&#229; blive &#230;ndret af <a href="$element://{870AFC6D-30EB-436b-9428-091D36C090B7}"><font color="#0000ff"><u>&#230;ndringer</u></font></a>. Det betyder at en dataobjektinstans kan &#230;ndre sig over tid. En <a href="$element://{870AFC6D-30EB-436b-9428-091D36C090B7}"><font color="#0000ff"><u>&#230;ndring af en dataobjektinstans</u></font></a> kan v&#230;re for&#229;rsaget af en &#230;ndring af forretningsobjektinstansen som dataobjektinstansen repr&#230;senterer (f.eks. at huset f&#229;r et nyt tag) eller af noget andet (f.eks. at en husejer indberetter at husets tag faktisk har en anden farve end den, det er registreret med).
+
+Afh&#230;ngig af hvordan et <a href="$element://{50D2A788-2BA8-463b-978B-4B0CCF7382E2}"><font color="#0000ff"><u>informationssystem</u></font></a> h&#229;ndterer de &#230;ndringer af dataobjektinstanser som indberettes, kan man svare p&#229; et eller flere af f&#248;lgende sp&#248;rgsm&#229;l ang&#229;ende en bestemt forretningsobjektinstans:
+<ul>
+	<li>Hvad tror man nu om hvordan forretningsobjektinstansen er lige nu?</li>
+	<li>Hvad tror man nu om hvordan forretningsobjektinstansen var p&#229; et givet tidspunkt i fortiden?</li>
+	<li>Hvad tror man nu om hvordan forretningsobjektinstansen vil v&#230;re p&#229; et givet tidspunkt i fremtiden?</li>
+	<li>Hvad troede man p&#229; et givet tidspunkt i fortiden om hvordan forretningsobjektinstansen var p&#229; det tidspunkt?</li>
+	<li>Hvad troede man p&#229; et givet tidspunkt i fortiden om hvordan forretningsobjektinstansen var p&#229; et tidligere tidspunkt?</li>
+	<li>Hvad troede man p&#229; et givet tidspunkt i fortiden om hvordan forretningsobjektinstansen ville v&#230;re p&#229; et senere tidspunkt?</li>
+</ul></note>

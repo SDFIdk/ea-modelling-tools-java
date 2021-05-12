@@ -9,25 +9,22 @@ import static net.sf.saxon.s9api.streams.Steps.text;
 
 import dk.gov.data.geo.datamodellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.geo.datamodellingtools.exception.DataModellingToolsException;
-import dk.gov.data.geo.datamodellingtools.scriptmanagement.Script;
-import dk.gov.data.geo.datamodellingtools.scriptmanagement.ScriptGroup;
+import dk.gov.data.geo.datamodellingtools.model.Script;
+import dk.gov.data.geo.datamodellingtools.model.ScriptGroup;
 import dk.gov.data.geo.datamodellingtools.scriptmanagement.ScriptManager;
+import dk.gov.data.geo.datamodellingtools.utils.FolderAndFileUtils;
+import dk.gov.data.geo.datamodellingtools.utils.XmlAndXsltUtils;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.function.Predicate;
 import javax.xml.transform.stream.StreamSource;
 import net.sf.saxon.s9api.DocumentBuilder;
-import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
-import net.sf.saxon.s9api.Serializer;
 import net.sf.saxon.s9api.XdmItem;
 import net.sf.saxon.s9api.XdmNode;
-import net.sf.saxon.s9api.Xslt30Transformer;
-import net.sf.saxon.s9api.XsltExecutable;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
@@ -57,8 +54,6 @@ public class ScriptManagerImpl implements ScriptManager {
 
   private EnterpriseArchitectWrapper eaWrapper;
 
-  private Processor processor;
-
   public ScriptManagerImpl(EnterpriseArchitectWrapper eaWrapper) {
     super();
     this.eaWrapper = eaWrapper;
@@ -68,13 +63,12 @@ public class ScriptManagerImpl implements ScriptManager {
   public void exportScripts(String scriptGroupNameOrRegex, File folder)
       throws DataModellingToolsException {
     Validate.notNull(scriptGroupNameOrRegex);
-    validateAndCreateFolderIfNeeded(folder);
+    FolderAndFileUtils.validateAndCreateFolderIfNeeded(folder);
     LOGGER.info("Start exporting scripts");
 
-    String queryResultString = retrieveScriptsAndScriptGroupsFromEA(scriptGroupNameOrRegex);
+    String queryResultString = retrieveScriptsAndScriptGroupsFromEa(scriptGroupNameOrRegex);
     saveScriptsAsSeparateFilesPerScriptGroup(folder, queryResultString);
-    transformToReferenceDataAndSave(queryResultString,
-        new File(folder, "referencedata_scripts.xml"));
+    transformToReferenceData(queryResultString, new File(folder, "referencedata_scripts.xml"));
     LOGGER.info("Finished exporting scripts");
   }
 
@@ -152,7 +146,7 @@ public class ScriptManagerImpl implements ScriptManager {
     return scriptGroup;
   }
 
-  private String retrieveScriptsAndScriptGroupsFromEA(String scriptGroupNameOrRegex)
+  private String retrieveScriptsAndScriptGroupsFromEa(String scriptGroupNameOrRegex)
       throws DataModellingToolsException {
     /*
      * Requires probably Jet 4.0 (see EA settings).
@@ -176,21 +170,9 @@ public class ScriptManagerImpl implements ScriptManager {
     return item -> StringEscapeUtils.unescapeXml(item.getStringValue()).startsWith(value);
   }
 
-  private void validateAndCreateFolderIfNeeded(File folder) throws DataModellingToolsException {
-    Validate.notNull(folder);
-    if (folder.exists()) {
-      Validate.isTrue(folder.isDirectory(), folder.getAbsolutePath() + " is not a directory");
-    } else {
-      boolean mkdirResult = folder.mkdir();
-      if (!mkdirResult) {
-        throw new DataModellingToolsException("Could not create folder " + folder);
-      }
-    }
-  }
-
   private String executeSqlQuery(String query) throws DataModellingToolsException {
     LOGGER.debug("Executing query " + query);
-    String resultSqlQueryAsXmlFormattedString = eaWrapper.executeSqlQuery(query);
+    String resultSqlQueryAsXmlFormattedString = eaWrapper.sqlQuery(query);
     LOGGER.debug("Query result: " + resultSqlQueryAsXmlFormattedString);
     return resultSqlQueryAsXmlFormattedString;
   }
@@ -198,15 +180,7 @@ public class ScriptManagerImpl implements ScriptManager {
   private File createScriptFolderIfNeeded(File folder, String scriptGroupName)
       throws DataModellingToolsException {
     File scriptFolder = new File(folder, scriptGroupName);
-    if (!scriptFolder.exists() || !scriptFolder.isDirectory()) {
-      boolean mkdirResult = scriptFolder.mkdir();
-      if (!mkdirResult) {
-        throw new DataModellingToolsException("Could not create folder " + scriptFolder);
-      }
-      LOGGER.info("Created folder " + scriptFolder.getPath());
-    } else {
-      LOGGER.info("Folder " + scriptFolder.getPath() + " already exists");
-    }
+    FolderAndFileUtils.validateAndCreateFolderIfNeeded(scriptFolder);
     return scriptFolder;
   }
 
@@ -214,7 +188,7 @@ public class ScriptManagerImpl implements ScriptManager {
       throws DataModellingToolsException {
     // Result from SQLQuery starts with <?xml version="1.0"?>, thus UTF-8 encoding.
     try {
-      DocumentBuilder documentBuilder = getProcessor().newDocumentBuilder();
+      DocumentBuilder documentBuilder = XmlAndXsltUtils.getProcessor().newDocumentBuilder();
       XdmNode queryResultAsXdmNode = documentBuilder.build(
           new StreamSource(IOUtils.toInputStream(xmlFormattedString, StandardCharsets.UTF_8)));
       return queryResultAsXdmNode;
@@ -227,29 +201,10 @@ public class ScriptManagerImpl implements ScriptManager {
     }
   }
 
-  private void transformToReferenceDataAndSave(String xml, File referenceData)
+  private void transformToReferenceData(String xml, File referenceData)
       throws DataModellingToolsException {
-    try (InputStream inputStreamXml = IOUtils.toInputStream(xml, StandardCharsets.UTF_8);
-        InputStream inputStreamXsl = ScriptManagerImpl.class
-            .getResourceAsStream("/scriptmanagement/transform_to_ea_reference_data.xsl");) {
-      XsltExecutable stylesheet =
-          getProcessor().newXsltCompiler().compile(new StreamSource(inputStreamXsl));
-      Serializer serializer = getProcessor().newSerializer(referenceData);
-      Xslt30Transformer transformer = stylesheet.load30();
-      transformer.transform(new StreamSource(inputStreamXml), serializer);
-    } catch (SaxonApiException e) {
-      throw new DataModellingToolsException(
-          "Could not transform XML to a file containing EA reference data in", e);
-    } catch (IOException e) {
-      throw new DataModellingToolsException("An exception occurred while using the stylesheet", e);
-    }
-  }
-
-  private Processor getProcessor() {
-    if (processor == null) {
-      processor = new Processor(false);
-    }
-    return processor;
+    XmlAndXsltUtils.transformXml(xml, "/scriptmanagement/transform_to_ea_reference_data.xsl",
+        referenceData);
   }
 
 }
