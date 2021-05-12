@@ -1,4 +1,4 @@
-package dk.gov.data.geo.datamodellingtools.scriptmanagement;
+package dk.gov.data.geo.datamodellingtools.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

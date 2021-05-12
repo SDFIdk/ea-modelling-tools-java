@@ -13,13 +13,13 @@ import dk.gov.data.geo.datamodellingtools.ea.EnterpriseArchitectWrapper;
  */
 public class EnterpriseArchitectScriptWindowAppender<E> extends AppenderBase<E> {
 
-  private EnterpriseArchitectWrapper enterpriseArchitectWrapper;
+  private EnterpriseArchitectWrapper eaWrapper;
 
   private PatternLayoutEncoder encoder;
 
   @Override
   public void start() {
-    if (this.enterpriseArchitectWrapper == null) {
+    if (this.eaWrapper == null) {
       return;
     }
     super.start();
@@ -33,7 +33,7 @@ public class EnterpriseArchitectScriptWindowAppender<E> extends AppenderBase<E> 
 
     try {
       String message = this.encoder.getLayout().doLayout((ILoggingEvent) eventObject);
-      enterpriseArchitectWrapper.writeToScriptWindow(message);
+      eaWrapper.writeToScriptWindow(message);
     } catch (Exception e) {
       this.started = false;
       addStatus(new ErrorStatus("Failure in appender", this, e));
@@ -50,11 +50,11 @@ public class EnterpriseArchitectScriptWindowAppender<E> extends AppenderBase<E> 
   }
 
   public EnterpriseArchitectWrapper getEnterpriseArchitectWrapper() {
-    return enterpriseArchitectWrapper;
+    return eaWrapper;
   }
 
   public void setEnterpriseArchitectWrapper(EnterpriseArchitectWrapper enterpriseArchitectWrapper) {
-    this.enterpriseArchitectWrapper = enterpriseArchitectWrapper;
+    this.eaWrapper = enterpriseArchitectWrapper;
   }
 
 }

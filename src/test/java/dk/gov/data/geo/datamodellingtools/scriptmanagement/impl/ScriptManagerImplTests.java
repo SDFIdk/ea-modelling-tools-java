@@ -2,6 +2,8 @@ package dk.gov.data.geo.datamodellingtools.scriptmanagement.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 import dk.gov.data.geo.datamodellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.geo.datamodellingtools.exception.DataModellingToolsException;
@@ -20,15 +22,22 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
+@ExtendWith(MockitoExtension.class)
 class ScriptManagerImplTests {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScriptManagerImplTests.class);
 
   private ScriptManagerImpl scriptManagerImpl;
+
+  @Mock
+  private EnterpriseArchitectWrapper eaWrapper;
 
   @Test
   void testExportScripts()
@@ -41,8 +50,10 @@ class ScriptManagerImplTests {
         InputStream queryResultAsInputStream =
             this.getClass().getResourceAsStream("/scriptmanager/queryresult.xml");
         String queryResult = IOUtils.toString(queryResultAsInputStream, StandardCharsets.UTF_8);
-        scriptManagerImpl =
-            new ScriptManagerImpl(new EnterpriseArchitectWrapperImplementation(queryResult));
+
+        when(eaWrapper.sqlQuery(anyString())).thenReturn(queryResult);
+
+        scriptManagerImpl = new ScriptManagerImpl(eaWrapper);
         scriptManagerImpl.exportScripts("A normal script group", folderForTest);
         Comparator<File> alphabeticalFileNameComparator = new AlphabeticalFileNameComparator();
         File[] scriptGroupFolderList = folderForTest.listFiles();
@@ -77,7 +88,7 @@ class ScriptManagerImplTests {
 
   private void doCompleteCheck(String queryResult, List<String> actualContentsLines)
       throws XPathExpressionException {
-    List<String> expectedContentsLines = retrieveExpectedContentsLinesWithXPath(queryResult);
+    List<String> expectedContentsLines = retrieveExpectedContentsLinesWithXpath(queryResult);
     assertEquals(expectedContentsLines.size(), actualContentsLines.size());
     for (int i = 0; i < expectedContentsLines.size(); i++) {
       assertEquals(expectedContentsLines.get(i), actualContentsLines.get(i),
@@ -99,7 +110,7 @@ class ScriptManagerImplTests {
     assertEquals("JavaScript containing many different characters.js", fileList[2].getName());
   }
 
-  private List<String> retrieveExpectedContentsLinesWithXPath(String queryResult)
+  private List<String> retrieveExpectedContentsLinesWithXpath(String queryResult)
       throws XPathExpressionException {
     // Default Xpath implementation, not Saxons
     XPath xpath = XPathFactory.newInstance().newXPath();
@@ -120,22 +131,4 @@ class ScriptManagerImplTests {
     }
   }
 
-  private static final class EnterpriseArchitectWrapperImplementation
-      implements EnterpriseArchitectWrapper {
-    private final String queryResult;
-
-    private EnterpriseArchitectWrapperImplementation(String queryResult) {
-      this.queryResult = queryResult;
-    }
-
-    @Override
-    public String executeSqlQuery(String sqlQuery) throws DataModellingToolsException {
-      return queryResult;
-    }
-
-    @Override
-    public void writeToScriptWindow(String message) throws DataModellingToolsException {
-      // do nothing
-    }
-  }
 }

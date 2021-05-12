@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xml:base="http://todo/todo#">
+  <skos:ConceptScheme rdf:about="${conceptModel.name}"><!-- TODO replace with an identifier -->
+    <dcterms:title xml:lang="da">${conceptModel.name}</dcterms:title>
+    <dcterms:description xml:lang="da">${conceptModel.description}</dcterms:description>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme" />
+  </skos:ConceptScheme>
+<#list concepts as concept>
+  <skos:Concept rdf:about="${concept.uuid}">
+    <skos:inScheme rdf:resource="${conceptModel.name}" />
+    <skos:prefLabel xml:lang="da">${concept.preferredTerms.da}</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">${concept.preferredTerms.en}</skos:prefLabel>
+    <skos:definition xml:lang="da">${concept.definitions.da}</skos:definition>
+    <skos:definition xml:lang="en">${concept.definitions.en}</skos:definition>
+  </skos:Concept>
+</#list>
+</rdf:RDF>

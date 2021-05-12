@@ -12,6 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Exports the scripts from an Enterprise Architect file.
+ */
 public class ExportScripts extends AbstractApplication {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ExportScripts.class);
@@ -87,9 +90,9 @@ public class ExportScripts extends AbstractApplication {
    * 
    */
   private String retrieveScriptGroupNameOrRegex(CommandLine commandLine) {
-    String scriptGroupNameOrRegexFromCL = commandLine.getOptionValue(OPTION_SCRIPT_GROUP);
+    String scriptGroupNameOrRegexFromCl = commandLine.getOptionValue(OPTION_SCRIPT_GROUP);
     String scriptGroupNameOrRegexForScriptManager =
-        StringUtils.replace(scriptGroupNameOrRegexFromCL, "\\*", "*");
+        StringUtils.replace(scriptGroupNameOrRegexFromCl, "\\*", "*");
     return scriptGroupNameOrRegexForScriptManager;
   }
 

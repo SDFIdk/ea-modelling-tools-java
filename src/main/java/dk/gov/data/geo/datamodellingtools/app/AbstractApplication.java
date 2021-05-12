@@ -7,6 +7,8 @@ import dk.gov.data.geo.datamodellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.geo.datamodellingtools.ea.impl.EnterpriseArchitectWrapperImpl;
 import dk.gov.data.geo.datamodellingtools.exception.DataModellingToolsException;
 import dk.gov.data.geo.datamodellingtools.logging.EnterpriseArchitectScriptWindowAppender;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateExceptionHandler;
 import java.io.File;
 import java.util.Iterator;
 import net.sf.saxon.lib.NamespaceConstant;
@@ -20,6 +22,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Application that other applications in this package should inherit from.
+ */
 public abstract class AbstractApplication {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractApplication.class);
@@ -29,9 +34,12 @@ public abstract class AbstractApplication {
   public static final String OPTION_EA_PROCESS_ID = "eapid";
   public static final String OPTION_PAUSE = "p";
   public static final String OPTION_OUTPUT_FOLDER = "o";
+  public static final String OPTION_PACKAGE = "pkg";
+  public static final String OPTION_OUTPUT_FORMAT = "t";
 
   private HelpFormatter helpFormatter;
   protected Options options;
+  private Configuration config;
 
   public AbstractApplication() {
     super();
@@ -74,6 +82,18 @@ public abstract class AbstractApplication {
     options.addOption(Option.builder(AbstractApplication.OPTION_OUTPUT_FOLDER)
         .longOpt("output-folder").hasArg().argName("folder path").argName("folder").type(File.class)
         .desc("specifies the output folder path for the output").build());
+  }
+
+  protected final void addOptionPackage() {
+    options.addOption(Option.builder(AbstractApplication.OPTION_PACKAGE).longOpt("package-guid")
+        .hasArg().argName("UML package GUID").type(String.class)
+        .desc("GUID of the package in the model").build());
+  }
+
+  protected final void addOptionOutputFormat() {
+    options.addOption(Option.builder(AbstractApplication.OPTION_OUTPUT_FORMAT).longOpt("to-format")
+        .hasArg().argName("format name").type(String.class).desc("file format to be exported to")
+        .build());
   }
 
   private HelpFormatter getHelpFormatter() {
@@ -172,5 +192,16 @@ public abstract class AbstractApplication {
 
   protected abstract void doApplicationSpecificLogic(CommandLine commandLine,
       EnterpriseArchitectWrapper eaWrapper) throws ParseException, DataModellingToolsException;
+
+  protected final Configuration getTemplateConfiguration() {
+    if (config == null) {
+      config = new Configuration(Configuration.VERSION_2_3_31);
+      config.setClassForTemplateLoading(this.getClass(), "/templates");
+      config.setDefaultEncoding("UTF-8");
+      config.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+      config.setRecognizeStandardFileExtensions(true);
+    }
+    return config;
+  }
 
 }

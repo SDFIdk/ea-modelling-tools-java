@@ -11,6 +11,7 @@ import org.apache.commons.exec.OS;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sparx.Package;
 import org.sparx.Repository;
 import org.sparx.Services;
 
@@ -29,7 +30,6 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   }
 
   private Repository retrieveRepository(int eaProcessId) throws DataModellingToolsException {
-
     if (OS.isFamilyWindows()) {
       String output = queryTaskListForEaProcesses(eaProcessId);
       validateOutput(eaProcessId, output);
@@ -38,21 +38,6 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       throw new DataModellingToolsException(
           "This application can currently only be used in Windows");
     }
-  }
-
-  @Override
-  public String executeSqlQuery(String sqlQuery) throws DataModellingToolsException {
-    return eaRepository.SQLQuery(sqlQuery);
-  }
-
-  @Override
-  public void writeToScriptWindow(String message) {
-    /*
-     * 1st parameter: specifies the tab on which to display the text; 2nd parameter: specifies the
-     * text to display; 3rd parameter: specifies a numeric ID value to associate with this output
-     * item for further handling by Add-Ins; can be set to 0 if no handling is required
-     */
-    eaRepository.WriteOutput("Script", message, 0);
   }
 
   private String queryTaskListForEaProcesses() throws DataModellingToolsException {
@@ -90,6 +75,26 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       throw new DataModellingToolsException("No EA process found with pid " + eaProcessId
           + ", check the previous logging output to see the currently running EA processes");
     }
+  }
+
+  @Override
+  public void writeToScriptWindow(String message) throws DataModellingToolsException {
+    /*
+     * 1st parameter: specifies the tab on which to display the text; 2nd parameter: specifies the
+     * text to display; 3rd parameter: specifies a numeric ID value to associate with this output
+     * item for further handling by Add-Ins; can be set to 0 if no handling is required
+     */
+    this.eaRepository.WriteOutput("Script", message, 0);
+  }
+
+  @Override
+  public String sqlQuery(String query) throws DataModellingToolsException {
+    return this.eaRepository.SQLQuery(query);
+  }
+
+  @Override
+  public Package getPackageByGuid(String packageGuid) throws DataModellingToolsException {
+    return this.eaRepository.GetPackageByGuid(packageGuid);
   }
 
 }
