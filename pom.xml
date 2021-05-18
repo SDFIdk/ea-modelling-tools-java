@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>dk.gov.data.geo</groupId>
-  <artifactId>data-modelling-tools</artifactId>
+  <artifactId>ea-modelling-tools-java</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
