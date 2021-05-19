@@ -49,6 +49,9 @@ The options will be shown in the output. The output is produced with the logging
 
 ### In an Integrated Development Environment (IDE)
 
+Use `src/main/config` as source folder as well, so add it to the build path of the project. Note: the maven-assembly-plugin assembles the
+code in such a way that the contents of the `conf` folder is added to the classpath, see also "Building the tools" and the Maven configuration.
+
 Find the process id of the Enterprise Architect process using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) commmand: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`. Provide that process id as option `-eapid` to the main class you want to run.
 
 ## Building the tools
