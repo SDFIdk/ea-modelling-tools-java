@@ -1,25 +1,28 @@
-# Data Modelling Tools
+# EA Modelling Tools
 
-This project contains a set of tools, written in Java, to support model driven development.
+This project contains a set of tools, written in Java, to support model driven development for models made with Sparx
+Enterprise Architect.
+
+ℹ️ This project is work in progress, no releases have been made yet.
 
 ## Using the tools
 
 ### In Enterprise Architect
 
-Copy the data modelling tools to a location on your computer.
+Copy the modelling tools to a location on your computer.
 
-Set user environment variables `JAVACMD` and `DMT_HOME` using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line. `JAVACMD` must point to the java.exe in a **32-bit** Java installation and is used in the .bat-files (the name `JAVACMD` is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler)). `DMT_HOME` is used when invoking the .bat-files from within a script in Enterprise Architect (the name `DMT_HOME` is defined by this project).
+Set user environment variables `JAVACMD` and `EAMT_HOME` using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line. `JAVACMD` must point to the java.exe in a **32-bit** Java installation and is used in the .bat-files (the name `JAVACMD` is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler)). `EAMT_HOME` is used when invoking the .bat-files from within a script in Enterprise Architect (the name `EAMT_HOME` is defined by this project).
 
 ```
 SETX JAVACMD "C:\path\to\OpenJDK\x86-32_11.0.2_9\jdk-11.0.2+9\bin\java.exe"
-SETX DMT_HOME "C:\path\to\folder\containing\bin\conf\log\and\repo"
+SETX EAMT_HOME "C:\path\to\folder\containing\bin\conf\log\and\repo"
 ```
 
 Close the command line window and open a new one. Check using `echo`, that the environment variables are set correctly the input should show the chosen paths:
 
 ```
 echo %JAVACMD% 
-echo %DMT_HOME%
+echo %EAMT_HOME%
 ```
 
 Restart Enterprise Architect, if it is open.
@@ -30,16 +33,16 @@ Run a script from within Enterprise Architect that calls a bat file, it will con
 runBatFileInDefaultWorkingDirectory("export-scripts.bat", "options");
 ```
 
-Alternatively, use a script by invoking
+Alternatively, use a script directly by invoking
 
 ```
-%DMT_HOME%\bin\script-name.bat
+%EAMT_HOME%\bin\script-name.bat
 ```
 
-on a command line, e.g. 
+on a command line, e.g.
 
 ```
-%DMT_HOME%\bin\export-scripts.bat
+%EAMT_HOME%\bin\export-scripts.bat
 ```
 
 The options will be shown in the output. The output is produced with the logging configuration that comes with the tools (config\logback.xml). It is shown in the command line and in the Script Window Enterprise Architect and it is saved in file log\output.log.
@@ -66,10 +69,14 @@ See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mi
 +---appassembler
 |   +---bin
 |   |       *.bat
-|   |       
+|   |
 |   +---conf
-|   |       logback.xml
-|   |       
+|   |   |   logback.xml
+|   |   |
+|   |   \---templates
+|   |           *.ftl
+|   |           *.ftlx
+|   |
 |   +---log
 |   \---repo
 |           *.jar

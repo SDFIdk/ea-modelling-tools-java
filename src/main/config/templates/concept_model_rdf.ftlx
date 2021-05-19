@@ -11,7 +11,7 @@
   </skos:ConceptScheme>
 <#list concepts as concept>
   <skos:Concept rdf:about="${concept.uuid}">
-    <skos:inScheme rdf:resource="${conceptModel.name}" />
+    <skos:inScheme rdf:resource="${conceptModel.name}" /><!-- TODO replace with an identifier -->
     <skos:prefLabel xml:lang="da">${concept.preferredTerms.da}</skos:prefLabel>
     <skos:prefLabel xml:lang="en">${concept.preferredTerms.en}</skos:prefLabel>
     <skos:definition xml:lang="da">${concept.definitions.da}</skos:definition>
