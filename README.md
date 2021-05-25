@@ -71,7 +71,7 @@ on a command line, e.g.
 
 The options will be shown in the output. For most scripts, one of the options is `-eapid`, use the process id identified with the `tasklist` command as described above.
 
-The output is produced with the logging configuration that comes with the tools (config\logback.xml). It is shown in the command line and in the Script Window Enterprise Architect and it is saved in file log\output.log.
+The output is produced with the logging configuration that comes with the tools (conf\logback.xml). It is shown in the command line and in the Script Window Enterprise Architect and it is saved in file log\output.log.
 
 #### In an Integrated Development Environment (IDE)
 
