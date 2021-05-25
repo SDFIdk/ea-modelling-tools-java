@@ -1,4 +1,4 @@
-package dk.gov.data.geo.datamodellingtools.scriptmanagement.impl;
+package dk.gov.data.modellingtools.scriptmanagement.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
