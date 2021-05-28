@@ -13,9 +13,9 @@ Enterprise Architect (EA).
 2. Verify that you have installed a Java Runtime Environment (JRE) that is
     1. version 11 or later (as required according to the pom.xml file, see `/project/build/plugins/plugin[artifactId='maven-compiler-plugin']/configuration/release`)
     2. 32 bit (x86), as [EA is a 32-bit application](https://sparxsystems.com/products/ea/sysreq.html)
-3. Copy the file SSJavaCom.dll located in <EA installation folder>/Java API to
-    1. <Windows folder>/SysWOW64 (on a 64-bit machine)
-    2. <Windows folder>/System32 (on a 32-bit machine)
+3. Copy the file SSJavaCom.dll located in `<EA installation folder>/Java API` to
+    1. `<Windows folder>/SysWOW64` (on a 64-bit machine)
+    2. `<Windows folder>/System32` (on a 32-bit machine)
 
     See also https://sparxsystems.com/enterprise_architect_user_guide/15.2/automation/automation_connect_setup.html.
     
