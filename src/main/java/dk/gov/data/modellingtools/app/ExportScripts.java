@@ -19,7 +19,9 @@ public class ExportScripts extends AbstractApplication {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ExportScripts.class);
 
-  public static final String OPTION_SCRIPT_GROUP = "sg";
+  private static final String OPTION_SCRIPT_GROUP = "sg";
+
+  private static final String OPTION_DOCUMENTATION = "doc";
 
   public ExportScripts() {
     super();
@@ -53,6 +55,7 @@ public class ExportScripts extends AbstractApplication {
     super.createOptions();
     addOptionOutputFolder();
     addOptionExportScripts();
+    addOptionCreateScriptDocumentation();
   }
 
   private void addOptionExportScripts() {
@@ -64,28 +67,34 @@ public class ExportScripts extends AbstractApplication {
         .build());
   }
 
+  private void addOptionCreateScriptDocumentation() {
+    options.addOption(
+        Option.builder(OPTION_DOCUMENTATION).longOpt("create-documentation").hasArg(false)
+            .desc("Extracts the documentation from the scripts that are exported, and saves "
+                + "it in one file, README.md.")
+            .build());
+  }
+
   @Override
   protected void doApplicationSpecificLogic(CommandLine commandLine,
       EnterpriseArchitectWrapper eaWrapper) throws ParseException, DataModellingToolsException {
     String scriptGroupNameOrRegex = retrieveScriptGroupNameOrRegex(commandLine);
     File folder = (File) commandLine.getParsedOptionValue(AbstractApplication.OPTION_OUTPUT_FOLDER);
+    boolean createDocumentation = commandLine.hasOption(OPTION_DOCUMENTATION);
 
     ScriptManager scriptManager = new ScriptManagerImpl(eaWrapper);
-    scriptManager.exportScripts(scriptGroupNameOrRegex, folder);
+    scriptManager.exportScripts(scriptGroupNameOrRegex, folder, createDocumentation,
+        getTemplateConfiguration());
   }
 
   /**
-   * <p>
-   * Oracle and OpenJDK runtimes expand * (asterisk) to a list of files.So the asterisk must be
-   * escaped when calling Main, and Main must unescape the asterisk.
-   * </p>
+   * <p> Oracle and OpenJDK runtimes expand * (asterisk) to a list of files.So the asterisk must be
+   * escaped when calling Main, and Main must unescape the asterisk. </p>
    * 
-   * <p>
-   * See https://stackoverflow.com/questions/6577524/how-to-expand-java-classpath-wildcards-from-
-   * code and
-   * https://docs.oracle.com/en/java/javase/11/tools/java.html#GUID-3B1CE181-CD30-4178-9602-
-   * 230B800D4FAE
-   * </p>
+   * <p> See
+   * https://stackoverflow.com/questions/6577524/how-to-expand-java-classpath-wildcards-from- code
+   * and https://docs.oracle.com/en/java/javase/11/tools/java.html#GUID-3B1CE181-CD30-4178-9602-
+   * 230B800D4FAE </p>
    * 
    * 
    */

@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.exception.DataModellingToolsException;
-import dk.gov.data.modellingtools.scriptmanagement.impl.ScriptManagerImpl;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,7 +54,7 @@ class ScriptManagerImplTests {
         when(eaWrapper.sqlQuery(anyString())).thenReturn(queryResult);
 
         scriptManagerImpl = new ScriptManagerImpl(eaWrapper);
-        scriptManagerImpl.exportScripts("A normal script group", folderForTest);
+        scriptManagerImpl.exportScripts("A normal script group", folderForTest, false, null);
         Comparator<File> alphabeticalFileNameComparator = new AlphabeticalFileNameComparator();
         File[] scriptGroupFolderList = folderForTest.listFiles();
         Arrays.sort(scriptGroupFolderList, alphabeticalFileNameComparator);

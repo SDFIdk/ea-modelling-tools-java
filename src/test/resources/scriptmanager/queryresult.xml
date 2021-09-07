@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <EADATA version="1.0" exporter="Enterprise Architect">
-    <Dataset_0><Data><Row><ScriptCategory>3955A83E-9E54-4810-8053-FACC68CD4782</ScriptCategory><ScriptName>{2972D622-7D4D-432a-821D-1D5D35205E59}</ScriptName><ScriptAuthor/><Notes>&lt;Group Type="NORMAL" Notes=""/&gt;
+    <Dataset_0><Data><Row><ScriptCategory>3955A83E-9E54-4810-8053-FACC68CD4782</ScriptCategory><ScriptName>{2972D622-7D4D-432a-821D-1D5D35205E59}</ScriptName><ScriptAuthor/><Notes>&lt;Group Type="NORMAL" Notes="Script group containing test scripts."/&gt;
 </Notes><Script>A normal script group</Script></Row><Row><ScriptCategory>605A62F7-BCD0-4845-A8D0-7DC45B4D2E3F</ScriptCategory><ScriptName>{8D855156-6C49-4269-9F5B-D3D881E68BCA}</ScriptName><ScriptAuthor>{2972D622-7D4D-432a-821D-1D5D35205E59}</ScriptAuthor><Notes>&lt;Script Name="A Jscript" Type="Internal" Language="JScript"/&gt;
 </Notes><Script>!INC Local Scripts.EAConstants-JScript
 
