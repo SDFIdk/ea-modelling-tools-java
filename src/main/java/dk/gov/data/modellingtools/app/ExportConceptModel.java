@@ -12,6 +12,9 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Exports a concept model modelled according to the FDA MGG.
+ */
 public class ExportConceptModel extends AbstractApplication {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ExportConceptModel.class);

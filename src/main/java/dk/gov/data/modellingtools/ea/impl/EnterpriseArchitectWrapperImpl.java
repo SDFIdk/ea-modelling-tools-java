@@ -15,6 +15,9 @@ import org.sparx.Package;
 import org.sparx.Repository;
 import org.sparx.Services;
 
+/**
+ * Implementation of the wrapper for Enterprise Architect.
+ */
 public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrapper {
 
   private static final Logger LOGGER =
