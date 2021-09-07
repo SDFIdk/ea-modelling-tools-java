@@ -9,8 +9,8 @@ import dk.gov.data.modellingtools.dao.impl.DiagramDaoImpl;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.exception.DataModellingToolsException;
 import dk.gov.data.modellingtools.export.conceptmodel.ConceptModelExporter;
+import dk.gov.data.modellingtools.utils.FileFormatUtils;
 import dk.gov.data.modellingtools.utils.FolderAndFileUtils;
-import dk.gov.data.modellingtools.utils.FormatUtils;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleCollection;
 import freemarker.template.Template;
@@ -55,8 +55,9 @@ public class ConceptModelExporterImpl implements ConceptModelExporter {
     LOGGER.info("Start exporting concept model to format " + format);
 
     // process input parameters
-    String outputFileExtension = FormatUtils.getFileFormatExtension(format);
-    String templateFileName = "concept_model_" + format + FormatUtils.getTemplateExtension(format);
+    String outputFileExtension = FileFormatUtils.getFileFormatExtension(format);
+    String templateFileName =
+        "concept_model_" + format + FileFormatUtils.getTemplateExtension(format);
     Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
     Validate.notNull(umlPackage, "No package found for GUID " + packageGuid);
 
