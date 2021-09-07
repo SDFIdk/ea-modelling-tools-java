@@ -3,6 +3,9 @@ package dk.gov.data.modellingtools.model;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * Script.
+ */
 public class Script {
 
   private String id;
@@ -10,6 +13,9 @@ public class Script {
   private String language;
   private String scriptGroupId;
   private String contents;
+  private String summary;
+  private String description;
+  private Boolean isRunnable;
 
   /**
    * Create a new script with the given parameters.
@@ -64,8 +70,34 @@ public class Script {
     this.contents = contents;
   }
 
+  public String getSummary() {
+    return summary;
+  }
+
+  public void setSummary(String summary) {
+    this.summary = summary;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public Boolean getIsRunnable() {
+    return isRunnable;
+  }
+
+  public void setIsRunnable(Boolean isRunnable) {
+    this.isRunnable = isRunnable;
+  }
+
   /**
    * Returns the file extension, based on the language.
+   * 
+   * <p>EA supports JScript, JavaScript and VBScript.</p>
    */
   public String getFileExtension() {
     String scriptExtension;
@@ -97,10 +129,6 @@ public class Script {
         .toString();
   }
 
-  @Override
-  protected Object clone() throws CloneNotSupportedException {
-    Script clone = new Script(id, name, language, scriptGroupId, contents);
-    return clone;
-  }
+
 
 }

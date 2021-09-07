@@ -1,10 +1,16 @@
 package dk.gov.data.modellingtools.utils;
 
-public class FormatUtils {
+/**
+ * Utilities for file format.
+ */
+public class FileFormatUtils {
 
-  public static String getFileFormatExtension(String format) {
+  /**
+   * Get the extension that should be use for the given file format.
+   */
+  public static String getFileFormatExtension(String fileFormat) {
     String outputFileExtension;
-    switch (format) {
+    switch (fileFormat) {
       case "asciidoc":
         outputFileExtension = ".adoc";
         break;
@@ -12,17 +18,19 @@ public class FormatUtils {
         outputFileExtension = ".rdf";
         break;
       default:
-        throw new IllegalArgumentException("Unknown format " + format);
+        throw new IllegalArgumentException("Unknown format " + fileFormat);
     }
     return outputFileExtension;
   }
 
   /**
+   * Get extension for the template file, based on the file format.
+   * 
    * @see https://freemarker.apache.org/docs/pgui_config_outputformatsautoesc.html
    */
-  public static String getTemplateExtension(String format) {
+  public static String getTemplateExtension(String fileFormat) {
     String templateExtension;
-    switch (format) {
+    switch (fileFormat) {
       case "asciidoc":
         templateExtension = ".ftl";
         break;
@@ -30,7 +38,7 @@ public class FormatUtils {
         templateExtension = ".ftlx";
         break;
       default:
-        throw new IllegalArgumentException("Unknown format " + format);
+        throw new IllegalArgumentException("Unknown format " + fileFormat);
     }
     return templateExtension;
   }

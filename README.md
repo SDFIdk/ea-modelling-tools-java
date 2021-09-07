@@ -55,7 +55,7 @@ runBatFileInDefaultWorkingDirectory("export-scripts.bat", "options");
 
 #### On the command line
 
-Find the process id of the Enterprise Architect process using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) commmand: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`. Provide that process id as option `-eapid` to the main class you want to run.
+Find the process id of the Enterprise Architect process using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) command: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`. Provide that process id as option `-eapid` to the main class you want to run.
 
 Use an application directly by invoking
 
