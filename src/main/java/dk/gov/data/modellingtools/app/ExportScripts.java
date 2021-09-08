@@ -60,10 +60,9 @@ public class ExportScripts extends AbstractApplication {
 
   private void addOptionExportScripts() {
     options.addOption(Option.builder(OPTION_SCRIPT_GROUP).longOpt("script-group").hasArg()
-        .argName("script group (regex)")
-        .desc(
-            "script group(s) to export. A regex can be used, note that * (asterisk) must be escaped"
-                + " with a backslash: \\*")
+        .argName("script group (regex)").required()
+        .desc("script group(s) to export (required). Wildcards can be used, note that * (asterisk)"
+            + " must be escaped with a backslash: \\*")
         .build());
   }
 
@@ -71,7 +70,7 @@ public class ExportScripts extends AbstractApplication {
     options.addOption(
         Option.builder(OPTION_DOCUMENTATION).longOpt("create-documentation").hasArg(false)
             .desc("Extracts the documentation from the scripts that are exported, and saves "
-                + "it in one file, README.md.")
+                + "it in one file, README.md (optional).")
             .build());
   }
 

@@ -61,7 +61,7 @@ public abstract class AbstractApplication {
   protected final void addCommonOptions() {
     options.addOption(Option.builder(AbstractApplication.OPTION_EA_PROCESS_ID)
         .longOpt("ea-process-id").hasArg().argName("EA process id").required()
-        .desc("process id of the running EA instance").build());
+        .desc("process id of the running EA instance (required)").build());
     /*
      * Pause option: The script in EA closes the command line window as soon as the Java application
      * has finished running. Sometimes we want to study the output in that window.
@@ -69,7 +69,7 @@ public abstract class AbstractApplication {
     options.addOption(Option.builder(AbstractApplication.OPTION_PAUSE).longOpt("pause-at-end")
         .hasArg().argName("seconds")
         .desc("number of seconds this application should be paused at the end"
-            + " (useful when calling Java from EA)")
+            + " (useful when calling Java from EA) (optional)")
         .build());
   }
 
@@ -78,22 +78,31 @@ public abstract class AbstractApplication {
     addCommonOptions();
   }
 
+  /**
+   * Adds a required option for an output folder.
+   */
   protected final void addOptionOutputFolder() {
     options.addOption(Option.builder(AbstractApplication.OPTION_OUTPUT_FOLDER)
         .longOpt("output-folder").hasArg().argName("folder path").argName("folder").type(File.class)
-        .desc("specifies the output folder path for the output").build());
+        .required().desc("specifies the output folder path for the output (required)").build());
   }
 
+  /**
+   * Adds a required option for a package.
+   */
   protected final void addOptionPackage() {
     options.addOption(Option.builder(AbstractApplication.OPTION_PACKAGE).longOpt("package-guid")
-        .hasArg().argName("UML package GUID").type(String.class)
+        .hasArg().argName("UML package GUID").type(String.class).required()
         .desc("GUID of the package in the model").build());
   }
 
+  /**
+   * Adds a required option for an output format.
+   */
   protected final void addOptionOutputFormat() {
     options.addOption(Option.builder(AbstractApplication.OPTION_OUTPUT_FORMAT).longOpt("to-format")
         .hasArg().argName("format name").type(String.class).desc("file format to be exported to")
-        .build());
+        .required().build());
   }
 
   private HelpFormatter getHelpFormatter() {
@@ -109,8 +118,10 @@ public abstract class AbstractApplication {
   protected String getApplicationName() {
     String applicationName;
     if (System.getProperty("app.name") == null) {
+      // in an IDE
       applicationName = this.getClass().getSimpleName();
     } else {
+      // in the jar file
       applicationName = System.getProperty("app.name");
     }
     return applicationName;

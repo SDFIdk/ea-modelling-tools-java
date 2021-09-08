@@ -62,8 +62,9 @@ public class ScriptManagerImpl implements ScriptManager {
   @Override
   public void exportScripts(String scriptGroupNameOrRegex, File folder, boolean createDocumentation,
       Configuration templateConfiguration) throws DataModellingToolsException {
-    Validate.notNull(scriptGroupNameOrRegex);
-    Validate.notNull(folder);
+    Validate.notNull(scriptGroupNameOrRegex,
+        "A script group name (may contain wildcards) must be given");
+    Validate.notNull(folder, "A folder must be given");
 
     File referenceData = new File(folder, "referencedata_scripts.xml");
     validateAndCreateOrCleanFolder(folder, referenceData);
