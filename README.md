@@ -57,16 +57,17 @@ runBatFileInDefaultWorkingDirectory("export-scripts.bat", "options");
 
 Find the process id of the Enterprise Architect process using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) command: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`. Provide that process id as option `-eapid` to the main class you want to run.
 
-Use an application directly by invoking
+Use an application directly by navigating to the folder containing the tools and invoking a script:
 
 ```
-%EAMT_HOME%\bin\script-name.bat
+cd %EAMT_HOME%
+bin\script-name.bat
 ```
 
-on a command line, e.g.
+e.g.
 
 ```
-%EAMT_HOME%\bin\export-scripts.bat
+bin\export-scripts.bat
 ```
 
 The options will be shown in the output. For most scripts, one of the options is `-eapid`, use the process id identified with the `tasklist` command as described above.
