@@ -6,6 +6,7 @@
 <#if scriptGroup.notes??>
 ${scriptGroup.notes}
 </#if>
+
 <#list scriptGroup.scripts as script>
 <#if script.isRunnable>
 ### ${script.name}
