@@ -29,6 +29,7 @@ import org.apache.commons.io.file.PathUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.mozilla.javascript.CompilerEnvirons;
+import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Node;
 import org.mozilla.javascript.Parser;
 import org.mozilla.javascript.ast.AstNode;
@@ -328,6 +329,7 @@ public class ScriptManagerImpl implements ScriptManager {
     env.setRecordingComments(true);
     env.setRecoverFromErrors(true);
     env.setStrictMode(false);
+    env.setLanguageVersion(Context.VERSION_ES6);
     return new Parser(env);
   }
 }
