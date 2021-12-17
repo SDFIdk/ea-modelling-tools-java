@@ -3,7 +3,7 @@ package dk.gov.data.modellingtools.scriptmanagement.impl;
 import dk.gov.data.modellingtools.dao.ScriptGroupDao;
 import dk.gov.data.modellingtools.dao.impl.ScriptGroupDaoImpl;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Script;
 import dk.gov.data.modellingtools.model.ScriptGroup;
 import dk.gov.data.modellingtools.scriptmanagement.ScriptManager;
@@ -62,7 +62,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
   @Override
   public void exportScripts(String scriptGroupNameOrRegex, File folder, boolean createDocumentation,
-      Configuration templateConfiguration) throws DataModellingToolsException {
+      Configuration templateConfiguration) throws ModellingToolsException {
     Validate.notNull(scriptGroupNameOrRegex,
         "A script group name (may contain wildcards) must be given");
     Validate.notNull(folder, "A folder must be given");
@@ -90,7 +90,7 @@ public class ScriptManagerImpl implements ScriptManager {
    * its contents are not deleted but an exception is thrown.
    */
   private void validateAndCreateOrCleanFolder(File folder, File referenceData)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     if (folder.exists()) {
       Validate.isTrue(folder.isDirectory(), folder.getAbsolutePath() + " is not a directory");
       try {
@@ -98,19 +98,19 @@ public class ScriptManagerImpl implements ScriptManager {
             || FileUtils.directoryContains(folder, referenceData), "");
         FileUtils.cleanDirectory(folder);
       } catch (IOException e) {
-        throw new DataModellingToolsException("Could not validate folder " + folder.toString(), e);
+        throw new ModellingToolsException("Could not validate folder " + folder.toString(), e);
       }
     } else {
       boolean mkdirResult = folder.mkdir();
       if (!mkdirResult) {
-        throw new DataModellingToolsException("Could not create folder " + folder);
+        throw new ModellingToolsException("Could not create folder " + folder);
       }
     }
   }
 
 
   private void saveScriptsAsSeparateFilesPerScriptGroup(File folder, List<ScriptGroup> scriptGroups)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     for (ScriptGroup scriptGroup : scriptGroups) {
       File scriptFolder = createScriptFolderIfNeeded(folder, scriptGroup.getName());
       LOGGER.info("Starting exporting scripts for script group " + scriptGroup.toString()
@@ -123,7 +123,7 @@ public class ScriptManagerImpl implements ScriptManager {
           FileUtils.writeStringToFile(scriptFile, script.getContents(), StandardCharsets.UTF_8);
           LOGGER.info(scriptFile.getAbsolutePath() + " written.");
         } catch (IOException e) {
-          throw new DataModellingToolsException(
+          throw new ModellingToolsException(
               "Could not write content to " + scriptFile.getPath() + e.getMessage(), e);
         }
       }
@@ -142,14 +142,14 @@ public class ScriptManagerImpl implements ScriptManager {
   }
 
   private File createScriptFolderIfNeeded(File folder, String scriptGroupName)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     File scriptFolder = new File(folder, scriptGroupName);
     FolderAndFileUtils.validateAndCreateFolderIfNeeded(scriptFolder);
     return scriptFolder;
   }
 
   private void createScriptDocumentation(List<ScriptGroup> scriptGroups, File scriptDocumentation,
-      Configuration templateConfiguration) throws DataModellingToolsException {
+      Configuration templateConfiguration) throws ModellingToolsException {
     FolderAndFileUtils.deleteAndCreate(scriptDocumentation);
 
     String templateFileName = "script_documentation.ftl";
@@ -169,10 +169,10 @@ public class ScriptManagerImpl implements ScriptManager {
       Template template = templateConfiguration.getTemplate(templateFileName);
       template.process(dataForTemplate, writer);
     } catch (IOException e) {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "Could not write content to " + scriptDocumentation.getPath() + e.getMessage(), e);
     } catch (TemplateException e) {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "Could not process template " + templateFileName + ": " + e.getMessage(), e);
     }
 

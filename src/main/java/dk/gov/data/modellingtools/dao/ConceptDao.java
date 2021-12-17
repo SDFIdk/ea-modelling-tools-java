@@ -1,5 +1,6 @@
 package dk.gov.data.modellingtools.dao;
 
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Concept;
 import java.util.List;
 import org.sparx.Package;
@@ -9,6 +10,6 @@ import org.sparx.Package;
  */
 public interface ConceptDao {
 
-  List<Concept> findAll(Package umlPackage);
+  List<Concept> findAll(Package umlPackage) throws ModellingToolsException;
 
 }

@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +41,7 @@ class ScriptManagerImplTests {
 
   @Test
   void testExportScripts()
-      throws IOException, DataModellingToolsException, XPathExpressionException {
+      throws IOException, ModellingToolsException, XPathExpressionException {
 
     File folderForTest = new File(FileUtils.getTempDirectory(), this.getClass().getSimpleName());
     LOGGER.debug("Testing in " + folderForTest);

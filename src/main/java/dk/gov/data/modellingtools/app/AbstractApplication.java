@@ -5,7 +5,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.impl.EnterpriseArchitectWrapperImpl;
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.logging.EnterpriseArchitectScriptWindowAppender;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
@@ -145,7 +145,7 @@ public abstract class AbstractApplication {
     getHelpFormatter().printHelp(getCommandLineSyntax(), getDescription(), options, null);
   }
 
-  protected final void run(String... args) throws DataModellingToolsException {
+  protected final void run(String... args) throws ModellingToolsException {
     createOptions();
     if (args == null || args.length == 0) {
       printHelp(options);
@@ -168,17 +168,17 @@ public abstract class AbstractApplication {
       } catch (ParseException e) {
         printHelp(options);
         LOGGER.debug(e.getMessage(), e);
-        throw new DataModellingToolsException(
+        throw new ModellingToolsException(
             "Could not parse the following arguments according to the options set for "
                 + getApplicationName() + ": " + StringUtils.join(args, ' '));
       } catch (NumberFormatException e) {
         printHelp(options);
         LOGGER.debug(e.getMessage(), e);
-        throw new DataModellingToolsException(
+        throw new ModellingToolsException(
             "Could not parse an argument from the command line to a string");
       } catch (InterruptedException e) {
         LOGGER.debug(e.getMessage(), e);
-        throw new DataModellingToolsException("Could not pause application at the end");
+        throw new ModellingToolsException("Could not pause application at the end");
       }
     }
   }
@@ -202,7 +202,7 @@ public abstract class AbstractApplication {
   }
 
   protected abstract void doApplicationSpecificLogic(CommandLine commandLine,
-      EnterpriseArchitectWrapper eaWrapper) throws ParseException, DataModellingToolsException;
+      EnterpriseArchitectWrapper eaWrapper) throws ParseException, ModellingToolsException;
 
   protected final Configuration getTemplateConfiguration() {
     if (config == null) {

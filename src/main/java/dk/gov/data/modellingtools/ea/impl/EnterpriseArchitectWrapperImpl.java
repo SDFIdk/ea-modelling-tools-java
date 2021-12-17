@@ -1,7 +1,7 @@
 package dk.gov.data.modellingtools.ea.impl;
 
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -27,33 +27,33 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   private Repository eaRepository;
 
-  public EnterpriseArchitectWrapperImpl(int eaProcessId) throws DataModellingToolsException {
+  public EnterpriseArchitectWrapperImpl(int eaProcessId) throws ModellingToolsException {
     super();
     this.eaRepository = retrieveRepository(eaProcessId);
   }
 
-  private Repository retrieveRepository(int eaProcessId) throws DataModellingToolsException {
+  private Repository retrieveRepository(int eaProcessId) throws ModellingToolsException {
     if (OS.isFamilyWindows()) {
       String output = queryTaskListForEaProcesses(eaProcessId);
       validateOutput(eaProcessId, output);
       return Services.GetRepository(eaProcessId);
     } else {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "This application can currently only be used in Windows");
     }
   }
 
-  private String queryTaskListForEaProcesses() throws DataModellingToolsException {
+  private String queryTaskListForEaProcesses() throws ModellingToolsException {
     String taskListCommand = TASKLIST_EA;
     return executeTaskListCommand(taskListCommand);
   }
 
-  private String queryTaskListForEaProcesses(int eaProcessId) throws DataModellingToolsException {
+  private String queryTaskListForEaProcesses(int eaProcessId) throws ModellingToolsException {
     String taskListCommand = TASKLIST_EA + " /FI \"PID eq " + eaProcessId + "\"";
     return executeTaskListCommand(taskListCommand);
   }
 
-  private String executeTaskListCommand(String taskListCommand) throws DataModellingToolsException {
+  private String executeTaskListCommand(String taskListCommand) throws ModellingToolsException {
     try (ByteArrayOutputStream normalAndErrorOutputStream = new ByteArrayOutputStream()) {
       CommandLine cmdLine = CommandLine.parse(taskListCommand);
       DefaultExecutor executor = new DefaultExecutor();
@@ -64,24 +64,24 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       LOGGER.debug(output);
       return output;
     } catch (IOException e) {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "An error occurred when trying to execute " + taskListCommand, e);
     }
   }
 
-  private void validateOutput(int eaProcessId, String output) throws DataModellingToolsException {
+  private void validateOutput(int eaProcessId, String output) throws ModellingToolsException {
     if (output.indexOf("No tasks are running which match the specified criteria") != -1) {
       LOGGER.info("Output received:\r\n" + output);
       LOGGER.info("All running EA processes: ");
       String outputAllEaProcesses = queryTaskListForEaProcesses();
       LOGGER.info("\r\n" + outputAllEaProcesses);
-      throw new DataModellingToolsException("No EA process found with pid " + eaProcessId
+      throw new ModellingToolsException("No EA process found with pid " + eaProcessId
           + ", check the previous logging output to see the currently running EA processes");
     }
   }
 
   @Override
-  public void writeToScriptWindow(String message) throws DataModellingToolsException {
+  public void writeToScriptWindow(String message) throws ModellingToolsException {
     /*
      * 1st parameter: specifies the tab on which to display the text; 2nd parameter: specifies the
      * text to display; 3rd parameter: specifies a numeric ID value to associate with this output
@@ -91,12 +91,12 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   }
 
   @Override
-  public String sqlQuery(String query) throws DataModellingToolsException {
+  public String sqlQuery(String query) throws ModellingToolsException {
     return this.eaRepository.SQLQuery(query);
   }
 
   @Override
-  public Package getPackageByGuid(String packageGuid) throws DataModellingToolsException {
+  public Package getPackageByGuid(String packageGuid) throws ModellingToolsException {
     return this.eaRepository.GetPackageByGuid(packageGuid);
   }
 

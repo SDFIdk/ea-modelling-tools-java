@@ -1,6 +1,6 @@
 package dk.gov.data.modellingtools.utils;
 
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Diagram;
 import dk.gov.data.modellingtools.scriptmanagement.impl.ScriptManagerImpl;
 import java.io.File;
@@ -29,7 +29,7 @@ public class XmlAndXsltUtils {
    *        configfolder) and file name, concatenated with /
    */
   public static String transformXml(String xml, String stylesheetResourceName)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     StringWriter writer = new StringWriter();
     transformXml(xml, stylesheetResourceName, writer);
     return writer.toString();
@@ -42,7 +42,7 @@ public class XmlAndXsltUtils {
    *        configfolder) and file name, concatenated with /
    */
   public static void transformXml(String xml, String stylesheetResourceName, Writer writer)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     Validate.isTrue(stylesheetResourceName.startsWith("/"),
         "stylesheetAbsoluteName must start with /, see also javadoc of java.lang.Class.getResourceAsStream(String name)");
     try (InputStream inputStreamXml = IOUtils.toInputStream(xml, StandardCharsets.UTF_8);
@@ -53,7 +53,7 @@ public class XmlAndXsltUtils {
       Xslt30Transformer transformer = stylesheet.load30();
       transformer.transform(new StreamSource(inputStreamXml), serializer);
     } catch (IOException | SaxonApiException e) {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "An exception occurred while using stylesheet " + stylesheetResourceName, e);
     }
   }
@@ -65,7 +65,7 @@ public class XmlAndXsltUtils {
    *        folder) and file name, concatenated with another slash
    */
   public static void transformXml(String xml, String stylesheetResourceName, File outputFile)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     Validate.isTrue(stylesheetResourceName.startsWith("/"),
         "stylesheetAbsoluteName must start with a slash, see also javadoc of java.lang.Class.getResourceAsStream(String name)");
     try (InputStream inputStreamXml = IOUtils.toInputStream(xml, StandardCharsets.UTF_8);
@@ -77,7 +77,7 @@ public class XmlAndXsltUtils {
       Xslt30Transformer transformer = stylesheet.load30();
       transformer.transform(new StreamSource(inputStreamXml), serializer);
     } catch (IOException | SaxonApiException e) {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "An exception occurred while using stylesheet " + stylesheetResourceName, e);
     }
   }

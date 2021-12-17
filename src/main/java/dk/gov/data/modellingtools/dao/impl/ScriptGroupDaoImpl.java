@@ -5,7 +5,7 @@ import static net.sf.saxon.s9api.streams.Steps.*;
 
 import dk.gov.data.modellingtools.dao.ScriptGroupDao;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Script;
 import dk.gov.data.modellingtools.model.ScriptGroup;
 import dk.gov.data.modellingtools.utils.XmlAndXsltUtils;
@@ -40,14 +40,14 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
 
   @Override
   public List<ScriptGroup> findAllIncludingScripts(String scriptGroupNameOrRegex)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     String queryResultString = retrieveScriptGroupsAndScriptsWithSqlQuery(scriptGroupNameOrRegex);
     return buildScriptGroupsWithScripts(queryResultString);
   }
 
   @Override
   public void saveAllIncludingScriptsAsEaReferenceData(String scriptGroupNameOrRegex,
-      File referenceData) throws DataModellingToolsException {
+      File referenceData) throws ModellingToolsException {
     String queryResultString = retrieveScriptGroupsAndScriptsWithSqlQuery(scriptGroupNameOrRegex);
     XmlAndXsltUtils.transformXml(queryResultString,
         "/scriptmanagement/transform_to_ea_reference_data.xsl", referenceData);
@@ -56,7 +56,7 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
   // TODO check how expensive this query is, perhaps it should be cached? Is called twice from
   // ScriptManagerImpl
   private String retrieveScriptGroupsAndScriptsWithSqlQuery(String scriptGroupNameOrRegex)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     /*
      * Requires probably Jet 4.0 (see EA settings).
      * 
@@ -76,7 +76,7 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
   }
 
 
-  private String executeSqlQuery(String query) throws DataModellingToolsException {
+  private String executeSqlQuery(String query) throws ModellingToolsException {
     LOGGER.debug("Executing query " + query);
     String resultSqlQueryAsXmlFormattedString = eaWrapper.sqlQuery(query);
     LOGGER.trace("Query result: " + resultSqlQueryAsXmlFormattedString);
@@ -85,7 +85,7 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
 
 
   private List<ScriptGroup> buildScriptGroupsWithScripts(String queryResultString)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     /*
      * Repository#SQLQuery(String) returns an XML formatted string value of the resulting record
      * set. It has the following structure (presented as XPath): /EADATA/Dataset_0/Data/Row and uses
@@ -122,7 +122,7 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
    * of the scripts when saved as files through EA's GUI in Windows.
    */
   private Script createScript(ScriptGroup scriptGroup, XdmNode scriptRow)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     /*
      * XML element names are strings in this method as opposed to refactored to constants - to
      * enhance readibility. See also file queryresult.xml in src/test/resources for an example.
@@ -141,7 +141,7 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
     return script;
   }
 
-  private ScriptGroup createScriptGroup(XdmNode scriptGroupRow) throws DataModellingToolsException {
+  private ScriptGroup createScriptGroup(XdmNode scriptGroupRow) throws ModellingToolsException {
     /*
      * XML element names are strings in this method as opposed to refactored to constants - to
      * enhance readibility. See also file queryresult.xml in src/test/resources for an example.
@@ -161,7 +161,7 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
   }
 
   private XdmNode createNodeFromXmlFormattedString(String xmlFormattedString)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     // Result from SQLQuery starts with <?xml version="1.0"?>, thus UTF-8 encoding.
     try {
       DocumentBuilder documentBuilder = XmlAndXsltUtils.getProcessor().newDocumentBuilder();
@@ -170,7 +170,7 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
       return queryResultAsXdmNode;
     } catch (SaxonApiException e) {
       LOGGER.info(xmlFormattedString);
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "An exception occurred while trying to deal with an SQL query result from EA: "
               + e.getMessage(),
           e);
