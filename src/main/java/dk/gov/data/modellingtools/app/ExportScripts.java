@@ -1,7 +1,7 @@
 package dk.gov.data.modellingtools.app;
 
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.scriptmanagement.ScriptManager;
 import dk.gov.data.modellingtools.scriptmanagement.impl.ScriptManagerImpl;
 import java.io.File;
@@ -35,7 +35,7 @@ public class ExportScripts extends AbstractApplication {
     try {
       new ExportScripts().run(args);
       LOGGER.info("Finished");
-    } catch (DataModellingToolsException e) {
+    } catch (ModellingToolsException e) {
       LOGGER.debug(e.getMessage(), e);
       LOGGER.error("Error: " + e.getMessage());
     } catch (UnsatisfiedLinkError e) {
@@ -76,7 +76,7 @@ public class ExportScripts extends AbstractApplication {
 
   @Override
   protected void doApplicationSpecificLogic(CommandLine commandLine,
-      EnterpriseArchitectWrapper eaWrapper) throws ParseException, DataModellingToolsException {
+      EnterpriseArchitectWrapper eaWrapper) throws ParseException, ModellingToolsException {
     String scriptGroupNameOrRegex = retrieveScriptGroupNameOrRegex(commandLine);
     File folder = (File) commandLine.getParsedOptionValue(AbstractApplication.OPTION_OUTPUT_FOLDER);
     boolean createDocumentation = commandLine.hasOption(OPTION_DOCUMENTATION);

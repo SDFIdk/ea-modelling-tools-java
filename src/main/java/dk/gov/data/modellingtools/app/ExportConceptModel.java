@@ -1,7 +1,7 @@
 package dk.gov.data.modellingtools.app;
 
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.export.conceptmodel.ConceptModelExporter;
 import dk.gov.data.modellingtools.export.conceptmodel.impl.ConceptModelExporterImpl;
 import java.io.File;
@@ -27,7 +27,7 @@ public class ExportConceptModel extends AbstractApplication {
     try {
       new ExportConceptModel().run(args);
       LOGGER.info("Finished");
-    } catch (DataModellingToolsException e) {
+    } catch (ModellingToolsException e) {
       LOGGER.debug(e.getMessage(), e);
       LOGGER.error("Error: " + e.getMessage());
     } catch (UnsatisfiedLinkError e) {
@@ -49,7 +49,7 @@ public class ExportConceptModel extends AbstractApplication {
 
   @Override
   protected void doApplicationSpecificLogic(CommandLine commandLine,
-      EnterpriseArchitectWrapper eaWrapper) throws ParseException, DataModellingToolsException {
+      EnterpriseArchitectWrapper eaWrapper) throws ParseException, ModellingToolsException {
     String format = commandLine.getOptionValue(AbstractApplication.OPTION_OUTPUT_FORMAT);
     ConceptModelExporter conceptModelExporter = new ConceptModelExporterImpl(eaWrapper);
     Validate.isTrue(

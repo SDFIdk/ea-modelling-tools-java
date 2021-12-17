@@ -7,7 +7,7 @@ import dk.gov.data.modellingtools.dao.impl.ConceptDaoFda;
 import dk.gov.data.modellingtools.dao.impl.ConceptModelDaoFda;
 import dk.gov.data.modellingtools.dao.impl.DiagramDaoImpl;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.export.conceptmodel.ConceptModelExporter;
 import dk.gov.data.modellingtools.utils.FileFormatUtils;
 import dk.gov.data.modellingtools.utils.FolderAndFileUtils;
@@ -51,7 +51,7 @@ public class ConceptModelExporterImpl implements ConceptModelExporter {
 
   @Override
   public void exportConceptModel(String packageGuid, File folder, String format,
-      Configuration templateConfiguration) throws DataModellingToolsException {
+      Configuration templateConfiguration) throws ModellingToolsException {
     LOGGER.info("Start exporting concept model to format " + format);
 
     // process input parameters
@@ -86,10 +86,10 @@ public class ConceptModelExporterImpl implements ConceptModelExporter {
       }
       LOGGER.info("Finished exporting concept model to " + folder.getAbsolutePath());
     } catch (IOException e) {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "Could not write content to " + outputFile.getAbsolutePath() + ": " + e.getMessage(), e);
     } catch (TemplateException e) {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "Could not process template " + templateFileName + ": " + e.getMessage(), e);
     }
   }
@@ -100,7 +100,7 @@ public class ConceptModelExporterImpl implements ConceptModelExporter {
   }
 
   private Map<String, Object> prepareDataForTemplate(Package umlPackage,
-      Configuration templateConfiguration) {
+      Configuration templateConfiguration) throws ModellingToolsException {
     // TODO add parameter profile to support other profiles then FDA
     conceptDao = new ConceptDaoFda();
     conceptModelDao = new ConceptModelDaoFda();

@@ -1,6 +1,6 @@
 package dk.gov.data.modellingtools.utils;
 
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,14 +18,14 @@ public class FolderAndFileUtils {
    * @param folder folder to create
    */
   public static void validateAndCreateFolderIfNeeded(File folder)
-      throws DataModellingToolsException {
+      throws ModellingToolsException {
     Validate.notNull(folder);
     if (folder.exists()) {
       Validate.isTrue(folder.isDirectory(), folder.getAbsolutePath() + " is not a directory");
     } else {
       boolean mkdirResult = folder.mkdir();
       if (!mkdirResult) {
-        throw new DataModellingToolsException("Could not create folder " + folder);
+        throw new ModellingToolsException("Could not create folder " + folder);
       }
     }
   }
@@ -35,7 +35,7 @@ public class FolderAndFileUtils {
    * 
    * @param file file to delete and create again
    */
-  public static void deleteAndCreate(File file) throws DataModellingToolsException {
+  public static void deleteAndCreate(File file) throws ModellingToolsException {
     try {
       boolean fileDeleted = Files.deleteIfExists(file.toPath());
       if (!fileDeleted) {
@@ -44,7 +44,7 @@ public class FolderAndFileUtils {
       boolean fileCreated = file.createNewFile();
       LOGGER.debug("Result of file creation of " + file.getAbsolutePath() + ": " + fileCreated);
     } catch (IOException e) {
-      throw new DataModellingToolsException(
+      throw new ModellingToolsException(
           "Could not create file " + file.getAbsolutePath() + e.getMessage(), e);
     }
   }

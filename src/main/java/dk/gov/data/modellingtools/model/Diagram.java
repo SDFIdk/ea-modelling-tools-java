@@ -1,6 +1,6 @@
 package dk.gov.data.modellingtools.model;
 
-import dk.gov.data.modellingtools.exception.DataModellingToolsException;
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.utils.XmlAndXsltUtils;
 
 public class Diagram {
@@ -32,7 +32,7 @@ public class Diagram {
     diagram.SetNotes(notes);
   }
 
-  public String getNotesAsAsciidoc() throws DataModellingToolsException {
+  public String getNotesAsAsciidoc() throws ModellingToolsException {
     return XmlAndXsltUtils.transformXml("<note>" + getNotes() + "</note>",
         "/export/transform_ea_notes_to_asciidoc.xsl");
   }
