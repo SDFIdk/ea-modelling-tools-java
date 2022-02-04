@@ -29,7 +29,7 @@ public interface EnterpriseArchitectWrapper {
   /**
    * Because {@link Attribute} has no "hasStereoType" method like
    * {@link Element#HasStereotype(String)}.
-   * 
+   *
    * @return multi-valued map containing the GUIDs of the attribute in the given package as keys,
    *         and their fully-qualified names as values
    */
@@ -43,7 +43,7 @@ public interface EnterpriseArchitectWrapper {
    * element and the connector can be changed when the package the element belongs to is checked
    * out. See also [Add Connectors To Locked
    * Elements](https://www.sparxsystems.com/search/sphider/search.php?query=%22Add%20Connectors%20To%20Locked%20Elements%22&type=phrase&category=User+Guide+Latest&tab=5&search=1)
-   * 
+   *
    * @return whether the given connector is an association (including aggregations and compositions)
    *         controlled in the same package as in the given element
    */

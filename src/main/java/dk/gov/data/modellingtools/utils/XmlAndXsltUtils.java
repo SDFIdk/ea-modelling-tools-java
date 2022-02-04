@@ -21,6 +21,9 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Utilities for dealing with XML and XSLT.
+ */
 public class XmlAndXsltUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(XmlAndXsltUtils.class);
@@ -29,7 +32,7 @@ public class XmlAndXsltUtils {
 
   /**
    * Transforms the given xml using the given stylesheet and writes it to a string.
-   * 
+   *
    * @param stylesheetResourceName must start with / and consist of resource folder (or
    *        configfolder) and file name, concatenated with /
    */
@@ -42,14 +45,14 @@ public class XmlAndXsltUtils {
 
   /**
    * Transforms the given xml using the given stylesheet and writes it to the given writer.
-   * 
+   *
    * @param stylesheetResourceName must start with / and consist of resource folder (or
    *        configfolder) and file name, concatenated with /
    */
   public static void transformXml(String xml, String stylesheetResourceName, Writer writer)
       throws ModellingToolsException {
     Validate.isTrue(stylesheetResourceName.startsWith("/"),
-        "stylesheetAbsoluteName must start with /, see also javadoc of java.lang.Class.getResourceAsStream(String name)");
+        "Stylesheet name must start with slash (/), see also javadoc of java.lang.Class.getResourceAsStream(String name)");
     try (InputStream inputStreamXml = IOUtils.toInputStream(xml, StandardCharsets.UTF_8);
         InputStream inputStreamXsl =
             XmlAndXsltUtils.class.getResourceAsStream(stylesheetResourceName);) {
@@ -66,14 +69,14 @@ public class XmlAndXsltUtils {
 
   /**
    * Transforms the given xml using the given stylesheet and writes it to the given file.
-   * 
+   *
    * @param stylesheetResourceName must start with a slash and consist of resource folder (or config
    *        folder) and file name, concatenated with another slash
    */
   public static void transformXml(String xml, String stylesheetResourceName, File outputFile)
       throws ModellingToolsException {
     Validate.isTrue(stylesheetResourceName.startsWith("/"),
-        "stylesheetAbsoluteName must start with a slash, see also javadoc of java.lang.Class.getResourceAsStream(String name)");
+        "Stylesheet name must start with slash (/), see also javadoc of java.lang.Class.getResourceAsStream(String name)");
     try (InputStream inputStreamXml = IOUtils.toInputStream(xml, StandardCharsets.UTF_8);
         InputStream inputStreamXsl =
             ScriptManagerImpl.class.getResourceAsStream(stylesheetResourceName);) {
@@ -88,7 +91,7 @@ public class XmlAndXsltUtils {
     }
   }
 
-  public static Processor getProcessor() {
+  private static Processor getProcessor() {
     if (processor == null) {
       processor = new Processor(false);
     }

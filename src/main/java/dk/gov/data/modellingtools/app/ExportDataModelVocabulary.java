@@ -14,6 +14,9 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Exports a data model to a vocabulary.
+ */
 public class ExportDataModelVocabulary extends AbstractApplication {
 
   private static final String OPTION_HEADER = "h";
@@ -45,8 +48,7 @@ public class ExportDataModelVocabulary extends AbstractApplication {
 
   @Override
   protected String getDescription() {
-    return "export a data model to a vocabulary (= terminological dictionary which contains "
-        + "designations and definitions from one or more specific subject fields)";
+    return "export a data model to a vocabulary (= terminological dictionary which contains designations and definitions from one or more specific subject fields)";
   }
 
   @Override

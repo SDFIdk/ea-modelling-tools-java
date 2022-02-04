@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.sparx.Package;
 
+/**
+ * Implementation of {@link DiagramDao}.
+ */
 public class DiagramDaoImpl implements DiagramDao {
 
   @Override

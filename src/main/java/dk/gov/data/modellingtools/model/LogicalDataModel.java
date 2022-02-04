@@ -2,6 +2,9 @@ package dk.gov.data.modellingtools.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Basic logical data model.
+ */
 public class LogicalDataModel {
 
   private String name;

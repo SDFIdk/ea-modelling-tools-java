@@ -9,13 +9,16 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Utilities for handling of files and directories.
+ */
 public class FolderAndFileUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FolderAndFileUtils.class);
 
   /**
    * Validate that the given folder is actually a folder, then create the folder.
-   * 
+   *
    * @param folder folder to create
    */
   public static void validateAndCreateFolderIfNeeded(File folder) throws ModellingToolsException {
@@ -32,7 +35,7 @@ public class FolderAndFileUtils {
 
   /**
    * Delete and create a file in the file system.
-   * 
+   *
    * @param file file to delete and create again
    */
   public static void deleteAndCreate(File file) throws ModellingToolsException {

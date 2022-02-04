@@ -34,6 +34,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Default implementation of {@link VocabularyExporter}.
+ */
 public class VocabularyExporterImpl extends AbstractExporter implements VocabularyExporter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyExporterImpl.class);
@@ -116,6 +119,8 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
   }
 
   /**
+   * Finds the {@link SemanticModelElement}s that are unique in the given language.
+   *
    * @see SemanticModelElementEquator
    */
   private List<SemanticModelElement> findUniqueSemanticModelElements(String language)

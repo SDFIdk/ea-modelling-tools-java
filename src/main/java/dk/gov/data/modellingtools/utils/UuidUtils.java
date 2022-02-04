@@ -9,7 +9,7 @@ public class UuidUtils {
 
   /**
    * Sets the UUID and validates the syntax.
-   * 
+   *
    * @throws IllegalArgumentException If the uuid does not conform to the string representation as
    *         described in {@link UUID#toString()}
    */

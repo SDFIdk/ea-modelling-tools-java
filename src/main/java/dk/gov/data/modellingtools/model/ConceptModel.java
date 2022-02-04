@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Concept model according to the FDA modelling rules.
+ */
 public class ConceptModel {
 
   private URI identifier;
@@ -84,6 +87,9 @@ public class ConceptModel {
     this.version = version;
   }
 
+  /**
+   * Getter for the last modified date.
+   */
   public Date getLastModifiedDate() {
     if (lastModifiedDate == null) {
       return null;
@@ -92,6 +98,9 @@ public class ConceptModel {
     }
   }
 
+  /**
+   * Setter for the last modified date.
+   */
   public void setLastModifiedDate(Date lastModifiedDate) {
     if (lastModifiedDate == null) {
       this.lastModifiedDate = null;

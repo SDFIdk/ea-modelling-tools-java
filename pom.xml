@@ -300,7 +300,8 @@
         <configuration>
           <configLocation>google_checks.xml</configLocation>
           <encoding>UTF-8</encoding>
-          <consoleOutput>true</consoleOutput>
+          <includeTestResources>false</includeTestResources>
+          <violationIgnore>LineLength</violationIgnore>
         </configuration>
         <executions>
           <execution>

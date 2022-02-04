@@ -1,6 +1,5 @@
 package dk.gov.data.modellingtools.ea.utils;
 
-import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -19,8 +18,8 @@ import org.sparx.TaggedValue;
 /**
  * See also the documentation for the TaggedValue Class in the EA User Guide.
  * 
- * Use the getTaggedValues methods instead of the getTaggedValueValue methods when you need to
- * retrieve multiple tagged values for the same model element.
+ * <p>Use the getTaggedValues methods instead of the getTaggedValueValue methods when you need to
+ * retrieve multiple tagged values for the same model element.</p>
  * 
  */
 public class TaggedValueUtils {
@@ -37,22 +36,21 @@ public class TaggedValueUtils {
       return getTaggedValues((Attribute) object);
     } else if (object instanceof ConnectorEnd) {
       return getTaggedValues((ConnectorEnd) object);
-    }
-    { // TODO add more types
+    } else { // TODO add more types
       throw new UnsupportedOperationException(
           "Cannot call this method for object of type " + object.getClass());
     }
   }
 
   /**
-   * @return tagged values of the given package
+   * Gets the tagged values of the given package.
    */
   public static Map<String, String> getTaggedValues(Package umlPackage) {
     return getTaggedValues(umlPackage.GetElement());
   }
 
   /**
-   * @return tagged values of the given element
+   * Gets the tagged values of the given element.
    */
   public static Map<String, String> getTaggedValues(Element element) {
     Map<String, String> taggedValues = new HashMap<>();
@@ -63,7 +61,7 @@ public class TaggedValueUtils {
   }
 
   /**
-   * @return tagged values of the given attribute
+   * Gets the tagged values of the given attribute.
    */
   public static Map<String, String> getTaggedValues(Attribute attribute) {
     Map<String, String> taggedValues = new HashMap<>();
@@ -74,7 +72,7 @@ public class TaggedValueUtils {
   }
 
   /**
-   * @return tagged values of the given connector end
+   * Gets the tagged values of the given connector end.
    */
   public static Map<String, String> getTaggedValues(ConnectorEnd connectorEnd) {
     Map<String, String> taggedValues = new HashMap<>();
@@ -84,6 +82,10 @@ public class TaggedValueUtils {
     return taggedValues;
   }
 
+  /**
+   * Gets the value of the tagged value with the given name for the given EA object, or the empty
+   * string if it does not exist (so never null).
+   */
   public static String getTaggedValueValue(Object object, String taggedValueName) {
     if (object instanceof Element) {
       return getTaggedValueValue((Element) object, taggedValueName);
@@ -91,6 +93,8 @@ public class TaggedValueUtils {
       return getTaggedValueValue((Package) object, taggedValueName);
     } else if (object instanceof Attribute) {
       return getTaggedValueValue((Attribute) object, taggedValueName);
+    } else if (object instanceof ConnectorEnd) {
+      return getTaggedValueValue((ConnectorEnd) object, taggedValueName);
     } else { // TODO add more types
       throw new UnsupportedOperationException(
           "Cannot call this method for object of type " + object.getClass());
@@ -98,16 +102,16 @@ public class TaggedValueUtils {
   }
 
   /**
-   * @return value of the tagged value with the given name for the given package, or the empty
-   *         string if it does not exist (so never null)
+   * Gets the value of the tagged value with the given name for the given package, or the empty
+   * string if it does not exist (so never null).
    */
   public static String getTaggedValueValue(Package umlPackage, String taggedValueName) {
     return getTaggedValueValue(umlPackage.GetElement(), taggedValueName);
   }
 
   /**
-   * @return value of the tagged value with the given name for the given element, or the empty
-   *         string if it does not exist (so never null)
+   * Gets the value of the tagged value with the given name for the given element, or the empty
+   * string if it does not exist (so never null).
    */
   public static String getTaggedValueValue(Element element, String taggedValueName) {
     Validate.notNull(taggedValueName, "The name of the tag to retrieve must not be null");
@@ -121,8 +125,8 @@ public class TaggedValueUtils {
   }
 
   /**
-   * @return value of the tagged value with the given name for the given element, or the empty
-   *         string if it does not exist (so never null)
+   * Gets the value of the tagged value with the given name for the given attribute, or the empty
+   * string if it does not exist (so never null).
    */
   public static String getTaggedValueValue(Attribute attribute, String taggedValueName) {
     Validate.notNull(taggedValueName, "The name of the tag to retrieve must not be null");
@@ -136,8 +140,23 @@ public class TaggedValueUtils {
   }
 
   /**
-   * @return value of the tagged value with the given fully qualified name for the given element, or
-   *         the empty string if it does not exist (so never null)
+   * Gets the value of the tagged value with the given name for the given connector end, or the
+   * empty string if it does not exist (so never null).
+   */
+  public static String getTaggedValueValue(ConnectorEnd connectorEnd, String taggedValueName) {
+    Validate.notNull(taggedValueName, "The name of the tag to retrieve must not be null");
+    String taggedValueValue = "";
+    for (RoleTag taggedValue : connectorEnd.GetTaggedValues()) {
+      if (taggedValueName.equals(taggedValue.GetTag())) {
+        taggedValueValue = TaggedValueUtils.getTextOfTaggedValue(taggedValue);
+      }
+    }
+    return taggedValueValue;
+  }
+
+  /**
+   * Gets the value of the tagged value with the given fully qualified name for the given element,
+   * or the empty string if it does not exist (so never null).
    */
   public static String getTaggedValueValueFullyQualifiedName(Element element,
       String taggedValueFqName) {
@@ -156,13 +175,6 @@ public class TaggedValueUtils {
   public static URI getTaggedValueValueAsUri(Object object, String taggedValueName)
       throws URISyntaxException {
     String taggedValueValue = TaggedValueUtils.getTaggedValueValue(object, taggedValueName);
-    return new URI(taggedValueValue);
-  }
-
-  public static URI getTaggedValueValueFullyQualifiedNameAsUri(Element element,
-      String taggedValueName) throws ModellingToolsException, URISyntaxException {
-    String taggedValueValue =
-        TaggedValueUtils.getTaggedValueValueFullyQualifiedName(element, taggedValueName);
     return new URI(taggedValueValue);
   }
 
@@ -222,6 +234,10 @@ public class TaggedValueUtils {
     return taggedValueValue;
   }
 
+  /**
+   * Finds the value of the given tag and splits the value of the given tag in parts according to
+   * the given separator.
+   */
   public static String[] retrieveAndSplitTaggedValueValue(Map<String, String> taggedValues,
       String tag, char splitCharacter) {
     String[] splittedValues;

@@ -1,7 +1,11 @@
 package dk.gov.data.modellingtools.dao.impl;
 
-import static net.sf.saxon.s9api.streams.Predicates.*;
-import static net.sf.saxon.s9api.streams.Steps.*;
+import static net.sf.saxon.s9api.streams.Predicates.eq;
+import static net.sf.saxon.s9api.streams.Predicates.some;
+import static net.sf.saxon.s9api.streams.Steps.attribute;
+import static net.sf.saxon.s9api.streams.Steps.child;
+import static net.sf.saxon.s9api.streams.Steps.descendant;
+import static net.sf.saxon.s9api.streams.Steps.text;
 
 import dk.gov.data.modellingtools.dao.ScriptGroupDao;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
@@ -22,6 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Retrieves scripts group from the Enterprise Architect model.
  */
+@SuppressWarnings("PMD.TooManyStaticImports")
 public class ScriptGroupDaoImpl implements ScriptGroupDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScriptGroupDaoImpl.class);

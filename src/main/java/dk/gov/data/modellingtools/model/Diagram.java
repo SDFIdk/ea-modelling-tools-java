@@ -3,6 +3,9 @@ package dk.gov.data.modellingtools.model;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.utils.XmlAndXsltUtils;
 
+/**
+ * Wraps an EA diagram.
+ */
 public class Diagram {
 
   private org.sparx.Diagram diagram;

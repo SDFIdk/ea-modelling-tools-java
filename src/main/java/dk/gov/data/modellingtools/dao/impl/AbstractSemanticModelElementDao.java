@@ -20,6 +20,9 @@ import org.sparx.ConnectorEnd;
 import org.sparx.Element;
 import org.sparx.Package;
 
+/**
+ * Gathers common logic for {@link SemanticModelElementDao}s.
+ */
 public abstract class AbstractSemanticModelElementDao implements SemanticModelElementDao {
 
   private static final Logger LOGGER =
@@ -47,8 +50,8 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
     for (Element element : EaModelUtils.getElementsOfPackageAndSubpackages(umlPackage)) {
       if (qualifiesAsSemanticModelElement(element)) {
         allSemanticModelElements.add(createSemanticModelElement(element));
-        allSemanticModelElements.addAll(findSemanticModelElementsOnElementAttributes(element,
-            attributeFqStereotypes));
+        allSemanticModelElements
+            .addAll(findSemanticModelElementsOnElementAttributes(element, attributeFqStereotypes));
         allSemanticModelElements.addAll(findSemanticModelElementsOnNavigableAssociationEnds(element,
             connectorEndFqStereotypes));
       } else {
@@ -58,9 +61,8 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
     return allSemanticModelElements;
   }
 
-  private List<SemanticModelElement> findSemanticModelElementsOnElementAttributes(
-      Element element, MultiValuedMap<String, String> attributeFqStereotypes)
-      throws ModellingToolsException {
+  private List<SemanticModelElement> findSemanticModelElementsOnElementAttributes(Element element,
+      MultiValuedMap<String, String> attributeFqStereotypes) throws ModellingToolsException {
     List<SemanticModelElement> semanticModelElements = new ArrayList<>();
     for (Iterator<Attribute> attributeIterator =
         element.GetAttributes().iterator(); attributeIterator.hasNext();) {

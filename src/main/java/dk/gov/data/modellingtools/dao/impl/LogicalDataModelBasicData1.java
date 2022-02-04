@@ -9,6 +9,9 @@ import dk.gov.data.modellingtools.model.LogicalDataModel;
 import java.util.Map;
 import org.sparx.Package;
 
+/**
+ * Implementation of {@link LogicalDataModelDao} for the Basic Data modelling rules version 1.
+ */
 public class LogicalDataModelBasicData1 implements LogicalDataModelDao {
 
   @Override

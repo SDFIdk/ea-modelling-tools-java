@@ -103,6 +103,9 @@ public final class EaConnectorEnd {
     return oppositeConnectorEnd;
   }
 
+  /**
+   * Gets a unique id for the connector end based on the EA GUID of the connector.
+   */
   public String getConnectorEndUniqueId() {
     String suffix;
     if (getConnectorEndType().equals(ConnectorEndType.SOURCE)) {
@@ -113,6 +116,9 @@ public final class EaConnectorEnd {
     return getConnector().GetConnectorGUID().concat(suffix);
   }
 
+  /**
+   * Gets a unique id for the opposite connector end based on the EA GUID of the connector.
+   */
   public String getOppositeConnectorEndUniqueId() {
     String suffix;
     if (getConnectorEndType().equals(ConnectorEndType.SOURCE)) {

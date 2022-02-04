@@ -1,8 +1,11 @@
 package dk.gov.data.modellingtools.ea.impl;
 
-import static net.sf.saxon.s9api.streams.Steps.*;
+import static net.sf.saxon.s9api.streams.Steps.child;
+import static net.sf.saxon.s9api.streams.Steps.descendant;
+import static net.sf.saxon.s9api.streams.Steps.text;
 
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
+import dk.gov.data.modellingtools.ea.model.ConnectorType;
 import dk.gov.data.modellingtools.ea.model.EaConnectorEnd;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
@@ -172,8 +175,8 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       throws ModellingToolsException {
     String query = "select Client & IIF(Type = 'connectorSrcEnd property', '"
         + EaConnectorEnd.ID_SUFFIX_SOURCE + "', '" + EaConnectorEnd.ID_SUFFIX_TARGET
-        + "') as id, Description as stereotypes "
-        + "from t_xref x where x.Name = 'Stereotypes' and x.Type in ('connectorSrcEnd property', 'connectorDestEnd property')";
+        + "') as id, Description as stereotypes from t_xref x "
+        + "where x.Name = 'Stereotypes' and x.Type in ('connectorSrcEnd property', 'connectorDestEnd property')";
     MultiValuedMap<String, String> multiValuedMap = retrieveFqStereotypes(query);
     return multiValuedMap;
   }
@@ -194,10 +197,12 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       Element element) {
     return eaRepository.GetElementByID(connector.GetClientID()).GetPackageID() == eaRepository
         .GetElementByID(connector.GetSupplierID()).GetPackageID()
-        && (connector.GetType() == "Association" || connector.GetType() == "Aggregation")
-        || connector.GetClientID() == element.GetElementID() && connector.GetType() == "Association"
+        && (connector.GetType() == ConnectorType.ASSOCIATION.getEaType()
+            || connector.GetType() == ConnectorType.AGGREGATION.getEaType())
+        || connector.GetClientID() == element.GetElementID()
+            && connector.GetType() == ConnectorType.ASSOCIATION.getEaType()
         || connector.GetSupplierID() == element.GetElementID()
-            && connector.GetType() == "Aggregation";
+            && connector.GetType() == ConnectorType.AGGREGATION.getEaType();
   }
 
 }
