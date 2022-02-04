@@ -1,7 +1,6 @@
 package dk.gov.data.modellingtools.scriptmanagement.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -40,8 +39,7 @@ class ScriptManagerImplTests {
   private EnterpriseArchitectWrapper eaWrapper;
 
   @Test
-  void testExportScripts()
-      throws IOException, ModellingToolsException, XPathExpressionException {
+  void testExportScripts() throws IOException, ModellingToolsException, XPathExpressionException {
 
     File folderForTest = new File(FileUtils.getTempDirectory(), this.getClass().getSimpleName());
     LOGGER.debug("Testing in " + folderForTest);
@@ -53,8 +51,8 @@ class ScriptManagerImplTests {
 
         when(eaWrapper.sqlQuery(anyString())).thenReturn(queryResult);
 
-        scriptManagerImpl = new ScriptManagerImpl(eaWrapper);
-        scriptManagerImpl.exportScripts("A normal script group", folderForTest, false, null);
+        scriptManagerImpl = new ScriptManagerImpl(eaWrapper, null);
+        scriptManagerImpl.exportScripts("A normal script group", folderForTest, false);
         Comparator<File> alphabeticalFileNameComparator = new AlphabeticalFileNameComparator();
         File[] scriptGroupFolderList = folderForTest.listFiles();
         Arrays.sort(scriptGroupFolderList, alphabeticalFileNameComparator);

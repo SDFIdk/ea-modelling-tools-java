@@ -3,6 +3,8 @@ package dk.gov.data.modellingtools.model;
 import java.net.URI;
 import java.util.Date;
 import java.util.Map;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class ConceptModel {
 
@@ -51,11 +53,11 @@ public class ConceptModel {
   }
 
   public URI[] getLanguages() {
-    return languages;
+    return ArrayUtils.clone(languages);
   }
 
   public void setLanguages(URI[] languages) {
-    this.languages = languages;
+    this.languages = ArrayUtils.clone(languages);
   }
 
   public String getResponsibleEntity() {
@@ -83,11 +85,19 @@ public class ConceptModel {
   }
 
   public Date getLastModifiedDate() {
-    return lastModifiedDate;
+    if (lastModifiedDate == null) {
+      return null;
+    } else {
+      return new Date(lastModifiedDate.getTime());
+    }
   }
 
   public void setLastModifiedDate(Date lastModifiedDate) {
-    this.lastModifiedDate = lastModifiedDate;
+    if (lastModifiedDate == null) {
+      this.lastModifiedDate = null;
+    } else {
+      this.lastModifiedDate = new Date(lastModifiedDate.getTime());
+    }
   }
 
   public String getModelStatus() {
@@ -123,19 +133,19 @@ public class ConceptModel {
   }
 
   public URI[] getThemes() {
-    return themes;
+    return ArrayUtils.clone(themes);
   }
 
   public void setThemes(URI[] themes) {
-    this.themes = themes;
+    this.themes = ArrayUtils.clone(themes);
   }
 
   public URI[] getSources() {
-    return sources;
+    return ArrayUtils.clone(sources);
   }
 
   public void setSources(URI[] sources) {
-    this.sources = sources;
+    this.sources = ArrayUtils.clone(sources);
   }
 
   public Map<String, String> getVersionNotes() {
@@ -144,6 +154,12 @@ public class ConceptModel {
 
   public void setVersionNotes(Map<String, String> versionNotes) {
     this.versionNotes = versionNotes;
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).append("title (da)", titles.get("da"))
+        .append("version", version).toString();
   }
 
 }

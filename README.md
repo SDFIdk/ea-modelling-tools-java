@@ -118,6 +118,8 @@ See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mi
 
 `mvn versions:display-plugin-updates` finds the plugin versions that should be updated.
 
+`mvn versions:display-dependency-updates` finds dependencies that may be updated.
+
 See more information about Maven's build lifecyle on http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html.
 
 ## Adding applications

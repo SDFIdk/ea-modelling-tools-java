@@ -1,7 +1,6 @@
 package dk.gov.data.modellingtools.utils;
 
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
-import dk.gov.data.modellingtools.model.Diagram;
 import dk.gov.data.modellingtools.scriptmanagement.impl.ScriptManagerImpl;
 import java.io.File;
 import java.io.IOException;
@@ -10,15 +9,21 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import javax.xml.transform.stream.StreamSource;
+import net.sf.saxon.s9api.DocumentBuilder;
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
+import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.Xslt30Transformer;
 import net.sf.saxon.s9api.XsltExecutable;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlAndXsltUtils {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(XmlAndXsltUtils.class);
 
   private static Processor processor;
 
@@ -46,7 +51,8 @@ public class XmlAndXsltUtils {
     Validate.isTrue(stylesheetResourceName.startsWith("/"),
         "stylesheetAbsoluteName must start with /, see also javadoc of java.lang.Class.getResourceAsStream(String name)");
     try (InputStream inputStreamXml = IOUtils.toInputStream(xml, StandardCharsets.UTF_8);
-        InputStream inputStreamXsl = Diagram.class.getResourceAsStream(stylesheetResourceName);) {
+        InputStream inputStreamXsl =
+            XmlAndXsltUtils.class.getResourceAsStream(stylesheetResourceName);) {
       XsltExecutable stylesheet =
           getProcessor().newXsltCompiler().compile(new StreamSource(inputStreamXsl));
       Serializer serializer = getProcessor().newSerializer(writer);
@@ -87,6 +93,25 @@ public class XmlAndXsltUtils {
       processor = new Processor(false);
     }
     return processor;
+  }
+
+  /**
+   * Assumes UTF-8.
+   */
+  public static XdmNode createNodeFromXmlFormattedString(String xmlFormattedString)
+      throws ModellingToolsException {
+    try {
+      DocumentBuilder documentBuilder = getProcessor().newDocumentBuilder();
+      XdmNode queryResultAsXdmNode = documentBuilder.build(
+          new StreamSource(IOUtils.toInputStream(xmlFormattedString, StandardCharsets.UTF_8)));
+      return queryResultAsXdmNode;
+    } catch (SaxonApiException e) {
+      LOGGER.info(xmlFormattedString);
+      throw new ModellingToolsException(
+          "An exception occurred while trying to deal with an SQL query result from EA: "
+              + e.getMessage(),
+          e);
+    }
   }
 
 }
