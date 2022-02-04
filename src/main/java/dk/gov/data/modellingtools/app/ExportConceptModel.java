@@ -23,22 +23,22 @@ public class ExportConceptModel extends AbstractApplication {
    * Entry point.
    */
   public static void main(String[] args) {
-    LOGGER.info("Starting java code in " + System.getProperty("user.dir"));
+    LOGGER.info("Starting java code in {}", System.getProperty("user.dir"));
     try {
       new ExportConceptModel().run(args);
       LOGGER.info("Finished");
     } catch (ModellingToolsException e) {
       LOGGER.debug(e.getMessage(), e);
-      LOGGER.error("Error: " + e.getMessage());
+      LOGGER.error("Error: {}", e.getMessage());
     } catch (UnsatisfiedLinkError e) {
       if (e.getMessage().contains("SSJavaCOM64")) {
         LOGGER.error("A Java 32-bit must be used for dealing with EA models", e);
       } else {
-        LOGGER.error("Unexpected error: " + e.getMessage(), e);
+        LOGGER.error("Unexpected error: {}", e.getMessage(), e);
       }
-      LOGGER.error("Unexpected error: " + e.getMessage(), e);
+      LOGGER.error("Unexpected error: {}", e.getMessage(), e);
     } catch (Throwable e) {
-      LOGGER.error("Unexpected error: " + e.getMessage(), e);
+      LOGGER.error("Unexpected error: {}", e.getMessage(), e);
     }
   }
 

@@ -39,10 +39,10 @@ public class FolderAndFileUtils {
     try {
       boolean fileDeleted = Files.deleteIfExists(file.toPath());
       if (!fileDeleted) {
-        LOGGER.debug("File " + file.getAbsolutePath() + " does not yet exist");
+        LOGGER.debug("File {} does not yet exist", file.getAbsolutePath());
       }
       boolean fileCreated = file.createNewFile();
-      LOGGER.debug("Result of file creation of " + file.getAbsolutePath() + ": " + fileCreated);
+      LOGGER.debug("Result of file creation of {}: {}", file.getAbsolutePath(), fileCreated);
     } catch (IOException e) {
       throw new ModellingToolsException(
           "Could not create file " + file.getAbsolutePath() + ": " + e.getMessage(), e);

@@ -122,9 +122,21 @@ See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mi
 
 See more information about Maven's build lifecyle on http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html.
 
-## Adding applications
+## For developers
+
+### Adding applications
 
 To add a new application:
 
 1. Create a class that extends from `AbstractApplication` and add a [main method](https://docs.oracle.com/javase/tutorial/getStarted/application/#MAIN) to it.
 2. Create a new `program` entry in pom.xml in `/project/build/plugins/plugin[artifactId='appassembler-maven-plugin']/executions/execution/configuration/programs`.
+
+### Logging
+
+The logging framework used is [logback](https://logback.qos.ch/manual/index.html).
+
+Logging messages can be done by means of [parameterised logging](https://logback.qos.ch/manual/architecture.html#parametrized), e.g.
+
+```java
+logger.debug("This is a message containing two values passed in the next arguments: {} and {}.", argument1, argument2);
+```

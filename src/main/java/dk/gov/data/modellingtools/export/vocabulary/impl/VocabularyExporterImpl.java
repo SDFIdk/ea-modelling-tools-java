@@ -120,16 +120,16 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
    */
   private List<SemanticModelElement> findUniqueSemanticModelElements(String language)
       throws ModellingToolsException {
-    LOGGER.info("Finding semantic model elements in " + EaModelUtils.toString(getPackage()));
+    LOGGER.info("Finding semantic model elements in {}", EaModelUtils.toString(getPackage()));
     List<SemanticModelElement> allSemanticModelElements =
         semanticModelElementDao.findAll(getPackage());
-    LOGGER.info("Found " + allSemanticModelElements.size() + " semantic model elements in total");
+    LOGGER.info("Found {} semantic model elements in total", allSemanticModelElements.size());
 
     List<SemanticModelElement> uniqueSemanticModelElements = new ArrayList<>();
     for (SemanticModelElement semanticModelElement : allSemanticModelElements) {
       if (StringUtils.isBlank(semanticModelElement.getUmlName())) {
-        LOGGER.warn("The UML name of element with id " + semanticModelElement.getEaGuid()
-            + " should not be null");
+        LOGGER.warn("The UML name of element with id {} should not be null",
+            semanticModelElement.getEaGuid());
       }
       boolean isContained = IterableUtils.contains(uniqueSemanticModelElements,
           semanticModelElement, new SemanticModelElementEquator(language));
@@ -140,8 +140,8 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
     }
     uniqueSemanticModelElements
         .sort((s1, s2) -> s1.getUmlName().compareToIgnoreCase(s2.getUmlName()));
-    LOGGER.info(
-        "Found " + uniqueSemanticModelElements.size() + " unique semantic model elements in total");
+    LOGGER.info("Found {} unique semantic model elements in total",
+        uniqueSemanticModelElements.size());
     return uniqueSemanticModelElements;
   }
 

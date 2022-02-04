@@ -36,7 +36,7 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
   @Override
   public final List<SemanticModelElement> findAll(Package umlPackage)
       throws ModellingToolsException {
-    LOGGER.debug("Finding semantic model elements in " + EaModelUtils.toString(umlPackage));
+    LOGGER.debug("Finding semantic model elements in {}", EaModelUtils.toString(umlPackage));
     /*
      * Retrieving fully-qualified stereotypes of attributes, connector ends, etc. from the EA model
      * file is time-expensive, so retrieving them all at once for the package.
@@ -54,7 +54,7 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
         allSemanticModelElements.addAll(findSemanticModelElementsOnNavigableAssociationEnds(
             umlPackage, element, connectorEndFqStereotypes));
       } else {
-        LOGGER.info("Skipping " + EaModelUtils.toString(element));
+        LOGGER.info("Skipping {}", EaModelUtils.toString(element));
       }
     }
     return allSemanticModelElements;
@@ -70,8 +70,8 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
       if (qualifiesAsSemanticModelElement(attribute, attributeFqStereotypes)) {
         semanticModelElements.add(createSemanticModelElement(element, attribute));
       } else {
-        LOGGER.warn("Skipping " + EaModelUtils.toString(attribute)
-            + " as it does not have the right stereotype");
+        LOGGER.warn("Skipping {} as it does not have the right stereotype",
+            EaModelUtils.toString(attribute));
       }
     }
     return semanticModelElements;
@@ -90,8 +90,8 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
               .add(createSemanticModelElement(eaConnectorEnd.getOppositeConnectorEnd(),
                   eaConnectorEnd.getOppositeConnectorEndUniqueId()));
         } else {
-          LOGGER.warn("Skipping the opposite end of " + eaConnectorEnd
-              + " as it does not have the right stereotype");
+          LOGGER.warn("Skipping the opposite end of {} as it does not have the right stereotype",
+              eaConnectorEnd);
         }
       }
     }

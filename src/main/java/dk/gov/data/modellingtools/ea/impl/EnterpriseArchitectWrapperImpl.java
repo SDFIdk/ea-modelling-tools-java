@@ -84,7 +84,7 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       DefaultExecutor executor = new DefaultExecutor();
       executor.setStreamHandler(new PumpStreamHandler(normalAndErrorOutputStream));
       int exitValue = executor.execute(cmdLine);
-      LOGGER.debug("Exit value " + exitValue + " for " + taskListCommand);
+      LOGGER.debug("Exit value {} for {}", exitValue, taskListCommand);
       String output = normalAndErrorOutputStream.toString(Charset.defaultCharset());
       LOGGER.debug(output);
       return output;
@@ -96,10 +96,8 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   private void validateOutput(int eaProcessId, String output) throws ModellingToolsException {
     if (output.indexOf("No tasks are running which match the specified criteria") != -1) {
-      LOGGER.info("Output received:\r\n" + output);
-      LOGGER.info("All running EA processes: ");
-      String outputAllEaProcesses = queryTaskListForEaProcesses();
-      LOGGER.info("\r\n" + outputAllEaProcesses);
+      LOGGER.info("Output received:\r\n{}", output);
+      LOGGER.info("All running EA processes: \r\n{}", queryTaskListForEaProcesses());
       throw new ModellingToolsException("No EA process found with pid " + eaProcessId
           + ", check the previous logging output to see the currently running EA processes");
     }
@@ -117,9 +115,9 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   @Override
   public String sqlQuery(String query) throws ModellingToolsException {
-    LOGGER.debug("Executing query " + query);
+    LOGGER.debug("Executing query {}", query);
     String resultSqlQueryAsXmlFormattedString = this.eaRepository.SQLQuery(query);
-    LOGGER.trace("Query result: " + resultSqlQueryAsXmlFormattedString);
+    LOGGER.trace("Query result: {}", resultSqlQueryAsXmlFormattedString);
     return resultSqlQueryAsXmlFormattedString;
   }
 
@@ -187,7 +185,7 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       packageIds.add(subPackage.GetPackageID());
     }
     String packageIdString = StringUtils.join(packageIds, ',');
-    LOGGER.debug("Package ids: " + packageIdString);
+    LOGGER.debug("Package ids: {}", packageIdString);
     return packageIdString;
   }
 

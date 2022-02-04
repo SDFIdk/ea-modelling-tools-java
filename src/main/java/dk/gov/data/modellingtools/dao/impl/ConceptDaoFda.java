@@ -38,25 +38,25 @@ public class ConceptDaoFda implements ConceptDao {
       if (FdaConstants.FQ_STEREOTYPE_CONCEPT.equals(element.GetFQStereotype())) {
         concepts.add(findByElement(element));
       } else {
-        LOGGER.debug("Ignoring " + EaModelUtils.toString(element)
-            + " because it does not have stereotype " + FdaConstants.FQ_STEREOTYPE_CONCEPT);
+        LOGGER.debug("Ignoring {} because it does not have stereotype {}",
+            EaModelUtils.toString(element), FdaConstants.FQ_STEREOTYPE_CONCEPT);
       }
     }
     return concepts;
   }
 
   Concept findByElement(Element element) throws ModellingToolsException {
-    LOGGER.debug("Finding concept for " + EaModelUtils.toString(element));
+    LOGGER.debug("Finding concept for {}", EaModelUtils.toString(element));
     return findByObject(element);
   }
 
   Concept findByAttribute(Attribute attribute) throws ModellingToolsException {
-    LOGGER.debug("Finding concept for " + EaModelUtils.toString(attribute));
+    LOGGER.debug("Finding concept for {}", EaModelUtils.toString(attribute));
     return findByObject(attribute);
   }
 
   Concept findByConnectorEnd(ConnectorEnd connectorEnd) throws ModellingToolsException {
-    LOGGER.debug("Finding concept for " + EaModelUtils.toString(connectorEnd));
+    LOGGER.debug("Finding concept for {}", EaModelUtils.toString(connectorEnd));
     return findByObject(connectorEnd);
   }
 
@@ -74,8 +74,8 @@ public class ConceptDaoFda implements ConceptDao {
       concept.setIdentifier(new URI(taggedValues.get(FdaConstants.TAG_URI)));
     } catch (URISyntaxException e) {
       String identifier = taggedValues.get(FdaConstants.TAG_URI);
-      LOGGER.warn("Could not convert " + identifier + " on " + EaModelUtils.toString(object)
-          + " to a valid URI, ignoring message " + e.getMessage());
+      LOGGER.warn("Could not convert {} on {} to a valid URI, ignoring message {}", identifier,
+          EaModelUtils.toString(object), e.getMessage());
     }
 
     Map<String, String> preferredTerms = new HashMap<>();
@@ -120,15 +120,14 @@ public class ConceptDaoFda implements ConceptDao {
           concept.setSource(sourceUri);
         } else {
           LOGGER.warn(
-              "Could not convert " + sourceTaggedValue + " on " + EaModelUtils.toString(object)
-                  + " to an absolute HTTP-URI, treating it as a textual reference");
+              "Could not convert {} on {} to an absolute HTTP-URI, treating it as a textual reference",
+              sourceTaggedValue, EaModelUtils.toString(object));
           concept.setSourceTextualReference(sourceTaggedValue);
         }
       } catch (URISyntaxException e) {
         LOGGER.warn(
-            "Could not convert " + sourceTaggedValue + " on " + EaModelUtils.toString(object)
-                + " to a valid URI, ignoring message " + e.getMessage(),
-            ", treating it as a textual reference");
+            "Could not convert {} on {} to a valid URI, ignoring message {}, treating it as a textual reference",
+            sourceTaggedValue, EaModelUtils.toString(object), e.getMessage());
         concept.setSourceTextualReference(sourceTaggedValue);
       }
     }
@@ -144,9 +143,9 @@ public class ConceptDaoFda implements ConceptDao {
         try {
           additionalInformationResources[i] = new URI(additionalInformationResourcesAsStrings[i]);
         } catch (URISyntaxException e) {
-          LOGGER.warn("Could not convert " + additionalInformationResourcesAsStrings[i] + " on "
-              + EaModelUtils.toString(object) + " to a valid URI, ignoring message "
-              + e.getMessage());
+          LOGGER.warn("Could not convert {} on {} to a valid URI, ignoring message {}",
+              additionalInformationResourcesAsStrings[i], EaModelUtils.toString(object),
+              e.getMessage());
         }
       }
       concept.setAdditionalInformationResources(additionalInformationResources);
@@ -156,8 +155,8 @@ public class ConceptDaoFda implements ConceptDao {
       concept.setDefiningConceptModel(new URI(taggedValues.get(FdaConstants.TAG_IS_DEFINED_BY)));
     } catch (URISyntaxException e) {
       String definingConceptModelUri = taggedValues.get(FdaConstants.TAG_IS_DEFINED_BY);
-      LOGGER.info("Could not convert " + definingConceptModelUri
-          + " to a valid URI, ignoring message " + e.getMessage());
+      LOGGER.info("Could not convert {} to a valid URI, ignoring message {}",
+          definingConceptModelUri, e.getMessage());
     }
 
     // TODO add broader concept

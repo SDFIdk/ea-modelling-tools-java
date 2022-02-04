@@ -45,7 +45,7 @@ public class ConceptModelExporterImpl extends AbstractExporter implements Concep
   @Override
   public void exportConceptModel(String packageGuid, File folder, String format)
       throws ModellingToolsException {
-    LOGGER.info("Start exporting " + conceptModel + " to format " + format);
+    LOGGER.info("Start exporting {} to format {}", conceptModel, format);
     export(packageGuid, folder, format);
   }
 

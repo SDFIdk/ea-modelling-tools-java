@@ -116,15 +116,15 @@ public class ScriptManagerImpl implements ScriptManager {
       throws ModellingToolsException {
     for (ScriptGroup scriptGroup : scriptGroups) {
       File scriptFolder = createScriptFolderIfNeeded(folder, scriptGroup.getName());
-      LOGGER.info("Starting exporting scripts for script group " + scriptGroup.toString()
-          + " to folder " + scriptFolder.getAbsolutePath());
+      LOGGER.info("Starting exporting scripts for script group {} to folder {}",
+          scriptGroup.toString(), scriptFolder.getAbsolutePath());
       List<Script> scripts = scriptGroup.getScripts();
       for (Script script : scripts) {
         LOGGER.info(script.toString());
         File scriptFile = new File(scriptFolder, script.getFileName());
         try {
           FileUtils.writeStringToFile(scriptFile, script.getContents(), StandardCharsets.UTF_8);
-          LOGGER.info(scriptFile.getAbsolutePath() + " written.");
+          LOGGER.info("{} written.", scriptFile.getAbsolutePath());
         } catch (IOException e) {
           throw new ModellingToolsException(
               "Could not write content to " + scriptFile.getPath() + e.getMessage(), e);
@@ -137,10 +137,9 @@ public class ScriptManagerImpl implements ScriptManager {
   private void inspectScriptFolderContents(File scriptFolder, List<Script> scripts) {
     if (scriptFolder != null & scriptFolder.list() != null && scripts != null
         && scriptFolder.list().length > scripts.size()) {
-      LOGGER.warn(scriptFolder.getPath()
-          + " contains more files than the number of scripts that was written,"
-          + " has a script been deleted? If so, delete this file as well on the"
-          + " file system and in the version control system");
+      LOGGER.warn(
+          "{} contains more files than the number of scripts that was written, has a script been deleted? If so, delete this file as well on the file system and in the version control system.",
+          scriptFolder.getPath());
     }
   }
 
@@ -186,7 +185,7 @@ public class ScriptManagerImpl implements ScriptManager {
    * {@link Script#getDescription()} for runnable scripts.
    */
   private void updateScriptMetadataIfPossible(Script script) {
-    LOGGER.debug("Parsing script " + script.getName());
+    LOGGER.debug("Parsing script {}", script.getName());
     AstRoot parsedScript =
         getParser().parse(removeEaSpecificConstructsFromScriptContents(script.getContents()),
             script.getFileName(), 1);
@@ -212,7 +211,7 @@ public class ScriptManagerImpl implements ScriptManager {
             if (functionName.getIdentifier().equals(targetAsName.getIdentifier())) {
               String jsDoc = node.getJsDoc();
               if (StringUtils.isBlank(jsDoc)) {
-                LOGGER.warn("Function " + functionName.getIdentifier() + " has no JSDoc");
+                LOGGER.warn("Function {} has no JSDoc", functionName.getIdentifier());
               } else {
                 String jsDocWithoutAsterisks = getJsDocWithoutTagsAndAsterisks(jsDoc);
                 script.setSummary(extractTagValueFromJsDoc("@summary", jsDocWithoutAsterisks));
@@ -225,11 +224,12 @@ public class ScriptManagerImpl implements ScriptManager {
     } else if (numberOfExpressionStatements == 0) {
       // probably script with utility functions
       script.setIsRunnable(Boolean.FALSE);
-      LOGGER.debug("No expression statements found in " + script.getFileName());
+      LOGGER.debug("No expression statements found in {}", script.getFileName());
     } else {
       script.setIsRunnable(Boolean.TRUE);
-      LOGGER.warn("More than one expression statement found in " + script.getFileName()
-          + " , no single method found to take the documentation from.");
+      LOGGER.warn(
+          "More than one expression statement found in {} , no single method found to take the documentation from.",
+          script.getFileName());
     }
   }
 
@@ -265,9 +265,9 @@ public class ScriptManagerImpl implements ScriptManager {
   }
 
   private String getJsDocWithoutTagsAndAsterisks(String jsDoc) {
-    LOGGER.debug("jsdoc: " + jsDoc);
-    assert jsDoc.startsWith("/**");
-    assert jsDoc.endsWith("*/");
+    LOGGER.debug("jsdoc: {}", jsDoc);
+    Validate.isTrue(jsDoc.startsWith("/**"));
+    Validate.isTrue(jsDoc.endsWith("*/"));
     // remove starting /**, ending */ and trailing whitespace
     // what is left is set of lines which may start with *
     // (most of them will, but not necessarily all of them)
@@ -278,7 +278,7 @@ public class ScriptManagerImpl implements ScriptManager {
     Pattern pattern = Pattern.compile("^\\s*\\*\\s?(.*)$", Pattern.MULTILINE);
     String jsDocWithoutAsterisks =
         pattern.matcher(jsDocWithoutOpeningAndClosingTag).replaceAll("$1");
-    LOGGER.trace("jsdoc2: " + jsDocWithoutAsterisks);
+    LOGGER.trace("jsdoc2: {}", jsDocWithoutAsterisks);
     return jsDocWithoutAsterisks;
   }
 

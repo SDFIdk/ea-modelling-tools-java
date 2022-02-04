@@ -84,8 +84,8 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
       List<XdmNode> scriptRowsForScriptGroup = queryResultNode
           .select(descendant("Row").where(some(child("ScriptAuthor"), eq(scriptGroup.getId()))))
           .asList();
-      LOGGER.info("Number of scripts in " + scriptGroup.toString() + ": "
-          + scriptRowsForScriptGroup.size());
+      LOGGER.info("Number of scripts in {}: {}", scriptGroup.toString(),
+          scriptRowsForScriptGroup.size());
       List<Script> scripts = new ArrayList<>();
       for (XdmNode scriptRow : scriptRowsForScriptGroup) {
         Script script = createScript(scriptGroup, scriptRow);

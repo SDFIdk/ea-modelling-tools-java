@@ -42,7 +42,7 @@ class ScriptManagerImplTests {
   void testExportScripts() throws IOException, ModellingToolsException, XPathExpressionException {
 
     File folderForTest = new File(FileUtils.getTempDirectory(), this.getClass().getSimpleName());
-    LOGGER.debug("Testing in " + folderForTest);
+    LOGGER.debug("Testing in {}", folderForTest);
     if (folderForTest.mkdir()) {
       try {
         InputStream queryResultAsInputStream =

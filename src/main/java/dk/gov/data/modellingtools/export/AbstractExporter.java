@@ -100,7 +100,7 @@ public abstract class AbstractExporter {
         new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8"))) {
 
       // retrieve and populate template
-      LOGGER.debug("Using template " + templateFileName);
+      LOGGER.debug("Using template {}", templateFileName);
       Template template = templateConfiguration.getTemplate(templateFileName);
       template.process(dataForTemplate, writer);
 
@@ -112,7 +112,7 @@ public abstract class AbstractExporter {
         Options options2 = Options.builder().safe(SafeMode.SAFE).build();
         asciidoctor.convertFile(outputFile, options2);
       }
-      LOGGER.info("Finished exporting to " + outputFile.getAbsolutePath());
+      LOGGER.info("Finished exporting to {}", outputFile.getAbsolutePath());
     } catch (IOException e) {
       throw new ModellingToolsException(
           "Could not write content to " + outputFile.getAbsolutePath() + ": " + e.getMessage(), e);
