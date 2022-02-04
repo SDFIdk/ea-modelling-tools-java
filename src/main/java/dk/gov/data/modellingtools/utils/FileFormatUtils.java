@@ -17,6 +17,9 @@ public class FileFormatUtils {
       case "rdf":
         outputFileExtension = ".rdf";
         break;
+      case "csv":
+        outputFileExtension = ".csv";
+        break;
       default:
         throw new IllegalArgumentException("Unknown format " + fileFormat);
     }
@@ -32,6 +35,7 @@ public class FileFormatUtils {
     String templateExtension;
     switch (fileFormat) {
       case "asciidoc":
+      case "csv":
         templateExtension = ".ftl";
         break;
       case "rdf":

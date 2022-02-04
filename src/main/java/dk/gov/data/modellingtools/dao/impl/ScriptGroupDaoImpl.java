@@ -10,16 +10,11 @@ import dk.gov.data.modellingtools.model.Script;
 import dk.gov.data.modellingtools.model.ScriptGroup;
 import dk.gov.data.modellingtools.utils.XmlAndXsltUtils;
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import javax.xml.transform.stream.StreamSource;
-import net.sf.saxon.s9api.DocumentBuilder;
-import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.XdmItem;
 import net.sf.saxon.s9api.XdmNode;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,28 +66,15 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
             + " select s.ScriptCategory, s.ScriptName, s.ScriptAuthor, s.Notes, s.Script"
             + " from t_script s inner join t_script s1 on s1.ScriptName = s.ScriptAuthor"
             + " where s1.script like '" + scriptGroupNameOrRegex + "' and s1.Notes like '<Group*'";
-    String queryResultString = executeSqlQuery(sqlQuery);
+    String queryResultString = eaWrapper.sqlQuery(sqlQuery);
     return queryResultString;
-  }
-
-
-  private String executeSqlQuery(String query) throws ModellingToolsException {
-    LOGGER.debug("Executing query " + query);
-    String resultSqlQueryAsXmlFormattedString = eaWrapper.sqlQuery(query);
-    LOGGER.trace("Query result: " + resultSqlQueryAsXmlFormattedString);
-    return resultSqlQueryAsXmlFormattedString;
   }
 
 
   private List<ScriptGroup> buildScriptGroupsWithScripts(String queryResultString)
       throws ModellingToolsException {
-    /*
-     * Repository#SQLQuery(String) returns an XML formatted string value of the resulting record
-     * set. It has the following structure (presented as XPath): /EADATA/Dataset_0/Data/Row and uses
-     * UTF-8 encoding.
-     */
     List<ScriptGroup> scriptGroups = new ArrayList<>();
-    XdmNode queryResultNode = createNodeFromXmlFormattedString(queryResultString);
+    XdmNode queryResultNode = XmlAndXsltUtils.createNodeFromXmlFormattedString(queryResultString);
     List<XdmNode> scriptGroupRows = queryResultNode.select(
         descendant("Row").where(some(child("Notes"), xmlUnEscapedStringValueStartsWith("<Group"))))
         .asList();
@@ -129,7 +111,8 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
      */
     String scriptId = scriptRow.select(child("ScriptName").then(text())).asString();
     String scriptMetadataText = scriptRow.select(child("Notes").then(text())).asString();
-    XdmNode scriptMetadataNode = createNodeFromXmlFormattedString(scriptMetadataText);
+    XdmNode scriptMetadataNode =
+        XmlAndXsltUtils.createNodeFromXmlFormattedString(scriptMetadataText);
     String scriptName =
         scriptMetadataNode.select(descendant("Script").then(attribute("Name"))).asString();
     String scriptLanguage =
@@ -149,7 +132,8 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
     String scriptGroupId = scriptGroupRow.select(child("ScriptName").then(text())).asString();
     String scriptGroupName = scriptGroupRow.select(child("Script").then(text())).asString();
     String scriptGroupMetadataText = scriptGroupRow.select(child("Notes").then(text())).asString();
-    XdmNode scriptGroupMetadataNode = createNodeFromXmlFormattedString(scriptGroupMetadataText);
+    XdmNode scriptGroupMetadataNode =
+        XmlAndXsltUtils.createNodeFromXmlFormattedString(scriptGroupMetadataText);
     String scriptGroupNotes =
         scriptGroupMetadataNode.select(descendant("Group").then(attribute("Notes"))).asString();
     ScriptGroup scriptGroup = new ScriptGroup(scriptGroupId, scriptGroupName, scriptGroupNotes);
@@ -158,23 +142,6 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
 
   private Predicate<XdmItem> xmlUnEscapedStringValueStartsWith(String value) {
     return item -> StringEscapeUtils.unescapeXml(item.getStringValue()).startsWith(value);
-  }
-
-  private XdmNode createNodeFromXmlFormattedString(String xmlFormattedString)
-      throws ModellingToolsException {
-    // Result from SQLQuery starts with <?xml version="1.0"?>, thus UTF-8 encoding.
-    try {
-      DocumentBuilder documentBuilder = XmlAndXsltUtils.getProcessor().newDocumentBuilder();
-      XdmNode queryResultAsXdmNode = documentBuilder.build(
-          new StreamSource(IOUtils.toInputStream(xmlFormattedString, StandardCharsets.UTF_8)));
-      return queryResultAsXdmNode;
-    } catch (SaxonApiException e) {
-      LOGGER.info(xmlFormattedString);
-      throw new ModellingToolsException(
-          "An exception occurred while trying to deal with an SQL query result from EA: "
-              + e.getMessage(),
-          e);
-    }
   }
 
 }

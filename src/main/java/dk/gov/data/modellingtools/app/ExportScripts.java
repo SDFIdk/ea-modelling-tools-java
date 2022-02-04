@@ -81,9 +81,8 @@ public class ExportScripts extends AbstractApplication {
     File folder = (File) commandLine.getParsedOptionValue(AbstractApplication.OPTION_OUTPUT_FOLDER);
     boolean createDocumentation = commandLine.hasOption(OPTION_DOCUMENTATION);
 
-    ScriptManager scriptManager = new ScriptManagerImpl(eaWrapper);
-    scriptManager.exportScripts(scriptGroupNameOrRegex, folder, createDocumentation,
-        getTemplateConfiguration());
+    ScriptManager scriptManager = new ScriptManagerImpl(eaWrapper, getTemplateConfiguration());
+    scriptManager.exportScripts(scriptGroupNameOrRegex, folder, createDocumentation);
   }
 
   /**

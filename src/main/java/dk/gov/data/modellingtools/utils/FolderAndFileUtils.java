@@ -4,6 +4,7 @@ import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +18,7 @@ public class FolderAndFileUtils {
    * 
    * @param folder folder to create
    */
-  public static void validateAndCreateFolderIfNeeded(File folder)
-      throws ModellingToolsException {
+  public static void validateAndCreateFolderIfNeeded(File folder) throws ModellingToolsException {
     Validate.notNull(folder);
     if (folder.exists()) {
       Validate.isTrue(folder.isDirectory(), folder.getAbsolutePath() + " is not a directory");
@@ -45,8 +45,15 @@ public class FolderAndFileUtils {
       LOGGER.debug("Result of file creation of " + file.getAbsolutePath() + ": " + fileCreated);
     } catch (IOException e) {
       throw new ModellingToolsException(
-          "Could not create file " + file.getAbsolutePath() + e.getMessage(), e);
+          "Could not create file " + file.getAbsolutePath() + ": " + e.getMessage(), e);
     }
+  }
+
+  /**
+   * Replaces any spaces in the given names with underscores, and adds a version to the given name.
+   */
+  public static String createFileNameWithoutSpaces(String name, String version) {
+    return StringUtils.replaceChars(name, ' ', '_') + "_v" + version;
   }
 
 }

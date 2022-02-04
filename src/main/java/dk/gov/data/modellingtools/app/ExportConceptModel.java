@@ -51,7 +51,8 @@ public class ExportConceptModel extends AbstractApplication {
   protected void doApplicationSpecificLogic(CommandLine commandLine,
       EnterpriseArchitectWrapper eaWrapper) throws ParseException, ModellingToolsException {
     String format = commandLine.getOptionValue(AbstractApplication.OPTION_OUTPUT_FORMAT);
-    ConceptModelExporter conceptModelExporter = new ConceptModelExporterImpl(eaWrapper);
+    ConceptModelExporter conceptModelExporter =
+        new ConceptModelExporterImpl(eaWrapper, getTemplateConfiguration());
     Validate.isTrue(
         format
             .matches("(" + StringUtils.join(conceptModelExporter.getSupportedFormats(), "|") + ")"),
@@ -60,8 +61,7 @@ public class ExportConceptModel extends AbstractApplication {
     String packageGuid = commandLine.getOptionValue(AbstractApplication.OPTION_PACKAGE);
     File folder = (File) commandLine.getParsedOptionValue(AbstractApplication.OPTION_OUTPUT_FOLDER);
 
-    conceptModelExporter.exportConceptModel(packageGuid, folder, format,
-        getTemplateConfiguration());
+    conceptModelExporter.exportConceptModel(packageGuid, folder, format);
   }
 
   @Override

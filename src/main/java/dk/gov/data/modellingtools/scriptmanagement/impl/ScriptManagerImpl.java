@@ -49,20 +49,23 @@ public class ScriptManagerImpl implements ScriptManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScriptManagerImpl.class);
 
-
   private ScriptGroupDao scriptGroupDao;
 
-  public ScriptManagerImpl(EnterpriseArchitectWrapper eaWrapper) {
-    this(new ScriptGroupDaoImpl(eaWrapper));
+  private Configuration templateConfiguration;
+
+  public ScriptManagerImpl(EnterpriseArchitectWrapper eaWrapper,
+      Configuration templateConfiguration) {
+    this(new ScriptGroupDaoImpl(eaWrapper), templateConfiguration);
   }
 
-  public ScriptManagerImpl(ScriptGroupDao scriptGroupDao) {
+  public ScriptManagerImpl(ScriptGroupDao scriptGroupDao, Configuration templateConfiguration) {
     this.scriptGroupDao = scriptGroupDao;
+    this.templateConfiguration = templateConfiguration;
   }
 
   @Override
-  public void exportScripts(String scriptGroupNameOrRegex, File folder, boolean createDocumentation,
-      Configuration templateConfiguration) throws ModellingToolsException {
+  public void exportScripts(String scriptGroupNameOrRegex, File folder, boolean createDocumentation)
+      throws ModellingToolsException {
     Validate.notNull(scriptGroupNameOrRegex,
         "A script group name (may contain wildcards) must be given");
     Validate.notNull(folder, "A folder must be given");
@@ -76,7 +79,7 @@ public class ScriptManagerImpl implements ScriptManager {
     saveScriptsAsSeparateFilesPerScriptGroup(folder, scriptGroups);
     scriptGroupDao.saveAllIncludingScriptsAsEaReferenceData(scriptGroupNameOrRegex, referenceData);
     if (createDocumentation) {
-      createScriptDocumentation(scriptGroups, new File(folder, "README.md"), templateConfiguration);
+      createScriptDocumentation(scriptGroups, new File(folder, "README.md"));
     }
     LOGGER.info("Finished exporting scripts");
   }
@@ -132,8 +135,8 @@ public class ScriptManagerImpl implements ScriptManager {
   }
 
   private void inspectScriptFolderContents(File scriptFolder, List<Script> scripts) {
-    assert scriptFolder.isDirectory();
-    if (scriptFolder.list().length > scripts.size()) {
+    if (scriptFolder != null & scriptFolder.list() != null && scripts != null
+        && scriptFolder.list().length > scripts.size()) {
       LOGGER.warn(scriptFolder.getPath()
           + " contains more files than the number of scripts that was written,"
           + " has a script been deleted? If so, delete this file as well on the"
@@ -148,8 +151,8 @@ public class ScriptManagerImpl implements ScriptManager {
     return scriptFolder;
   }
 
-  private void createScriptDocumentation(List<ScriptGroup> scriptGroups, File scriptDocumentation,
-      Configuration templateConfiguration) throws ModellingToolsException {
+  private void createScriptDocumentation(List<ScriptGroup> scriptGroups, File scriptDocumentation)
+      throws ModellingToolsException {
     FolderAndFileUtils.deleteAndCreate(scriptDocumentation);
 
     String templateFileName = "script_documentation.ftl";
@@ -190,14 +193,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
     List<Node> nodes = new ArrayList<>();
     CollectionUtils.addAll(nodes, parsedScript.iterator());
-    Predicate predicateExpressionStatement = new Predicate() {
-
-      @Override
-      public boolean evaluate(Object object) {
-        return object instanceof ExpressionStatement;
-      }
-
-    };
+    Predicate predicateExpressionStatement = object -> object instanceof ExpressionStatement;
     int numberOfExpressionStatements =
         CollectionUtils.countMatches(nodes, predicateExpressionStatement);
     if (numberOfExpressionStatements == 1) {

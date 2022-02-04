@@ -36,6 +36,8 @@ public abstract class AbstractApplication {
   public static final String OPTION_OUTPUT_FOLDER = "o";
   public static final String OPTION_PACKAGE = "pkg";
   public static final String OPTION_OUTPUT_FORMAT = "t";
+  public static final String OPTION_LANGUAGE = "l";
+
 
   private HelpFormatter helpFormatter;
   protected Options options;
@@ -103,6 +105,15 @@ public abstract class AbstractApplication {
     options.addOption(Option.builder(AbstractApplication.OPTION_OUTPUT_FORMAT).longOpt("to-format")
         .hasArg().argName("format name").type(String.class).desc("file format to be exported to")
         .required().build());
+  }
+
+  /**
+   * Adds an optional option for a language.
+   */
+  protected final void addOptionLanguage() {
+    options.addOption(Option.builder(AbstractApplication.OPTION_LANGUAGE).longOpt("language")
+        .hasArg().argName("2-letter language code").type(String.class)
+        .desc("language for the output").required(false).build());
   }
 
   private HelpFormatter getHelpFormatter() {

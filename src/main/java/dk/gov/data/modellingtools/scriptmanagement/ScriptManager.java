@@ -1,7 +1,6 @@
 package dk.gov.data.modellingtools.scriptmanagement;
 
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
-import freemarker.template.Configuration;
 import java.io.File;
 
 /**
@@ -21,7 +20,6 @@ public interface ScriptManager {
    * @param folder The scripts are created in a folder with name "scriptGroupName", that will be a
    *        subdirectory of this folder.
    */
-  void exportScripts(String scriptGroupNameOrRegex, File folder, boolean createDocumentation,
-      Configuration templateConfiguration) throws ModellingToolsException;
+  void exportScripts(String scriptGroupNameOrRegex, File folder, boolean createDocumentation) throws ModellingToolsException;
 
 }

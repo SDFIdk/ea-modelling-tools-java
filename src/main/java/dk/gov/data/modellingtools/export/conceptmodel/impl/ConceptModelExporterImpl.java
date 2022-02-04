@@ -8,35 +8,26 @@ import dk.gov.data.modellingtools.dao.impl.ConceptModelDaoFda;
 import dk.gov.data.modellingtools.dao.impl.DiagramDaoImpl;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
+import dk.gov.data.modellingtools.export.AbstractExporter;
 import dk.gov.data.modellingtools.export.conceptmodel.ConceptModelExporter;
-import dk.gov.data.modellingtools.utils.FileFormatUtils;
+import dk.gov.data.modellingtools.model.Concept;
+import dk.gov.data.modellingtools.model.ConceptModel;
 import dk.gov.data.modellingtools.utils.FolderAndFileUtils;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleCollection;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.Validate;
-import org.asciidoctor.Asciidoctor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sparx.Package;
 
 /**
  * Exports a concept model.
  */
-public class ConceptModelExporterImpl implements ConceptModelExporter {
+public class ConceptModelExporterImpl extends AbstractExporter implements ConceptModelExporter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ConceptModelExporterImpl.class);
-
-  private EnterpriseArchitectWrapper eaWrapper;
 
   private ConceptDao conceptDao;
 
@@ -44,54 +35,18 @@ public class ConceptModelExporterImpl implements ConceptModelExporter {
 
   private DiagramDao diagramDao;
 
-  public ConceptModelExporterImpl(EnterpriseArchitectWrapper eaWrapper) {
-    super();
-    this.eaWrapper = eaWrapper;
+  private ConceptModel conceptModel;
+
+  public ConceptModelExporterImpl(EnterpriseArchitectWrapper eaWrapper,
+      Configuration templateConfiguration) {
+    super(eaWrapper, templateConfiguration);
   }
 
   @Override
-  public void exportConceptModel(String packageGuid, File folder, String format,
-      Configuration templateConfiguration) throws ModellingToolsException {
-    LOGGER.info("Start exporting concept model to format " + format);
-
-    // process input parameters
-    String outputFileExtension = FileFormatUtils.getFileFormatExtension(format);
-    String templateFileName =
-        "concept_model_" + format + FileFormatUtils.getTemplateExtension(format);
-    Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
-    Validate.notNull(umlPackage, "No package found for GUID " + packageGuid);
-
-    // prepare folders and files
-    FolderAndFileUtils.validateAndCreateFolderIfNeeded(folder);
-    File outputFile = new File(folder, umlPackage.GetName() + outputFileExtension);
-    FolderAndFileUtils.deleteAndCreate(outputFile);
-
-    Map<String, Object> dataForTemplate = prepareDataForTemplate(umlPackage, templateConfiguration);
-
-    try (BufferedWriter writer =
-        new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8"))) {
-
-      // retrieve and populate template
-      Template template = templateConfiguration.getTemplate(templateFileName);
-      template.process(dataForTemplate, writer);
-
-      if ("asciidoc".equals(format)) {
-        // convert Asciidoc file to HTML
-        Asciidoctor asciidoctor = Asciidoctor.Factory.create();
-        HashMap<String, Object> options = new HashMap<>();
-        // https://docs.asciidoctor.org/asciidoctor/latest/safe-modes/
-        // set to 1, so the default CSS stylesheets are used
-        options.put("safe", 1);
-        asciidoctor.convertFile(outputFile, options);
-      }
-      LOGGER.info("Finished exporting concept model to " + folder.getAbsolutePath());
-    } catch (IOException e) {
-      throw new ModellingToolsException(
-          "Could not write content to " + outputFile.getAbsolutePath() + ": " + e.getMessage(), e);
-    } catch (TemplateException e) {
-      throw new ModellingToolsException(
-          "Could not process template " + templateFileName + ": " + e.getMessage(), e);
-    }
+  public void exportConceptModel(String packageGuid, File folder, String format)
+      throws ModellingToolsException {
+    LOGGER.info("Start exporting " + conceptModel + " to format " + format);
+    export(packageGuid, folder, format);
   }
 
   @Override
@@ -99,19 +54,39 @@ public class ConceptModelExporterImpl implements ConceptModelExporter {
     return List.of("asciidoc", "rdf");
   }
 
-  private Map<String, Object> prepareDataForTemplate(Package umlPackage,
-      Configuration templateConfiguration) throws ModellingToolsException {
-    // TODO add parameter profile to support other profiles then FDA
-    conceptDao = new ConceptDaoFda();
-    conceptModelDao = new ConceptModelDaoFda();
-    diagramDao = new DiagramDaoImpl();
+  @Override
+  protected Map<String, Object> prepareDataForTemplate() throws ModellingToolsException {
+    // TODO add parameter profile to support other profiles than FDA
     Map<String, Object> dataForTemplate = new HashMap<>();
-    dataForTemplate.put("conceptModel", conceptModelDao.findByPackage(umlPackage));
-    dataForTemplate.put("diagrams", new SimpleCollection(diagramDao.findAll(umlPackage),
+    dataForTemplate.put("conceptModel", conceptModel);
+    dataForTemplate.put("diagrams", new SimpleCollection(diagramDao.findAll(getPackage()),
         templateConfiguration.getObjectWrapper()));
-    dataForTemplate.put("concepts", new SimpleCollection(conceptDao.findAll(umlPackage),
-        templateConfiguration.getObjectWrapper()));
+    List<Concept> concepts = conceptDao.findAll(getPackage());
+    // sort alphabetically on the Danish preferred term
+    concepts.sort((c1, c2) -> c1.getPreferredTerms().get("da")
+        .compareToIgnoreCase(c2.getPreferredTerms().get("da")));
+    dataForTemplate.put("concepts",
+        new SimpleCollection(concepts, templateConfiguration.getObjectWrapper()));
     return dataForTemplate;
+  }
+
+  @Override
+  protected String getTemplateFileNamePrefix() {
+    return "concept_model_";
+  }
+
+  @Override
+  protected void prepareExport() throws ModellingToolsException {
+    conceptModelDao = new ConceptModelDaoFda();
+    conceptModel = conceptModelDao.findByPackage(getPackage());
+    conceptDao = new ConceptDaoFda();
+    diagramDao = new DiagramDaoImpl();
+  }
+
+  @Override
+  protected String getOutputFileName() {
+    return FolderAndFileUtils.createFileNameWithoutSpaces(conceptModel.getTitles().get("da"),
+        conceptModel.getVersion());
   }
 
 }

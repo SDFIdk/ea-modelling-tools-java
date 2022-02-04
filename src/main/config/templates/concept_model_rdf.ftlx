@@ -65,8 +65,8 @@
     <#if concept.definitions.en != ""><skos:definition xml:lang="en">${concept.definitions.en}</skos:definition></#if>
     <#if concept.notes.da != ""><rdfs:comment xml:lang="da">${concept.notes.da}</rdfs:comment></#if>
     <#if concept.notes.en != ""><rdfs:comment xml:lang="en">${concept.notes.en}</rdfs:comment></#if>
-    <#if concept.applicationNotes.da != ""><mdl:applicationNote xml:lang="da">${concept.applicationNotes.da}</mdl:applicationNote></#if>
-    <#if concept.applicationNotes.en != ""><mdl:applicationNote xml:lang="en">${concept.applicationNotes.en}</mdl:applicationNote></#if>
+    <#-- &lt;#if concept.applicationNotes.da != &quot;&quot;&gt;&lt;mdl:applicationNote xml:lang=&quot;da&quot;&gt;${concept.applicationNotes.da}&lt;/mdl:applicationNote&gt;&lt;/#if&gt;
+    &lt;#if concept.applicationNotes.en != &quot;&quot;&gt;&lt;mdl:applicationNote xml:lang=&quot;en&quot;&gt;${concept.applicationNotes.en}&lt;/mdl:applicationNote&gt;&lt;/#if&gt;-->
     <#if concept.source != ""><dcterms:source rdf:resource="${concept.source}" /></#if>
     <#if concept.definingConceptModel != ""><rdfs:isDefinedBy rdf:resource="${concept.definingConceptModel}" /></#if>
     <#list concept.additionalInformationResources as additionalInformationResource>

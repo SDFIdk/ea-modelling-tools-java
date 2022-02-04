@@ -1,5 +1,6 @@
 package dk.gov.data.modellingtools.dao.impl;
 
+import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.ConceptModelDao;
 import dk.gov.data.modellingtools.ea.utils.TaggedValueUtils;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
@@ -20,21 +21,24 @@ import org.sparx.Package;
  */
 public class ConceptModelDaoFda implements ConceptModelDao {
 
-  private static final String STEREOTYPE_FDA_CONCEPT_MODEL = "FDAprofil::ConceptModel";
-
-  private static final String TAG_QUALIFIER = "FDAprofil::Model::";
-
   // TODO make configurable
   private static final char SPLIT_CHARACTER = ';';
 
   @Override
   public ConceptModel findByPackage(Package umlPackage) throws ModellingToolsException {
+    // TODO extract all tags to constants and move to FdaConstants
+    // TODO find all tags at once
     Element packageElement = umlPackage.GetElement();
     String fqStereotype = packageElement.GetFQStereotype();
-    Validate.isTrue(STEREOTYPE_FDA_CONCEPT_MODEL.equals(fqStereotype),
-        "Stereotype must be " + STEREOTYPE_FDA_CONCEPT_MODEL + " but is " + fqStereotype);
+    Validate.isTrue(FdaConstants.FQ_STEREOTYPE_CONCEPT_MODEL.equals(fqStereotype),
+        "Stereotype must be " + FdaConstants.FQ_STEREOTYPE_CONCEPT_MODEL + " but is "
+            + fqStereotype);
     ConceptModel conceptModel = new ConceptModel();
-    conceptModel.setIdentifier(TaggedValueUtils.getTaggedValueValueAsUri(packageElement, "URI"));
+    try {
+      conceptModel.setIdentifier(TaggedValueUtils.getTaggedValueValueAsUri(packageElement, "URI"));
+    } catch (URISyntaxException e) {
+      throw new ModellingToolsException("Could not create a valid URI", e);
+    }
 
     Map<String, String> titles = new HashMap<>();
     titles.put("da", TaggedValueUtils.getTaggedValueValue(packageElement, "title (da)"));
@@ -51,26 +55,30 @@ public class ConceptModelDaoFda implements ConceptModelDao {
     // TODO move logic to split tagged value value to TaggedValueUtils
     String[] languagesAsStrings = StringUtils.stripAll(
         StringUtils.split(TaggedValueUtils.getTaggedValueValueFullyQualifiedName(packageElement,
-            TAG_QUALIFIER + "language"), SPLIT_CHARACTER));
+            FdaConstants.QUALIFIER_TAGS + "language"), SPLIT_CHARACTER));
     URI[] languages = new URI[languagesAsStrings.length];
     for (int i = 0; i < languagesAsStrings.length; i++) {
       try {
         languages[i] = new URI(languagesAsStrings[i]);
       } catch (URISyntaxException e) {
         throw new ModellingToolsException("Could not convert string " + languagesAsStrings[i]
-            + ", a part of tagged value " + TAG_QUALIFIER + "language" + " " + " on element "
-            + packageElement.GetName() + " to a valid URI", e);
+            + ", a part of tagged value " + FdaConstants.QUALIFIER_TAGS + "language" + " "
+            + " on element " + packageElement.GetName() + " to a valid URI", e);
       }
     }
     conceptModel.setLanguages(languages);
 
     conceptModel.setResponsibleEntity(
         TaggedValueUtils.getTaggedValueValue(packageElement, "responsibleEntity"));
-    conceptModel
-        .setPublisher(TaggedValueUtils.getTaggedValueValueAsUri(packageElement, "publisher"));
+    try {
+      conceptModel
+          .setPublisher(TaggedValueUtils.getTaggedValueValueAsUri(packageElement, "publisher"));
+    } catch (URISyntaxException e) {
+      throw new ModellingToolsException("Could not create a valid URI", e);
+    }
     conceptModel.setVersion(TaggedValueUtils.getTaggedValueValue(packageElement, "versionInfo"));
-    String modifiedDateAsString = TaggedValueUtils
-        .getTaggedValueValueFullyQualifiedName(packageElement, TAG_QUALIFIER + "modified");
+    String modifiedDateAsString = TaggedValueUtils.getTaggedValueValueFullyQualifiedName(
+        packageElement, FdaConstants.QUALIFIER_TAGS + "modified");
     if (StringUtils.isNotBlank(modifiedDateAsString)) {
       try {
         // TODO dependent on Locale?
