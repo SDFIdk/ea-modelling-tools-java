@@ -59,7 +59,7 @@ public class Concept {
     return ArrayUtils.clone(additionalInformationResources);
   }
 
-  public void setAdditionalInformationResources(URI[] additionalInformationResources) {
+  public void setAdditionalInformationResources(URI... additionalInformationResources) {
     this.additionalInformationResources = ArrayUtils.clone(additionalInformationResources);
   }
 

@@ -6,8 +6,6 @@ import dk.gov.data.modellingtools.ea.model.EaConnectorEnd;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Concept;
 import org.apache.commons.collections4.MultiValuedMap;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sparx.Attribute;
 import org.sparx.ConnectorEnd;
 import org.sparx.Element;
@@ -17,8 +15,6 @@ import org.sparx.Element;
  * https://arkitektur.digst.dk/en/metoder/regler-begrebs-og-datamodellering.
  */
 public class SemanticModelElementDaoFda extends AbstractSemanticModelElementDao {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(SemanticModelElementDaoFda.class);
 
   private ConceptDaoFda conceptDaoFda;
 

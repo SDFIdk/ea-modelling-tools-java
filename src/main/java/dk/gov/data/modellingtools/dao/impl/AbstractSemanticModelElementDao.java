@@ -27,8 +27,6 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
 
   private EnterpriseArchitectWrapper eaWrapper;
 
-  private ConnectorEnd clientEnd;
-
   public AbstractSemanticModelElementDao(EnterpriseArchitectWrapper enterpriseArchitectWrapper) {
     this.eaWrapper = enterpriseArchitectWrapper;
   }
@@ -49,10 +47,10 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
     for (Element element : EaModelUtils.getElementsOfPackageAndSubpackages(umlPackage)) {
       if (qualifiesAsSemanticModelElement(element)) {
         allSemanticModelElements.add(createSemanticModelElement(element));
-        allSemanticModelElements.addAll(findSemanticModelElementsOnElementAttributes(umlPackage,
-            element, attributeFqStereotypes));
-        allSemanticModelElements.addAll(findSemanticModelElementsOnNavigableAssociationEnds(
-            umlPackage, element, connectorEndFqStereotypes));
+        allSemanticModelElements.addAll(findSemanticModelElementsOnElementAttributes(element,
+            attributeFqStereotypes));
+        allSemanticModelElements.addAll(findSemanticModelElementsOnNavigableAssociationEnds(element,
+            connectorEndFqStereotypes));
       } else {
         LOGGER.info("Skipping {}", EaModelUtils.toString(element));
       }
@@ -61,7 +59,7 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
   }
 
   private List<SemanticModelElement> findSemanticModelElementsOnElementAttributes(
-      Package umlPackage, Element element, MultiValuedMap<String, String> attributeFqStereotypes)
+      Element element, MultiValuedMap<String, String> attributeFqStereotypes)
       throws ModellingToolsException {
     List<SemanticModelElement> semanticModelElements = new ArrayList<>();
     for (Iterator<Attribute> attributeIterator =
@@ -78,7 +76,7 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
   }
 
   private List<SemanticModelElement> findSemanticModelElementsOnNavigableAssociationEnds(
-      Package umlPackage, Element element, MultiValuedMap<String, String> connectorEndFqStereotypes)
+      Element element, MultiValuedMap<String, String> connectorEndFqStereotypes)
       throws ModellingToolsException {
     List<SemanticModelElement> semanticModelElements = new ArrayList<>();
     Collection<EaConnectorEnd> assocationConnectorEnds =

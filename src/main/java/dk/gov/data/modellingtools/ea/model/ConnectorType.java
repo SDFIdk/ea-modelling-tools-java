@@ -1,5 +1,10 @@
 package dk.gov.data.modellingtools.ea.model;
 
+import java.util.Locale;
+
+/**
+ * Connector type, as defined by Enterprise Architect.
+ */
 public enum ConnectorType {
   /*
    * Enum values must have the same name as in EA, but of course uppercase. See also findType and
@@ -24,7 +29,7 @@ public enum ConnectorType {
   }
 
   public static ConnectorType findType(String eaType) {
-    return ConnectorType.valueOf(eaType.toUpperCase());
+    return ConnectorType.valueOf(eaType.toUpperCase(Locale.ENGLISH));
   }
 
-};
+}

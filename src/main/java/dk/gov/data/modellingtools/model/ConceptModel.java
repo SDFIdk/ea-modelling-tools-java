@@ -56,7 +56,7 @@ public class ConceptModel {
     return ArrayUtils.clone(languages);
   }
 
-  public void setLanguages(URI[] languages) {
+  public void setLanguages(URI... languages) {
     this.languages = ArrayUtils.clone(languages);
   }
 
@@ -136,7 +136,7 @@ public class ConceptModel {
     return ArrayUtils.clone(themes);
   }
 
-  public void setThemes(URI[] themes) {
+  public void setThemes(URI... themes) {
     this.themes = ArrayUtils.clone(themes);
   }
 
@@ -144,7 +144,7 @@ public class ConceptModel {
     return ArrayUtils.clone(sources);
   }
 
-  public void setSources(URI[] sources) {
+  public void setSources(URI... sources) {
     this.sources = ArrayUtils.clone(sources);
   }
 

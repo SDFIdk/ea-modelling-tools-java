@@ -73,7 +73,7 @@ class ScriptManagerImplTests {
 
   }
 
-  private void testExportScriptsValidateNumberOfFiles(File[] fileList) {
+  private void testExportScriptsValidateNumberOfFiles(File... fileList) {
     assertEquals(3, fileList.length, "Expected 3 files");
   }
 
@@ -102,7 +102,7 @@ class ScriptManagerImplTests {
     assertEquals("いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす", actualContentsLines.get(35));
   }
 
-  private void testExportScriptsValidateFileNames(File[] fileList) {
+  private void testExportScriptsValidateFileNames(File... fileList) {
     assertEquals("A Jscript.js", fileList[0].getName());
     assertEquals("A VBScript.vbs", fileList[1].getName());
     assertEquals("JavaScript containing many different characters.js", fileList[2].getName());

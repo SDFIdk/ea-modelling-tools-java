@@ -195,10 +195,9 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
     return eaRepository.GetElementByID(connector.GetClientID()).GetPackageID() == eaRepository
         .GetElementByID(connector.GetSupplierID()).GetPackageID()
         && (connector.GetType() == "Association" || connector.GetType() == "Aggregation")
-        || ((connector.GetClientID() == element.GetElementID()
-            && (connector.GetType() == "Association"))
-            || (connector.GetSupplierID() == element.GetElementID()
-                && connector.GetType() == "Aggregation"));
+        || connector.GetClientID() == element.GetElementID() && connector.GetType() == "Association"
+        || connector.GetSupplierID() == element.GetElementID()
+            && connector.GetType() == "Aggregation";
   }
 
 }

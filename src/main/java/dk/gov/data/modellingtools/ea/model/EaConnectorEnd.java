@@ -16,7 +16,7 @@ import org.sparx.Element;
  * Class to make dealing with connector ends easier, as {@link ConnectorEnd} does not have methods
  * to retrieve its element nor its connector.
  */
-public class EaConnectorEnd {
+public final class EaConnectorEnd {
 
   public static final String ID_SUFFIX_SOURCE = ConnectorEndType.SOURCE.toString().toLowerCase();
   public static final String ID_SUFFIX_TARGET = ConnectorEndType.TARGET.toString().toLowerCase();
@@ -152,6 +152,9 @@ public class EaConnectorEnd {
         .append("connector end type", connectorEndType.toString()).toString();
   }
 
+  /**
+   * A connector end can be the source (client) or the target (supplier) of the connector.
+   */
   public enum ConnectorEndType {
     SOURCE, TARGET
   }
