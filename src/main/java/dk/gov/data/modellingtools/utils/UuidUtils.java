@@ -1,5 +1,6 @@
 package dk.gov.data.modellingtools.utils;
 
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -14,7 +15,7 @@ public class UuidUtils {
    *         described in {@link UUID#toString()}
    */
   public static String standardizeUuidNotation(String guid) {
-    String uuid = guid.toLowerCase().replace("{", "").replace("}", "");
+    String uuid = guid.toLowerCase(Locale.ENGLISH).replace("{", "").replace("}", "");
     return UUID.fromString(uuid).toString();
   }
 

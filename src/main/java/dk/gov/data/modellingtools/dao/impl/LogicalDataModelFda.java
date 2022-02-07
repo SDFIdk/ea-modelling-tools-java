@@ -2,10 +2,12 @@ package dk.gov.data.modellingtools.dao.impl;
 
 import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
+import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
 import dk.gov.data.modellingtools.ea.utils.TaggedValueUtils;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.LogicalDataModel;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.sparx.Package;
@@ -15,12 +17,17 @@ import org.sparx.Package;
  */
 public class LogicalDataModelFda implements LogicalDataModelDao {
 
-  public LogicalDataModelFda() {
+  private EnterpriseArchitectWrapper eaWrapper;
+
+  @SuppressFBWarnings("EI_EXPOSE_REP")
+  public LogicalDataModelFda(EnterpriseArchitectWrapper eaWrapper) {
     super();
+    this.eaWrapper = eaWrapper;
   }
 
   @Override
-  public LogicalDataModel findByPackage(Package umlPackage) throws ModellingToolsException {
+  public LogicalDataModel findByPackageGuid(String packageGuid) throws ModellingToolsException {
+    Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
     if (umlPackage.GetElement().HasStereotype(FdaConstants.STEREOTYPE_LOGICAL_DATA_MODEL)) {
       LogicalDataModel logicalDataModel = new LogicalDataModel();
       Map<String, String> taggedValues = TaggedValueUtils.getTaggedValues(umlPackage);

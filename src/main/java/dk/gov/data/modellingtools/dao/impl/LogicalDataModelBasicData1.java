@@ -2,10 +2,12 @@ package dk.gov.data.modellingtools.dao.impl;
 
 import dk.gov.data.modellingtools.constants.BasicData1Constants;
 import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
+import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
 import dk.gov.data.modellingtools.ea.utils.TaggedValueUtils;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.LogicalDataModel;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Map;
 import org.sparx.Package;
 
@@ -14,8 +16,17 @@ import org.sparx.Package;
  */
 public class LogicalDataModelBasicData1 implements LogicalDataModelDao {
 
+  private EnterpriseArchitectWrapper eaWrapper;
+
+  @SuppressFBWarnings("EI_EXPOSE_REP")
+  public LogicalDataModelBasicData1(EnterpriseArchitectWrapper eaWrapper) {
+    super();
+    this.eaWrapper = eaWrapper;
+  }
+
   @Override
-  public LogicalDataModel findByPackage(Package umlPackage) throws ModellingToolsException {
+  public LogicalDataModel findByPackageGuid(String packageGuid) throws ModellingToolsException {
+    Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
     if (EaModelUtils.hasPackageStereotype(umlPackage,
         BasicData1Constants.STEREOTYPE_DOMAIN_MODEL)) {
       LogicalDataModel logicalDataModel = new LogicalDataModel();

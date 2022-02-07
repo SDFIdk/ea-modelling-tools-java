@@ -20,7 +20,7 @@ public class SemanticModelElementDaoFda extends AbstractSemanticModelElementDao 
 
   public SemanticModelElementDaoFda(EnterpriseArchitectWrapper enterpriseArchitectWrapper) {
     super(enterpriseArchitectWrapper);
-    this.conceptDaoFda = new ConceptDaoFda();
+    this.conceptDaoFda = new ConceptDaoFda(enterpriseArchitectWrapper);
   }
 
   @Override

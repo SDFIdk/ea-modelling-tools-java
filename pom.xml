@@ -241,7 +241,7 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>assembly.xml</descriptor>
+                <descriptor>src/assembly/assembly.xml</descriptor>
               </descriptors>
               <appendAssemblyId>false</appendAssemblyId>
             </configuration>
@@ -255,6 +255,11 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M5</version>
+        <configuration>
+          <additionalClasspathElements>
+            <additionalClasspathElement>${basedir}/src/main/config</additionalClasspathElement>
+          </additionalClasspathElements>
+        </configuration>
       </plugin>
       <plugin><!-- From advice in https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/  -->
         <groupId>org.codehaus.mojo</groupId>
@@ -330,11 +335,12 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.2.0</version>
+        <version>4.5.3.0</version>
         <configuration>
-          <effort>Default</effort>
-          <!-- Threshold Confidence: High, Medium, Low -->
-          <threshold>Medium</threshold>
+          <!-- https://spotbugs.readthedocs.io/en/latest/effort.html -->
+          <effort>max</effort>
+          <!-- Threshold Confidence: high, medium, low -->
+          <threshold>medium</threshold>
           <!-- Rank: Scariest (1-4), Scary (5-9), Troubling (10-14), Of concern (15-20) -->
           <maxRank>14</maxRank>
         </configuration>
@@ -343,7 +349,7 @@
             <id>validate-spotbugs</id>
             <phase>validate</phase>
             <goals>
-              <goal>spotbugs</goal>
+              <goal>check</goal>
             </goals>
           </execution>
         </executions>
@@ -389,7 +395,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.2.0</version>
+        <version>4.5.3.0</version>
       </plugin>
     </plugins>
   </reporting>

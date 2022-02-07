@@ -9,6 +9,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import javax.xml.transform.stream.StreamSource;
+import net.sf.saxon.lib.NamespaceConstant;
 import net.sf.saxon.s9api.DocumentBuilder;
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
@@ -27,6 +28,18 @@ import org.slf4j.LoggerFactory;
 public class XmlAndXsltUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(XmlAndXsltUtils.class);
+
+  static {
+    // dependency xerces:xercesImpl
+    System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
+        "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
+    // dependency net.sf.saxon:Saxon-HE
+    System.setProperty("javax.xml.transform.TransformerFactory",
+        "net.sf.saxon.TransformerFactoryImpl");
+    // dependency net.sf.saxon:Saxon-HE
+    System.setProperty("javax.xml.xpath.XPathFactory:" + NamespaceConstant.OBJECT_MODEL_SAXON,
+        "net.sf.saxon.xpath.XPathFactoryImpl");
+  }
 
   private static Processor processor;
 
@@ -92,8 +105,10 @@ public class XmlAndXsltUtils {
   }
 
   private static Processor getProcessor() {
-    if (processor == null) {
-      processor = new Processor(false);
+    synchronized (XmlAndXsltUtils.class) {
+      if (processor == null) {
+        processor = new Processor(false);
+      }
     }
     return processor;
   }

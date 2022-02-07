@@ -11,6 +11,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +28,11 @@ public class ExportDataModelVocabulary extends AbstractApplication {
    * Entry point.
    */
   public static void main(String[] args) {
+    // Ignore duplicated code checking - CPD-OFF
+    StopWatch stopWatch = StopWatch.createStarted();
     LOGGER.info("Starting java code in {}", System.getProperty("user.dir"));
     try {
       new ExportDataModelVocabulary().run(args);
-      LOGGER.info("Finished");
     } catch (ModellingToolsException e) {
       LOGGER.debug(e.getMessage(), e);
       LOGGER.error("Error: {}", e.getMessage());
@@ -41,9 +43,16 @@ public class ExportDataModelVocabulary extends AbstractApplication {
         LOGGER.error("Unexpected error: {}", e.getMessage(), e);
       }
       LOGGER.error("Unexpected error: {}", e.getMessage(), e);
+    } catch (IllegalArgumentException e) {
+      LOGGER.error("A method has been passed an illegal or inappropriate argument: {}",
+          e.getMessage(), e);
     } catch (Throwable e) {
       LOGGER.error("Unexpected error: {}", e.getMessage(), e);
+    } finally {
+      stopWatch.stop();
+      LOGGER.info("Finished in {}", stopWatch.formatTime());
     }
+    // Resume duplicated code checking - CPD-ON
   }
 
   @Override
@@ -65,8 +74,7 @@ public class ExportDataModelVocabulary extends AbstractApplication {
       metadataUrl = (URL) commandLine.getParsedOptionValue(OPTION_METADATA);
     }
 
-    VocabularyExporter vocabularyExporter =
-        new VocabularyExporterImpl(eaWrapper, getTemplateConfiguration());
+    VocabularyExporter vocabularyExporter = new VocabularyExporterImpl(eaWrapper);
     Validate.isTrue(
         format.matches("(" + StringUtils.join(vocabularyExporter.getSupportedFormats(), "|") + ")"),
         "Unsupported format " + format + ". Supported formats are: "

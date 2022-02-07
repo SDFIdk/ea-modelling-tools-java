@@ -1,10 +1,11 @@
 package dk.gov.data.modellingtools.export;
 
+import dk.gov.data.modellingtools.config.FreemarkerTemplateConfiguration;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.utils.FileFormatUtils;
 import dk.gov.data.modellingtools.utils.FolderAndFileUtils;
-import freemarker.template.Configuration;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.BufferedWriter;
@@ -19,7 +20,6 @@ import org.asciidoctor.Options;
 import org.asciidoctor.SafeMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sparx.Package;
 
 /**
  * Abstract superclass for functionality that exports a model.
@@ -30,21 +30,18 @@ public abstract class AbstractExporter {
   protected EnterpriseArchitectWrapper eaWrapper;
   private String outputFileExtension;
   private String templateFileName;
-  private Package umlPackage;
   private File outputFile;
   private File outputFolder;
   private String outputFormat;
-  protected Configuration templateConfiguration;
   private String packageGuid;
 
   /**
    * Constructor.
    */
-  public AbstractExporter(EnterpriseArchitectWrapper eaWrapper,
-      Configuration templateConfiguration) {
+  @SuppressFBWarnings("EI_EXPOSE_REP")
+  public AbstractExporter(EnterpriseArchitectWrapper eaWrapper) {
     super();
     this.eaWrapper = eaWrapper;
-    this.templateConfiguration = templateConfiguration;
   }
 
   /**
@@ -72,17 +69,15 @@ public abstract class AbstractExporter {
   }
 
   /**
-   * Sets up any DAOs needed, retrieves the model to be exported, .... Is called before
-   * {@link #prepareFoldersAndFiles()}.
+   * Sets up any DAOs needed. Is called before {@link #prepareFoldersAndFiles()}.
    */
   protected abstract void prepareExport() throws ModellingToolsException;
 
-  protected Package getPackage() throws ModellingToolsException {
-    if (this.umlPackage == null) {
-      this.umlPackage = eaWrapper.getPackageByGuid(packageGuid);
-      Validate.notNull(this.umlPackage, "No package found for GUID " + packageGuid);
+  protected String getPackageGuid() throws ModellingToolsException {
+    if (this.packageGuid == null) {
+      Validate.notNull(this.packageGuid, "No package GUID has been set");
     }
-    return this.umlPackage;
+    return this.packageGuid;
   }
 
   protected abstract String getTemplateFileNamePrefix();
@@ -93,7 +88,7 @@ public abstract class AbstractExporter {
     FolderAndFileUtils.deleteAndCreate(outputFile);
   }
 
-  protected abstract String getOutputFileName();
+  protected abstract String getOutputFileName() throws ModellingToolsException;
 
   private void writeFiles(Map<String, Object> dataForTemplate) throws ModellingToolsException {
     try (BufferedWriter writer =
@@ -101,7 +96,8 @@ public abstract class AbstractExporter {
 
       // retrieve and populate template
       LOGGER.debug("Using template {}", templateFileName);
-      Template template = templateConfiguration.getTemplate(templateFileName);
+      Template template =
+          FreemarkerTemplateConfiguration.INSTANCE.getConfiguration().getTemplate(templateFileName);
       template.process(dataForTemplate, writer);
 
       if ("asciidoc".equals(outputFormat)) {
@@ -122,7 +118,7 @@ public abstract class AbstractExporter {
     }
   }
 
-  public EnterpriseArchitectWrapper getEaWrapper() {
+  protected EnterpriseArchitectWrapper getEaWrapper() {
     return eaWrapper;
   }
 

@@ -2,10 +2,12 @@ package dk.gov.data.modellingtools.dao.impl;
 
 import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.ConceptDao;
+import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
 import dk.gov.data.modellingtools.ea.utils.TaggedValueUtils;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Concept;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -19,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.sparx.Attribute;
 import org.sparx.ConnectorEnd;
 import org.sparx.Element;
-import org.sparx.Package;
 
 /**
  * Implementation based on the FDA rules for concept and data modelling.
@@ -28,13 +29,21 @@ public class ConceptDaoFda implements ConceptDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ConceptDaoFda.class);
 
+  private EnterpriseArchitectWrapper eaWrapper;
+
+  @SuppressFBWarnings("EI_EXPOSE_REP")
+  public ConceptDaoFda(EnterpriseArchitectWrapper eaWrapper) {
+    super();
+    this.eaWrapper = eaWrapper;
+  }
+
   // TODO make configurable
   private static final char SPLIT_CHARACTER = ';';
 
   @Override
-  public List<Concept> findAll(Package umlPackage) throws ModellingToolsException {
+  public List<Concept> findAllByPackageGuid(String packageGuid) throws ModellingToolsException {
     List<Concept> concepts = new ArrayList<>();
-    for (Element element : umlPackage.GetElements()) {
+    for (Element element : eaWrapper.getPackageByGuid(packageGuid).GetElements()) {
       if (FdaConstants.FQ_STEREOTYPE_CONCEPT.equals(element.GetFQStereotype())) {
         concepts.add(findByElement(element));
       } else {

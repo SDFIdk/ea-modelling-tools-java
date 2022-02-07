@@ -9,6 +9,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,10 +24,11 @@ public class ExportConceptModel extends AbstractApplication {
    * Entry point.
    */
   public static void main(String[] args) {
+    // Ignore duplicated code checking - CPD-OFF
+    StopWatch stopWatch = StopWatch.createStarted();
     LOGGER.info("Starting java code in {}", System.getProperty("user.dir"));
     try {
       new ExportConceptModel().run(args);
-      LOGGER.info("Finished");
     } catch (ModellingToolsException e) {
       LOGGER.debug(e.getMessage(), e);
       LOGGER.error("Error: {}", e.getMessage());
@@ -37,9 +39,16 @@ public class ExportConceptModel extends AbstractApplication {
         LOGGER.error("Unexpected error: {}", e.getMessage(), e);
       }
       LOGGER.error("Unexpected error: {}", e.getMessage(), e);
+    } catch (IllegalArgumentException e) {
+      LOGGER.error("A method has been passed an illegal or inappropriate argument: {}",
+          e.getMessage(), e);
     } catch (Throwable e) {
       LOGGER.error("Unexpected error: {}", e.getMessage(), e);
+    } finally {
+      stopWatch.stop();
+      LOGGER.info("Finished in {}", stopWatch.formatTime());
     }
+    // Resume duplicated code checking - CPD-ON
   }
 
   @Override
@@ -51,8 +60,7 @@ public class ExportConceptModel extends AbstractApplication {
   protected void doApplicationSpecificLogic(CommandLine commandLine,
       EnterpriseArchitectWrapper eaWrapper) throws ParseException, ModellingToolsException {
     String format = commandLine.getOptionValue(AbstractApplication.OPTION_OUTPUT_FORMAT);
-    ConceptModelExporter conceptModelExporter =
-        new ConceptModelExporterImpl(eaWrapper, getTemplateConfiguration());
+    ConceptModelExporter conceptModelExporter = new ConceptModelExporterImpl(eaWrapper);
     Validate.isTrue(
         format
             .matches("(" + StringUtils.join(conceptModelExporter.getSupportedFormats(), "|") + ")"),

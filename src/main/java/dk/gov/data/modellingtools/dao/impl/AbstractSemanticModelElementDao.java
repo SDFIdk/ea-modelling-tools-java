@@ -8,6 +8,7 @@ import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Concept;
 import dk.gov.data.modellingtools.model.ModelElement;
 import dk.gov.data.modellingtools.model.SemanticModelElement;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -30,13 +31,15 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
 
   private EnterpriseArchitectWrapper eaWrapper;
 
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   public AbstractSemanticModelElementDao(EnterpriseArchitectWrapper enterpriseArchitectWrapper) {
     this.eaWrapper = enterpriseArchitectWrapper;
   }
 
   @Override
-  public final List<SemanticModelElement> findAll(Package umlPackage)
+  public final List<SemanticModelElement> findAllByPackageGuid(String packageGuid)
       throws ModellingToolsException {
+    Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
     LOGGER.debug("Finding semantic model elements in {}", EaModelUtils.toString(umlPackage));
     /*
      * Retrieving fully-qualified stereotypes of attributes, connector ends, etc. from the EA model
@@ -58,6 +61,7 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
         LOGGER.info("Skipping {}", EaModelUtils.toString(element));
       }
     }
+    LOGGER.info("Found {} semantic model elements in total", allSemanticModelElements.size());
     return allSemanticModelElements;
   }
 

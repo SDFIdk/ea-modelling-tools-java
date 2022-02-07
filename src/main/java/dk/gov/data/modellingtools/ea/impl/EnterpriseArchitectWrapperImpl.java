@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.sf.saxon.s9api.XdmNode;
@@ -44,6 +46,8 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   private static final String TASKLIST_EA = "TASKLIST /V /FO CSV /NH /FI \"IMAGENAME eq EA.exe\"";
 
+  private Map<String, Package> packages;
+
   /**
    * Regex for contents of column t_xref.description (where column name = 'Stereotypes').
    * 
@@ -56,9 +60,17 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   private Repository eaRepository;
 
+  /**
+   * Constructor.
+   *
+   * @param eaProcessId the Windows process id of the running EA instance containing the model of
+   *        interest
+   * @throws ModellingToolsException if the EA repository cannot be retrieved
+   */
   public EnterpriseArchitectWrapperImpl(int eaProcessId) throws ModellingToolsException {
     super();
     this.eaRepository = retrieveRepository(eaProcessId);
+    this.packages = new HashMap<>();
   }
 
   private Repository retrieveRepository(int eaProcessId) throws ModellingToolsException {
@@ -126,7 +138,13 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   @Override
   public Package getPackageByGuid(String packageGuid) throws ModellingToolsException {
-    return this.eaRepository.GetPackageByGuid(packageGuid);
+    Package umlPackage;
+    if (packages.containsKey(packageGuid)) {
+      umlPackage = packages.get(packageGuid);
+    } else {
+      umlPackage = this.eaRepository.GetPackageByGuid(packageGuid);
+    }
+    return umlPackage;
   }
 
   @Override
@@ -197,12 +215,12 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       Element element) {
     return eaRepository.GetElementByID(connector.GetClientID()).GetPackageID() == eaRepository
         .GetElementByID(connector.GetSupplierID()).GetPackageID()
-        && (connector.GetType() == ConnectorType.ASSOCIATION.getEaType()
-            || connector.GetType() == ConnectorType.AGGREGATION.getEaType())
+        && (ConnectorType.ASSOCIATION.getEaType().equals(connector.GetType())
+            || ConnectorType.AGGREGATION.getEaType().equals(connector.GetType()))
         || connector.GetClientID() == element.GetElementID()
-            && connector.GetType() == ConnectorType.ASSOCIATION.getEaType()
+            && ConnectorType.ASSOCIATION.getEaType().equals(connector.GetType())
         || connector.GetSupplierID() == element.GetElementID()
-            && connector.GetType() == ConnectorType.AGGREGATION.getEaType();
+            && ConnectorType.AGGREGATION.getEaType().equals(connector.GetType());
   }
 
 }

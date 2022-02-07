@@ -5,12 +5,14 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
 import ch.qos.logback.core.status.ErrorStatus;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Appender, configured in logback.xml, that writes to the Script Window in Enterprise Architect.
  *
  * @param <E> Is {@link ILoggingEvent} as logback-classic is used.
  */
+@SuppressFBWarnings
 public class EnterpriseArchitectScriptWindowAppender<E> extends AppenderBase<E> {
 
   private EnterpriseArchitectWrapper eaWrapper;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import org.apache.commons.collections4.list.UnmodifiableList;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,8 +19,10 @@ import org.sparx.Element;
  */
 public final class EaConnectorEnd {
 
-  public static final String ID_SUFFIX_SOURCE = ConnectorEndType.SOURCE.toString().toLowerCase();
-  public static final String ID_SUFFIX_TARGET = ConnectorEndType.TARGET.toString().toLowerCase();
+  public static final String ID_SUFFIX_SOURCE =
+      ConnectorEndType.SOURCE.toString().toLowerCase(Locale.ENGLISH);
+  public static final String ID_SUFFIX_TARGET =
+      ConnectorEndType.TARGET.toString().toLowerCase(Locale.ENGLISH);
 
   private Connector connector;
   private ConnectorEnd connectorEnd;

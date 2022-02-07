@@ -1,5 +1,6 @@
 package dk.gov.data.modellingtools.export.vocabulary.impl;
 
+import dk.gov.data.modellingtools.config.FreemarkerTemplateConfiguration;
 import dk.gov.data.modellingtools.constants.BasicData1Constants;
 import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
@@ -18,7 +19,6 @@ import dk.gov.data.modellingtools.model.LogicalDataModel;
 import dk.gov.data.modellingtools.model.ModelElement.ModelElementType;
 import dk.gov.data.modellingtools.model.SemanticModelElement;
 import dk.gov.data.modellingtools.utils.FolderAndFileUtils;
-import freemarker.template.Configuration;
 import freemarker.template.SimpleCollection;
 import java.io.File;
 import java.net.URI;
@@ -50,9 +50,8 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
   private LogicalDataModel logicalDataModel;
   private String language;
 
-  public VocabularyExporterImpl(EnterpriseArchitectWrapper eaWrapper,
-      Configuration templateConfiguration) {
-    super(eaWrapper, templateConfiguration);
+  public VocabularyExporterImpl(EnterpriseArchitectWrapper eaWrapper) {
+    super(eaWrapper);
   }
 
   @Override
@@ -78,27 +77,26 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
      * information will be in the FDA tags, not in the Basic Data tags. Therefore, check the FDA
      * stereotype first.
      */
-    if (EaModelUtils.hasPackageStereotype(getPackage(),
-        FdaConstants.STEREOTYPE_LOGICAL_DATA_MODEL)) {
+    org.sparx.Package umlPackage = getEaWrapper().getPackageByGuid(getPackageGuid());
+    if (EaModelUtils.hasPackageStereotype(umlPackage, FdaConstants.STEREOTYPE_LOGICAL_DATA_MODEL)) {
       LOGGER.info("FDA profile is used");
       semanticModelElementDao = new SemanticModelElementDaoFda(getEaWrapper());
-      logicalDataModelDao = new LogicalDataModelFda();
-    } else if (EaModelUtils.hasPackageStereotype(getPackage(),
-        BasicData1Constants.STEREOTYPE_DOMAIN_MODEL) && getPackage().GetName().equals("LER")) {
+      logicalDataModelDao = new LogicalDataModelFda(getEaWrapper());
+    } else if (EaModelUtils.hasPackageStereotype(umlPackage,
+        BasicData1Constants.STEREOTYPE_DOMAIN_MODEL) && umlPackage.GetName().equals("LER")) {
       LOGGER.info("Basic data v1 profile is used, for LER datamodel"); // workaround...
       semanticModelElementDao = new SemanticModelElementDaoLer(getEaWrapper());
-      logicalDataModelDao = new LogicalDataModelBasicData1();
-    } else if (EaModelUtils.hasPackageStereotype(getPackage(),
+      logicalDataModelDao = new LogicalDataModelBasicData1(getEaWrapper());
+    } else if (EaModelUtils.hasPackageStereotype(umlPackage,
         BasicData1Constants.STEREOTYPE_DOMAIN_MODEL)) {
       LOGGER.info("Basic data v1 profile is used");
       semanticModelElementDao = new SemanticModelElementDaoBasicData1(getEaWrapper());
-      logicalDataModelDao = new LogicalDataModelBasicData1();
+      logicalDataModelDao = new LogicalDataModelBasicData1(getEaWrapper());
     } else {
       throw new ModellingToolsException(
-          "Cannot export vocabulary from " + EaModelUtils.toString(getPackage())
-              + " with stereotype(s) " + getPackage().GetElement().GetStereotypeEx());
+          "Cannot export vocabulary from " + EaModelUtils.toString(umlPackage)
+              + " with stereotype(s) " + umlPackage.GetElement().GetStereotypeEx());
     }
-    logicalDataModel = logicalDataModelDao.findByPackage(getPackage());
   }
 
   @Override
@@ -106,9 +104,9 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
     List<SemanticModelElement> semanticModelElements = findUniqueSemanticModelElements(language);
 
     Map<String, Object> dataForTemplate = new HashMap<>();
-    dataForTemplate.put("model", logicalDataModel);
-    dataForTemplate.put("modelElements",
-        new SimpleCollection(semanticModelElements, templateConfiguration.getObjectWrapper()));
+    dataForTemplate.put("model", getLogicalDataModel());
+    dataForTemplate.put("modelElements", new SimpleCollection(semanticModelElements,
+        FreemarkerTemplateConfiguration.INSTANCE.getConfiguration().getObjectWrapper()));
     dataForTemplate.put("language", language);
     dataForTemplate.put("hasHeader", hasHeader);
     dataForTemplate.put("hasMetadata", hasMetadata);
@@ -125,10 +123,8 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
    */
   private List<SemanticModelElement> findUniqueSemanticModelElements(String language)
       throws ModellingToolsException {
-    LOGGER.info("Finding semantic model elements in {}", EaModelUtils.toString(getPackage()));
     List<SemanticModelElement> allSemanticModelElements =
-        semanticModelElementDao.findAll(getPackage());
-    LOGGER.info("Found {} semantic model elements in total", allSemanticModelElements.size());
+        semanticModelElementDao.findAllByPackageGuid(getPackageGuid());
 
     List<SemanticModelElement> uniqueSemanticModelElements = new ArrayList<>();
     for (SemanticModelElement semanticModelElement : allSemanticModelElements) {
@@ -156,9 +152,26 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
   }
 
   @Override
-  protected String getOutputFileName() {
-    return FolderAndFileUtils.createFileNameWithoutSpaces(logicalDataModel.getName(),
-        logicalDataModel.getVersion());
+  protected String getOutputFileName() throws ModellingToolsException {
+    return FolderAndFileUtils.createFileNameWithoutSpaces(getLogicalDataModel().getName(),
+        getLogicalDataModel().getVersion());
+  }
+
+  // for testing purposes
+  protected void setSemanticModelElementDao(SemanticModelElementDao semanticModelElementDao) {
+    this.semanticModelElementDao = semanticModelElementDao;
+  }
+
+  // for testing purposes
+  protected void setLogicalDataModelDao(LogicalDataModelDao logicalDataModelDao) {
+    this.logicalDataModelDao = logicalDataModelDao;
+  }
+
+  private LogicalDataModel getLogicalDataModel() throws ModellingToolsException {
+    if (logicalDataModel == null) {
+      logicalDataModel = logicalDataModelDao.findByPackageGuid(getPackageGuid());
+    }
+    return logicalDataModel;
   }
 
   /**
@@ -167,7 +180,7 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
    * definition in the given language, have the same note in the given language, have the same
    * source and the same source textual reference.
    */
-  private final class SemanticModelElementEquator implements Equator<SemanticModelElement> {
+  private static final class SemanticModelElementEquator implements Equator<SemanticModelElement> {
     private final String language;
 
     private SemanticModelElementEquator(String language) {

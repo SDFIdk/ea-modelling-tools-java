@@ -13,6 +13,7 @@ import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Script;
 import dk.gov.data.modellingtools.model.ScriptGroup;
 import dk.gov.data.modellingtools.utils.XmlAndXsltUtils;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
 
   private EnterpriseArchitectWrapper eaWrapper;
 
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   public ScriptGroupDaoImpl(EnterpriseArchitectWrapper eaWrapper) {
     super();
     this.eaWrapper = eaWrapper;
