@@ -124,15 +124,14 @@ public class SemanticModelElementDaoLer extends AbstractSemanticModelElementDao 
           concept.setSource(sourceUri);
         } else {
           LOGGER.info(
-              "Could not convert " + sourceTaggedValue + " on " + EaModelUtils.toString(object)
-                  + " to an absolute HTTP-URI, treating it as a textual reference");
+              "Could not convert {} on {} to an absolute HTTP-URI, treating it as a textual reference",
+              sourceTaggedValue, EaModelUtils.toString(object));
           concept.setSourceTextualReference(sourceTaggedValue);
         }
       } catch (URISyntaxException e) {
         LOGGER.info(
-            "Could not convert " + sourceTaggedValue + " on " + EaModelUtils.toString(object)
-                + " to a valid URI, ignoring message " + e.getMessage(),
-            ", treating it as a textual reference");
+            "Could not convert {} on {} to a valid URI, ignoring message {}, treating it as a textual reference",
+            sourceTaggedValue, EaModelUtils.toString(object), e.getMessage());
         concept.setSourceTextualReference(sourceTaggedValue);
       }
     }

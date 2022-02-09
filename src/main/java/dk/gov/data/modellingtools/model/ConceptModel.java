@@ -3,9 +3,13 @@ package dk.gov.data.modellingtools.model;
 import java.net.URI;
 import java.util.Date;
 import java.util.Map;
+import org.apache.commons.exec.util.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * Concept model according to the FDA modelling rules.
+ */
 public class ConceptModel {
 
   private URI identifier;
@@ -37,26 +41,26 @@ public class ConceptModel {
   }
 
   public Map<String, String> getTitles() {
-    return titles;
+    return MapUtils.copy(titles);
   }
 
   public void setTitles(Map<String, String> titles) {
-    this.titles = titles;
+    this.titles = MapUtils.copy(titles);
   }
 
   public Map<String, String> getDescriptions() {
-    return descriptions;
+    return MapUtils.copy(descriptions);
   }
 
   public void setDescriptions(Map<String, String> descriptions) {
-    this.descriptions = descriptions;
+    this.descriptions = MapUtils.copy(descriptions);
   }
 
   public URI[] getLanguages() {
     return ArrayUtils.clone(languages);
   }
 
-  public void setLanguages(URI[] languages) {
+  public void setLanguages(URI... languages) {
     this.languages = ArrayUtils.clone(languages);
   }
 
@@ -84,6 +88,9 @@ public class ConceptModel {
     this.version = version;
   }
 
+  /**
+   * Getter for the last modified date.
+   */
   public Date getLastModifiedDate() {
     if (lastModifiedDate == null) {
       return null;
@@ -92,6 +99,9 @@ public class ConceptModel {
     }
   }
 
+  /**
+   * Setter for the last modified date.
+   */
   public void setLastModifiedDate(Date lastModifiedDate) {
     if (lastModifiedDate == null) {
       this.lastModifiedDate = null;
@@ -136,7 +146,7 @@ public class ConceptModel {
     return ArrayUtils.clone(themes);
   }
 
-  public void setThemes(URI[] themes) {
+  public void setThemes(URI... themes) {
     this.themes = ArrayUtils.clone(themes);
   }
 
@@ -144,22 +154,26 @@ public class ConceptModel {
     return ArrayUtils.clone(sources);
   }
 
-  public void setSources(URI[] sources) {
+  public void setSources(URI... sources) {
     this.sources = ArrayUtils.clone(sources);
   }
 
   public Map<String, String> getVersionNotes() {
-    return versionNotes;
+    return MapUtils.copy(versionNotes);
   }
 
   public void setVersionNotes(Map<String, String> versionNotes) {
-    this.versionNotes = versionNotes;
+    this.versionNotes = MapUtils.copy(versionNotes);
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("title (da)", titles.get("da"))
-        .append("version", version).toString();
+    if (titles != null || version != null) {
+      return new ToStringBuilder(this).append("title (da)", getTitles().get("da"))
+          .append("version", version).toString();
+    } else {
+      return new ToStringBuilder(this).toString();
+    }
   }
 
 }

@@ -1,7 +1,11 @@
 package dk.gov.data.modellingtools.dao.impl;
 
-import static net.sf.saxon.s9api.streams.Predicates.*;
-import static net.sf.saxon.s9api.streams.Steps.*;
+import static net.sf.saxon.s9api.streams.Predicates.eq;
+import static net.sf.saxon.s9api.streams.Predicates.some;
+import static net.sf.saxon.s9api.streams.Steps.attribute;
+import static net.sf.saxon.s9api.streams.Steps.child;
+import static net.sf.saxon.s9api.streams.Steps.descendant;
+import static net.sf.saxon.s9api.streams.Steps.text;
 
 import dk.gov.data.modellingtools.dao.ScriptGroupDao;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
@@ -9,6 +13,7 @@ import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Script;
 import dk.gov.data.modellingtools.model.ScriptGroup;
 import dk.gov.data.modellingtools.utils.XmlAndXsltUtils;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +27,14 @@ import org.slf4j.LoggerFactory;
 /**
  * Retrieves scripts group from the Enterprise Architect model.
  */
+@SuppressWarnings("PMD.TooManyStaticImports")
 public class ScriptGroupDaoImpl implements ScriptGroupDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScriptGroupDaoImpl.class);
 
   private EnterpriseArchitectWrapper eaWrapper;
 
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   public ScriptGroupDaoImpl(EnterpriseArchitectWrapper eaWrapper) {
     super();
     this.eaWrapper = eaWrapper;
@@ -84,8 +91,8 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
       List<XdmNode> scriptRowsForScriptGroup = queryResultNode
           .select(descendant("Row").where(some(child("ScriptAuthor"), eq(scriptGroup.getId()))))
           .asList();
-      LOGGER.info("Number of scripts in " + scriptGroup.toString() + ": "
-          + scriptRowsForScriptGroup.size());
+      LOGGER.info("Number of scripts in {}: {}", scriptGroup.toString(),
+          scriptRowsForScriptGroup.size());
       List<Script> scripts = new ArrayList<>();
       for (XdmNode scriptRow : scriptRowsForScriptGroup) {
         Script script = createScript(scriptGroup, scriptRow);

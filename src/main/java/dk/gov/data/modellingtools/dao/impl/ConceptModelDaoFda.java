@@ -2,9 +2,11 @@ package dk.gov.data.modellingtools.dao.impl;
 
 import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.ConceptModelDao;
+import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.utils.TaggedValueUtils;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.ConceptModel;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -14,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.time.DateUtils;
 import org.sparx.Element;
-import org.sparx.Package;
 
 /**
  * Implementation based on the FDA rules for concept and data modelling.
@@ -24,11 +25,19 @@ public class ConceptModelDaoFda implements ConceptModelDao {
   // TODO make configurable
   private static final char SPLIT_CHARACTER = ';';
 
+  private EnterpriseArchitectWrapper eaWrapper;
+
+  @SuppressFBWarnings("EI_EXPOSE_REP")
+  public ConceptModelDaoFda(EnterpriseArchitectWrapper eaWrapper) {
+    super();
+    this.eaWrapper = eaWrapper;
+  }
+
   @Override
-  public ConceptModel findByPackage(Package umlPackage) throws ModellingToolsException {
+  public ConceptModel findByPackageGuid(String packageGuid) throws ModellingToolsException {
     // TODO extract all tags to constants and move to FdaConstants
     // TODO find all tags at once
-    Element packageElement = umlPackage.GetElement();
+    Element packageElement = this.eaWrapper.getPackageByGuid(packageGuid).GetElement();
     String fqStereotype = packageElement.GetFQStereotype();
     Validate.isTrue(FdaConstants.FQ_STEREOTYPE_CONCEPT_MODEL.equals(fqStereotype),
         "Stereotype must be " + FdaConstants.FQ_STEREOTYPE_CONCEPT_MODEL + " but is "

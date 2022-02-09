@@ -1,5 +1,6 @@
 package dk.gov.data.modellingtools.scriptmanagement.impl;
 
+import dk.gov.data.modellingtools.config.FreemarkerTemplateConfiguration;
 import dk.gov.data.modellingtools.dao.ScriptGroupDao;
 import dk.gov.data.modellingtools.dao.impl.ScriptGroupDaoImpl;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
@@ -8,7 +9,7 @@ import dk.gov.data.modellingtools.model.Script;
 import dk.gov.data.modellingtools.model.ScriptGroup;
 import dk.gov.data.modellingtools.scriptmanagement.ScriptManager;
 import dk.gov.data.modellingtools.utils.FolderAndFileUtils;
-import freemarker.template.Configuration;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.BufferedWriter;
@@ -51,16 +52,12 @@ public class ScriptManagerImpl implements ScriptManager {
 
   private ScriptGroupDao scriptGroupDao;
 
-  private Configuration templateConfiguration;
-
-  public ScriptManagerImpl(EnterpriseArchitectWrapper eaWrapper,
-      Configuration templateConfiguration) {
-    this(new ScriptGroupDaoImpl(eaWrapper), templateConfiguration);
+  public ScriptManagerImpl(EnterpriseArchitectWrapper eaWrapper) {
+    this(new ScriptGroupDaoImpl(eaWrapper));
   }
 
-  public ScriptManagerImpl(ScriptGroupDao scriptGroupDao, Configuration templateConfiguration) {
+  public ScriptManagerImpl(ScriptGroupDao scriptGroupDao) {
     this.scriptGroupDao = scriptGroupDao;
-    this.templateConfiguration = templateConfiguration;
   }
 
   @Override
@@ -81,7 +78,7 @@ public class ScriptManagerImpl implements ScriptManager {
     if (createDocumentation) {
       createScriptDocumentation(scriptGroups, new File(folder, "README.md"));
     }
-    LOGGER.info("Finished exporting scripts");
+    LOGGER.info("Finished exporting scripts to {}", folder);
   }
 
   /**
@@ -97,8 +94,11 @@ public class ScriptManagerImpl implements ScriptManager {
     if (folder.exists()) {
       Validate.isTrue(folder.isDirectory(), folder.getAbsolutePath() + " is not a directory");
       try {
-        Validate.isTrue(PathUtils.isEmptyDirectory(folder.toPath())
-            || FileUtils.directoryContains(folder, referenceData), "");
+        boolean emptyDirectory = PathUtils.isEmptyDirectory(folder.toPath());
+        boolean directoryContainsReferenceData = FileUtils.directoryContains(folder, referenceData);
+        Validate.isTrue(emptyDirectory || directoryContainsReferenceData,
+            "Cannot export to folder %1$s. It must be either empty or contain reference data. State: empty=%2$b; contains reference data=%3$b",
+            folder.getAbsolutePath(), emptyDirectory, directoryContainsReferenceData);
         FileUtils.cleanDirectory(folder);
       } catch (IOException e) {
         throw new ModellingToolsException("Could not validate folder " + folder.toString(), e);
@@ -116,15 +116,15 @@ public class ScriptManagerImpl implements ScriptManager {
       throws ModellingToolsException {
     for (ScriptGroup scriptGroup : scriptGroups) {
       File scriptFolder = createScriptFolderIfNeeded(folder, scriptGroup.getName());
-      LOGGER.info("Starting exporting scripts for script group " + scriptGroup.toString()
-          + " to folder " + scriptFolder.getAbsolutePath());
+      LOGGER.info("Starting exporting scripts for script group {} to folder {}",
+          scriptGroup.toString(), scriptFolder.getAbsolutePath());
       List<Script> scripts = scriptGroup.getScripts();
       for (Script script : scripts) {
         LOGGER.info(script.toString());
         File scriptFile = new File(scriptFolder, script.getFileName());
         try {
           FileUtils.writeStringToFile(scriptFile, script.getContents(), StandardCharsets.UTF_8);
-          LOGGER.info(scriptFile.getAbsolutePath() + " written.");
+          LOGGER.info("{} written.", scriptFile.getAbsolutePath());
         } catch (IOException e) {
           throw new ModellingToolsException(
               "Could not write content to " + scriptFile.getPath() + e.getMessage(), e);
@@ -134,13 +134,15 @@ public class ScriptManagerImpl implements ScriptManager {
     }
   }
 
+  @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
   private void inspectScriptFolderContents(File scriptFolder, List<Script> scripts) {
-    if (scriptFolder != null & scriptFolder.list() != null && scripts != null
-        && scriptFolder.list().length > scripts.size()) {
-      LOGGER.warn(scriptFolder.getPath()
-          + " contains more files than the number of scripts that was written,"
-          + " has a script been deleted? If so, delete this file as well on the"
-          + " file system and in the version control system");
+    Validate.notNull(scriptFolder);
+    Validate.notNull(scripts);
+    Validate.notNull(scriptFolder.list());
+    if (scriptFolder.list().length > scripts.size()) {
+      LOGGER.warn(
+          "{} contains more files than the number of scripts that was written, has a script been deleted? If so, delete this file as well on the file system and in the version control system.",
+          scriptFolder.getPath());
     }
   }
 
@@ -169,7 +171,8 @@ public class ScriptManagerImpl implements ScriptManager {
       dataForTemplate.put("scriptGroups", scriptGroups);
 
       // retrieve and populate template
-      Template template = templateConfiguration.getTemplate(templateFileName);
+      Template template =
+          FreemarkerTemplateConfiguration.INSTANCE.getConfiguration().getTemplate(templateFileName);
       template.process(dataForTemplate, writer);
     } catch (IOException e) {
       throw new ModellingToolsException(
@@ -186,7 +189,7 @@ public class ScriptManagerImpl implements ScriptManager {
    * {@link Script#getDescription()} for runnable scripts.
    */
   private void updateScriptMetadataIfPossible(Script script) {
-    LOGGER.debug("Parsing script " + script.getName());
+    LOGGER.debug("Parsing script {}", script.getName());
     AstRoot parsedScript =
         getParser().parse(removeEaSpecificConstructsFromScriptContents(script.getContents()),
             script.getFileName(), 1);
@@ -212,7 +215,7 @@ public class ScriptManagerImpl implements ScriptManager {
             if (functionName.getIdentifier().equals(targetAsName.getIdentifier())) {
               String jsDoc = node.getJsDoc();
               if (StringUtils.isBlank(jsDoc)) {
-                LOGGER.warn("Function " + functionName.getIdentifier() + " has no JSDoc");
+                LOGGER.warn("Function {} has no JSDoc", functionName.getIdentifier());
               } else {
                 String jsDocWithoutAsterisks = getJsDocWithoutTagsAndAsterisks(jsDoc);
                 script.setSummary(extractTagValueFromJsDoc("@summary", jsDocWithoutAsterisks));
@@ -225,11 +228,12 @@ public class ScriptManagerImpl implements ScriptManager {
     } else if (numberOfExpressionStatements == 0) {
       // probably script with utility functions
       script.setIsRunnable(Boolean.FALSE);
-      LOGGER.debug("No expression statements found in " + script.getFileName());
+      LOGGER.debug("No expression statements found in {}", script.getFileName());
     } else {
       script.setIsRunnable(Boolean.TRUE);
-      LOGGER.warn("More than one expression statement found in " + script.getFileName()
-          + " , no single method found to take the documentation from.");
+      LOGGER.warn(
+          "More than one expression statement found in {} , no single method found to take the documentation from.",
+          script.getFileName());
     }
   }
 
@@ -265,9 +269,9 @@ public class ScriptManagerImpl implements ScriptManager {
   }
 
   private String getJsDocWithoutTagsAndAsterisks(String jsDoc) {
-    LOGGER.debug("jsdoc: " + jsDoc);
-    assert jsDoc.startsWith("/**");
-    assert jsDoc.endsWith("*/");
+    LOGGER.debug("jsdoc: {}", jsDoc);
+    Validate.isTrue(jsDoc.startsWith("/**"));
+    Validate.isTrue(jsDoc.endsWith("*/"));
     // remove starting /**, ending */ and trailing whitespace
     // what is left is set of lines which may start with *
     // (most of them will, but not necessarily all of them)
@@ -278,7 +282,7 @@ public class ScriptManagerImpl implements ScriptManager {
     Pattern pattern = Pattern.compile("^\\s*\\*\\s?(.*)$", Pattern.MULTILINE);
     String jsDocWithoutAsterisks =
         pattern.matcher(jsDocWithoutOpeningAndClosingTag).replaceAll("$1");
-    LOGGER.trace("jsdoc2: " + jsDocWithoutAsterisks);
+    LOGGER.trace("jsdoc2: {}", jsDocWithoutAsterisks);
     return jsDocWithoutAsterisks;
   }
 

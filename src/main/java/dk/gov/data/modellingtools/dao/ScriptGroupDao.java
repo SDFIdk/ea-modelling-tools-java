@@ -5,11 +5,14 @@ import dk.gov.data.modellingtools.model.ScriptGroup;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Data access object for {@link ScriptGroup}s.
+ */
 public interface ScriptGroupDao {
 
   /**
    * Find all script groups, the scripts in the script groups inclusive.
-   * 
+   *
    * @see ScriptGroup#getScripts()
    */
   List<ScriptGroup> findAllIncludingScripts(String scriptGroupNameOrRegex)

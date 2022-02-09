@@ -18,6 +18,10 @@ import org.sparx.Attribute;
 import org.sparx.ConnectorEnd;
 import org.sparx.Element;
 
+/**
+ * Implementation of {@link AbstractSemanticModelElementDao} for the Basic Data modelling rules
+ * version 1.
+ */
 public class SemanticModelElementDaoBasicData1 extends AbstractSemanticModelElementDao {
 
 

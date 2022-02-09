@@ -1,8 +1,11 @@
 package dk.gov.data.modellingtools.ea.impl;
 
-import static net.sf.saxon.s9api.streams.Steps.*;
+import static net.sf.saxon.s9api.streams.Steps.child;
+import static net.sf.saxon.s9api.streams.Steps.descendant;
+import static net.sf.saxon.s9api.streams.Steps.text;
 
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
+import dk.gov.data.modellingtools.ea.model.ConnectorType;
 import dk.gov.data.modellingtools.ea.model.EaConnectorEnd;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
@@ -12,7 +15,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.sf.saxon.s9api.XdmNode;
@@ -41,6 +46,8 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   private static final String TASKLIST_EA = "TASKLIST /V /FO CSV /NH /FI \"IMAGENAME eq EA.exe\"";
 
+  private Map<String, Package> packages;
+
   /**
    * Regex for contents of column t_xref.description (where column name = 'Stereotypes').
    * 
@@ -53,9 +60,17 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   private Repository eaRepository;
 
+  /**
+   * Constructor.
+   *
+   * @param eaProcessId the Windows process id of the running EA instance containing the model of
+   *        interest
+   * @throws ModellingToolsException if the EA repository cannot be retrieved
+   */
   public EnterpriseArchitectWrapperImpl(int eaProcessId) throws ModellingToolsException {
     super();
     this.eaRepository = retrieveRepository(eaProcessId);
+    this.packages = new HashMap<>();
   }
 
   private Repository retrieveRepository(int eaProcessId) throws ModellingToolsException {
@@ -84,7 +99,7 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       DefaultExecutor executor = new DefaultExecutor();
       executor.setStreamHandler(new PumpStreamHandler(normalAndErrorOutputStream));
       int exitValue = executor.execute(cmdLine);
-      LOGGER.debug("Exit value " + exitValue + " for " + taskListCommand);
+      LOGGER.debug("Exit value {} for {}", exitValue, taskListCommand);
       String output = normalAndErrorOutputStream.toString(Charset.defaultCharset());
       LOGGER.debug(output);
       return output;
@@ -96,10 +111,8 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   private void validateOutput(int eaProcessId, String output) throws ModellingToolsException {
     if (output.indexOf("No tasks are running which match the specified criteria") != -1) {
-      LOGGER.info("Output received:\r\n" + output);
-      LOGGER.info("All running EA processes: ");
-      String outputAllEaProcesses = queryTaskListForEaProcesses();
-      LOGGER.info("\r\n" + outputAllEaProcesses);
+      LOGGER.info("Output received:\r\n{}", output);
+      LOGGER.info("All running EA processes: \r\n{}", queryTaskListForEaProcesses());
       throw new ModellingToolsException("No EA process found with pid " + eaProcessId
           + ", check the previous logging output to see the currently running EA processes");
     }
@@ -117,15 +130,21 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   @Override
   public String sqlQuery(String query) throws ModellingToolsException {
-    LOGGER.debug("Executing query " + query);
+    LOGGER.debug("Executing query {}", query);
     String resultSqlQueryAsXmlFormattedString = this.eaRepository.SQLQuery(query);
-    LOGGER.trace("Query result: " + resultSqlQueryAsXmlFormattedString);
+    LOGGER.trace("Query result: {}", resultSqlQueryAsXmlFormattedString);
     return resultSqlQueryAsXmlFormattedString;
   }
 
   @Override
   public Package getPackageByGuid(String packageGuid) throws ModellingToolsException {
-    return this.eaRepository.GetPackageByGuid(packageGuid);
+    Package umlPackage;
+    if (packages.containsKey(packageGuid)) {
+      umlPackage = packages.get(packageGuid);
+    } else {
+      umlPackage = this.eaRepository.GetPackageByGuid(packageGuid);
+    }
+    return umlPackage;
   }
 
   @Override
@@ -174,8 +193,8 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       throws ModellingToolsException {
     String query = "select Client & IIF(Type = 'connectorSrcEnd property', '"
         + EaConnectorEnd.ID_SUFFIX_SOURCE + "', '" + EaConnectorEnd.ID_SUFFIX_TARGET
-        + "') as id, Description as stereotypes "
-        + "from t_xref x where x.Name = 'Stereotypes' and x.Type in ('connectorSrcEnd property', 'connectorDestEnd property')";
+        + "') as id, Description as stereotypes from t_xref x "
+        + "where x.Name = 'Stereotypes' and x.Type in ('connectorSrcEnd property', 'connectorDestEnd property')";
     MultiValuedMap<String, String> multiValuedMap = retrieveFqStereotypes(query);
     return multiValuedMap;
   }
@@ -187,7 +206,7 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       packageIds.add(subPackage.GetPackageID());
     }
     String packageIdString = StringUtils.join(packageIds, ',');
-    LOGGER.debug("Package ids: " + packageIdString);
+    LOGGER.debug("Package ids: {}", packageIdString);
     return packageIdString;
   }
 
@@ -196,11 +215,12 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       Element element) {
     return eaRepository.GetElementByID(connector.GetClientID()).GetPackageID() == eaRepository
         .GetElementByID(connector.GetSupplierID()).GetPackageID()
-        && (connector.GetType() == "Association" || connector.GetType() == "Aggregation")
-        || ((connector.GetClientID() == element.GetElementID()
-            && (connector.GetType() == "Association"))
-            || (connector.GetSupplierID() == element.GetElementID()
-                && connector.GetType() == "Aggregation"));
+        && (ConnectorType.ASSOCIATION.getEaType().equals(connector.GetType())
+            || ConnectorType.AGGREGATION.getEaType().equals(connector.GetType()))
+        || connector.GetClientID() == element.GetElementID()
+            && ConnectorType.ASSOCIATION.getEaType().equals(connector.GetType())
+        || connector.GetSupplierID() == element.GetElementID()
+            && ConnectorType.AGGREGATION.getEaType().equals(connector.GetType());
   }
 
 }

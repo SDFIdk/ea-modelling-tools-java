@@ -17,8 +17,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sparx.Attribute;
 import org.sparx.Connector;
 import org.sparx.ConnectorEnd;
@@ -28,12 +26,10 @@ import org.sparx.Package;
 
 /**
  * Utility methods for working with EA models.
- * 
+ *
  * @see EnterpriseArchitectWrapper
  */
 public final class EaModelUtils {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(EaModelUtils.class);
 
   /*
    * When functionality from the EA Repository is needed, then add a method in
@@ -44,6 +40,8 @@ public final class EaModelUtils {
   private EaModelUtils() {}
 
   /**
+   * Determines the type of the given element.
+   *
    * @throws UnsupportedOperationException if the element type is unknown to this application
    */
   public static ModelElementType determineUmlModelElementType(Element element)
@@ -101,9 +99,11 @@ public final class EaModelUtils {
   }
 
   /**
-   * @return associations (including the aggregations and compositions) in the given package or one
-   *         of its subpackages. This method does not take into account that a connector may be
-   *         version controlled in another package
+   * Gets. associations (including the aggregations and compositions) in the given package or one of
+   * its subpackages.
+   * 
+   * <p>This method does not take into account that a connector may be version controlled in another
+   * package.</p>
    */
   public static Collection<Connector> getAllAssociationsOfPackageAndSubpackages(
       Package umlPackage) {
@@ -126,14 +126,17 @@ public final class EaModelUtils {
    * @param <T> Sparx type
    */
   public static <T> Collection<T> convertEaCollectionToJavaCollection(
-      org.sparx.Collection<T> eACollection) {
+      org.sparx.Collection<T> eaCollection) {
     Collection<T> javaCollection = new ArrayList<>();
-    for (T item : eACollection) {
+    for (T item : eaCollection) {
       javaCollection.add(item);
     }
     return javaCollection;
   }
 
+  /**
+   * Checks whether the given package has the given stereotype.
+   */
   public static boolean hasPackageStereotype(Package umlPackage, String stereotype) {
     List<String> packageStereotypes =
         Arrays.asList(StringUtils.split(umlPackage.GetStereotypeEx(), ','));
@@ -197,7 +200,7 @@ public final class EaModelUtils {
 
   /**
    * Returns a string containing the name and GUID of the given object, e.g. for use in logging.
-   * 
+   *
    * @throws UnsupportedOperationException if the type of object is unknown to this application
    */
   public static String toString(Object object) {

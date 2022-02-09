@@ -3,8 +3,6 @@
 This project contains a set of tools, written in Java, to support model driven development for models made with Sparx
 Enterprise Architect (EA).
 
-ℹ️ This project is work in progress, no releases have been made yet.
-
 ## Using the tools
 
 ### Prerequisites
@@ -17,7 +15,7 @@ Enterprise Architect (EA).
     1. `<Windows folder>/SysWOW64` (on a 64-bit machine)
     2. `<Windows folder>/System32` (on a 32-bit machine)
 
-    See also https://sparxsystems.com/enterprise_architect_user_guide/15.2/automation/automation_connect_setup.html.
+    See also the [EA User Guide](https://www.sparxsystems.com/search/sphider/search.php?query=%22Connect%20to%20the%20interface%22&type=and&category=User+Guide+Latest&tab=5&search=1).
     
     ⚠️ Administrator rights are needed for this operation.
 
@@ -41,7 +39,7 @@ Enterprise Architect (EA).
     ```
 
 4. Restart Enterprise Architect, if it is open.
-5. Install the scripts from TODO.
+5. Install the scripts from EA Modelling Tools JavaScript.
 
 ### Usage
 
@@ -50,12 +48,14 @@ Enterprise Architect (EA).
 Run a script from within Enterprise Architect that calls a bat file, it will contain something like the following:
 
 ```
-runBatFileInDefaultWorkingDirectory("export-scripts.bat", "options");
+runBatFileInDefaultWorkingDirectory("script-name.bat", "options");
 ```
 
 #### On the command line
 
-Find the process id of the Enterprise Architect process using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) command: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`. Provide that process id as option `-eapid` to the main class you want to run.
+Find the process id of the Enterprise Architect process by using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) command: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`, or by using script `retrieve-process-id-of-running-ea-instance` in EA Modelling Tools JavaScript.
+
+Provide that process id as option `-eapid` to the main class you want to run.
 
 Use an application directly by navigating to the folder containing the tools and invoking a script:
 
@@ -70,18 +70,30 @@ e.g.
 bin\export-scripts.bat
 ```
 
-The options will be shown in the output. For most scripts, one of the options is `-eapid`, use the process id identified with the `tasklist` command as described above.
+The options will be shown in the output. For most scripts, one of the options is `-eapid`, use the process id identified in the previous step.
 
 The output is produced with the logging configuration that comes with the tools (conf\logback.xml). It is shown in the command line and in the Script Window Enterprise Architect and it is saved in file log\output.log.
 
-#### In an Integrated Development Environment (IDE)
+## For developers
 
-Use `src/main/config` as source folder as well, so add it to the build path of the project. Note: the maven-assembly-plugin assembles the
-code in such a way that the contents of the `conf` folder is added to the classpath, see also "Building the tools" and the Maven configuration.
+### Using the tools in an Integrated Development Environment (IDE)
 
-Find the process id of the Enterprise Architect process using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) commmand: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`. Provide that process id as option `-eapid` to the main class you want to run.
+Add folder `src/main/config` to the build path of the project.
 
-## Building the tools
+⚠️ Do not add folder `src/main/config` as a source folder, as the contents otherwise will be add to folder target by your IDE during the building of the project, and this does not reflect the Maven configuration.
+
+ℹ️ The maven-assembly-plugin assembles the
+code in such a way that the contents of the `conf` folder is added to the classpath, see also "Building the tools" and the [Maven configuration](./pom.xml).
+
+ℹ️ The maven-surefire-plugin has `src/main/config` as additional class path entry, see the [Maven configuration](./pom.xml).
+
+ℹ️ The reason for this set-up is that end users should have access to the templates in the config folder, so they can see the contents, and the templates can be modified locally when needed. Otherwise they would end up in the jar-file itself, and would not be editable.
+
+Find the process id of the Enterprise Architect process by using the [tasklist](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist) command: `TASKLIST /V /FO CSV /NH /FI "IMAGENAME eq EA.exe"`, or by using script `retrieve-process-id-of-running-ea-instance` in EA Modelling Tools JavaScript.
+
+Provide that process id as option `-eapid` to the main class you want to run.
+
+### Building the tools
 
 [Maven](http://maven.apache.org/download.cgi) version 3.6 or later is needed to build the project, see also pom.xml.
 
@@ -122,9 +134,20 @@ See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mi
 
 See more information about Maven's build lifecyle on http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html.
 
-## Adding applications
+### Adding applications
 
 To add a new application:
 
 1. Create a class that extends from `AbstractApplication` and add a [main method](https://docs.oracle.com/javase/tutorial/getStarted/application/#MAIN) to it.
 2. Create a new `program` entry in pom.xml in `/project/build/plugins/plugin[artifactId='appassembler-maven-plugin']/executions/execution/configuration/programs`.
+3. Add a corresponding script in EA Modelling Tools Javascript.
+
+### Logging
+
+The logging framework used is [logback](https://logback.qos.ch/manual/index.html).
+
+Logging messages can be done by means of [parameterised logging](https://logback.qos.ch/manual/architecture.html#parametrized), e.g.
+
+```java
+logger.debug("This is a message containing two values passed in the next arguments: {} and {}.", argument1, argument2);
+```

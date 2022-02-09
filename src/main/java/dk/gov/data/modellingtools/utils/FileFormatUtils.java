@@ -29,7 +29,7 @@ public class FileFormatUtils {
   /**
    * Get extension for the template file, based on the file format.
    * 
-   * @see https://freemarker.apache.org/docs/pgui_config_outputformatsautoesc.html
+   * <p>See also https://freemarker.apache.org/docs/pgui_config_outputformatsautoesc.html.</p>
    */
   public static String getTemplateExtension(String fileFormat) {
     String templateExtension;

@@ -8,6 +8,7 @@ import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Concept;
 import dk.gov.data.modellingtools.model.ModelElement;
 import dk.gov.data.modellingtools.model.SemanticModelElement;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -20,6 +21,9 @@ import org.sparx.ConnectorEnd;
 import org.sparx.Element;
 import org.sparx.Package;
 
+/**
+ * Gathers common logic for {@link SemanticModelElementDao}s.
+ */
 public abstract class AbstractSemanticModelElementDao implements SemanticModelElementDao {
 
   private static final Logger LOGGER =
@@ -27,16 +31,16 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
 
   private EnterpriseArchitectWrapper eaWrapper;
 
-  private ConnectorEnd clientEnd;
-
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   public AbstractSemanticModelElementDao(EnterpriseArchitectWrapper enterpriseArchitectWrapper) {
     this.eaWrapper = enterpriseArchitectWrapper;
   }
 
   @Override
-  public final List<SemanticModelElement> findAll(Package umlPackage)
+  public final List<SemanticModelElement> findAllByPackageGuid(String packageGuid)
       throws ModellingToolsException {
-    LOGGER.debug("Finding semantic model elements in " + EaModelUtils.toString(umlPackage));
+    Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
+    LOGGER.debug("Finding semantic model elements in {}", EaModelUtils.toString(umlPackage));
     /*
      * Retrieving fully-qualified stereotypes of attributes, connector ends, etc. from the EA model
      * file is time-expensive, so retrieving them all at once for the package.
@@ -49,20 +53,20 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
     for (Element element : EaModelUtils.getElementsOfPackageAndSubpackages(umlPackage)) {
       if (qualifiesAsSemanticModelElement(element)) {
         allSemanticModelElements.add(createSemanticModelElement(element));
-        allSemanticModelElements.addAll(findSemanticModelElementsOnElementAttributes(umlPackage,
-            element, attributeFqStereotypes));
-        allSemanticModelElements.addAll(findSemanticModelElementsOnNavigableAssociationEnds(
-            umlPackage, element, connectorEndFqStereotypes));
+        allSemanticModelElements
+            .addAll(findSemanticModelElementsOnElementAttributes(element, attributeFqStereotypes));
+        allSemanticModelElements.addAll(findSemanticModelElementsOnNavigableAssociationEnds(element,
+            connectorEndFqStereotypes));
       } else {
-        LOGGER.info("Skipping " + EaModelUtils.toString(element));
+        LOGGER.info("Skipping {}", EaModelUtils.toString(element));
       }
     }
+    LOGGER.info("Found {} semantic model elements in total", allSemanticModelElements.size());
     return allSemanticModelElements;
   }
 
-  private List<SemanticModelElement> findSemanticModelElementsOnElementAttributes(
-      Package umlPackage, Element element, MultiValuedMap<String, String> attributeFqStereotypes)
-      throws ModellingToolsException {
+  private List<SemanticModelElement> findSemanticModelElementsOnElementAttributes(Element element,
+      MultiValuedMap<String, String> attributeFqStereotypes) throws ModellingToolsException {
     List<SemanticModelElement> semanticModelElements = new ArrayList<>();
     for (Iterator<Attribute> attributeIterator =
         element.GetAttributes().iterator(); attributeIterator.hasNext();) {
@@ -70,15 +74,15 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
       if (qualifiesAsSemanticModelElement(attribute, attributeFqStereotypes)) {
         semanticModelElements.add(createSemanticModelElement(element, attribute));
       } else {
-        LOGGER.warn("Skipping " + EaModelUtils.toString(attribute)
-            + " as it does not have the right stereotype");
+        LOGGER.warn("Skipping {} as it does not have the right stereotype",
+            EaModelUtils.toString(attribute));
       }
     }
     return semanticModelElements;
   }
 
   private List<SemanticModelElement> findSemanticModelElementsOnNavigableAssociationEnds(
-      Package umlPackage, Element element, MultiValuedMap<String, String> connectorEndFqStereotypes)
+      Element element, MultiValuedMap<String, String> connectorEndFqStereotypes)
       throws ModellingToolsException {
     List<SemanticModelElement> semanticModelElements = new ArrayList<>();
     Collection<EaConnectorEnd> assocationConnectorEnds =
@@ -90,8 +94,8 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
               .add(createSemanticModelElement(eaConnectorEnd.getOppositeConnectorEnd(),
                   eaConnectorEnd.getOppositeConnectorEndUniqueId()));
         } else {
-          LOGGER.warn("Skipping the opposite end of " + eaConnectorEnd
-              + " as it does not have the right stereotype");
+          LOGGER.warn("Skipping the opposite end of {} as it does not have the right stereotype",
+              eaConnectorEnd);
         }
       }
     }

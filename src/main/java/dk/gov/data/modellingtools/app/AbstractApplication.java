@@ -7,11 +7,8 @@ import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.impl.EnterpriseArchitectWrapperImpl;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.logging.EnterpriseArchitectScriptWindowAppender;
-import freemarker.template.Configuration;
-import freemarker.template.TemplateExceptionHandler;
 import java.io.File;
 import java.util.Iterator;
-import net.sf.saxon.lib.NamespaceConstant;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -41,23 +38,9 @@ public abstract class AbstractApplication {
 
   private HelpFormatter helpFormatter;
   protected Options options;
-  private Configuration config;
 
   public AbstractApplication() {
     super();
-    setSystemPropertiesForXmlProcessing();
-  }
-
-  private void setSystemPropertiesForXmlProcessing() {
-    // dependency xerces:xercesImpl
-    System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
-        "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
-    // dependency net.sf.saxon:Saxon-HE
-    System.setProperty("javax.xml.transform.TransformerFactory",
-        "net.sf.saxon.TransformerFactoryImpl");
-    // dependency net.sf.saxon:Saxon-HE
-    System.setProperty("javax.xml.xpath.XPathFactory:" + NamespaceConstant.OBJECT_MODEL_SAXON,
-        "net.sf.saxon.xpath.XPathFactoryImpl");
   }
 
   protected final void addCommonOptions() {
@@ -214,16 +197,5 @@ public abstract class AbstractApplication {
 
   protected abstract void doApplicationSpecificLogic(CommandLine commandLine,
       EnterpriseArchitectWrapper eaWrapper) throws ParseException, ModellingToolsException;
-
-  protected final Configuration getTemplateConfiguration() {
-    if (config == null) {
-      config = new Configuration(Configuration.VERSION_2_3_31);
-      config.setClassForTemplateLoading(this.getClass(), "/templates");
-      config.setDefaultEncoding("UTF-8");
-      config.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-      config.setRecognizeStandardFileExtensions(true);
-    }
-    return config;
-  }
 
 }

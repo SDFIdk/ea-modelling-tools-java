@@ -32,6 +32,9 @@ public class ModelElement {
     this.umlName = umlName;
   }
 
+  /**
+   * Replaces the special Danish characters with their basic Latin Ascii versions.
+   */
   public String getTransliteratedUmlName() {
     if (transliteratedUmlName == null) {
       transliteratedUmlName =
@@ -81,7 +84,7 @@ public class ModelElement {
 
     /**
      * Returns the type of element in EA.
-     * 
+     *
      * @see org.sparx.Element#GetType()
      * @throws UnsupportedOperationException When the EA type is not a type that in EA is treated as
      *         an Element (table t_object).
