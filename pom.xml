@@ -5,9 +5,15 @@
   <artifactId>ea-modelling-tools-java</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
   <name>EA Modelling Tools Java</name>
-  <url>http://maven.apache.org</url>
+  <scm>
+    <!-- local repository -->
+    <!-- Use the following command to release locally: mvn release:prepare.
+    After that, push the changes to the remote repository.
+     -->
+    <developerConnection>scm:git:file://.</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -247,6 +253,15 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>3.0.0-M5</version>
+        <configuration>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+          <!-- push manually -->
+          <pushChanges>false</pushChanges>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
