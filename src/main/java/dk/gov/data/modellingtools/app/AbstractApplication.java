@@ -16,6 +16,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -139,41 +140,80 @@ public abstract class AbstractApplication {
     getHelpFormatter().printHelp(getCommandLineSyntax(), getDescription(), options, null);
   }
 
-  protected final void run(String... args) throws ModellingToolsException {
-    createOptions();
-    if (args == null || args.length == 0) {
-      printHelp(options);
-    } else {
-      try {
-        CommandLine commandLine = new DefaultParser().parse(options, args);
-        int eaProcessId =
-            Integer.parseInt(commandLine.getOptionValue(AbstractApplication.OPTION_EA_PROCESS_ID));
-        EnterpriseArchitectWrapper eaWrapper = new EnterpriseArchitectWrapperImpl(eaProcessId);
-
-        startEaScriptWindowAppenders(eaWrapper);
-
-        doApplicationSpecificLogic(commandLine, eaWrapper);
-
-        if (commandLine.hasOption(AbstractApplication.OPTION_PAUSE)) {
-          long seconds =
-              Long.parseLong(commandLine.getOptionValue(AbstractApplication.OPTION_PAUSE));
-          Thread.sleep(seconds * 1000);
-        }
-      } catch (ParseException e) {
+  /**
+   * Creates the options for the application, runs the application and handles exceptions and
+   * throwables.
+   */
+  protected final void run(String... args) {
+    StopWatch stopWatch = StopWatch.createStarted();
+    try {
+      LOGGER.info("Starting java code in {}", System.getProperty("user.dir"));
+      createOptions();
+      if (args == null || args.length == 0) {
         printHelp(options);
-        LOGGER.debug(e.getMessage(), e);
-        throw new ModellingToolsException(
-            "Could not parse the following arguments according to the options set for "
-                + getApplicationName() + ": " + StringUtils.join(args, ' '));
-      } catch (NumberFormatException e) {
-        printHelp(options);
-        LOGGER.debug(e.getMessage(), e);
-        throw new ModellingToolsException(
-            "Could not parse an argument from the command line to a string");
-      } catch (InterruptedException e) {
-        LOGGER.debug(e.getMessage(), e);
-        throw new ModellingToolsException("Could not pause application at the end");
+      } else {
+        parseArgumentsAndRunApplication(args);
       }
+    } catch (ModellingToolsException e) {
+      LOGGER.error("Error: {}", e.getMessage(), e);
+    } catch (IllegalArgumentException e) {
+      LOGGER.error("A method has been passed an illegal or inappropriate argument: {}",
+          e.getMessage(), e);
+    } catch (Throwable e) {
+      LOGGER.error("Unexpected error: {}", e.getMessage(), e);
+    } finally {
+      stopWatch.stop();
+      LOGGER.info("Finished in {}", stopWatch.formatTime());
+    }
+  }
+
+  private void parseArgumentsAndRunApplication(String... args) throws ModellingToolsException {
+    CommandLine commandLine = null;
+    try {
+      commandLine = new DefaultParser().parse(options, args);
+      EnterpriseArchitectWrapper eaWrapper = createEaWrapper(commandLine);
+
+      startEaScriptWindowAppenders(eaWrapper);
+      doApplicationSpecificLogic(commandLine, eaWrapper);
+    } catch (ParseException e) {
+      printHelp(options);
+      throw new ModellingToolsException(
+          "Could not parse the following arguments according to the options set for "
+              + getApplicationName() + ": " + StringUtils.join(args, ' '),
+          e);
+    } catch (NumberFormatException e) {
+      printHelp(options);
+      throw new ModellingToolsException(
+          "Could not parse an argument from the command line to a string", e);
+    } finally {
+      if (commandLine == null) {
+        pauseApplication(15);
+      } else {
+        pauseApplicationIfRequested(commandLine);
+      }
+    }
+  }
+
+  private EnterpriseArchitectWrapper createEaWrapper(CommandLine commandLine)
+      throws ModellingToolsException {
+    int eaProcessId =
+        Integer.parseInt(commandLine.getOptionValue(AbstractApplication.OPTION_EA_PROCESS_ID));
+    EnterpriseArchitectWrapper eaWrapper = new EnterpriseArchitectWrapperImpl(eaProcessId);
+    return eaWrapper;
+  }
+
+  private void pauseApplicationIfRequested(CommandLine commandLine) throws ModellingToolsException {
+    if (commandLine.hasOption(AbstractApplication.OPTION_PAUSE)) {
+      long seconds = Long.parseLong(commandLine.getOptionValue(AbstractApplication.OPTION_PAUSE));
+      pauseApplication(seconds);
+    }
+  }
+
+  private void pauseApplication(long seconds) throws ModellingToolsException {
+    try {
+      Thread.sleep(seconds * 1000);
+    } catch (InterruptedException e) {
+      throw new ModellingToolsException("Could not pause application at the end", e);
     }
   }
 

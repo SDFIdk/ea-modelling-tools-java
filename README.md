@@ -7,39 +7,62 @@ Enterprise Architect (EA).
 
 ### Prerequisites
 
-1. The modelling tools only work on Windows systems.
-2. Verify that you have installed a Java Runtime Environment (JRE) that is
-    1. version 11 or later (as required according to the pom.xml file, see `/project/build/plugins/plugin[artifactId='maven-compiler-plugin']/configuration/release`)
-    2. 32 bit (x86), as [EA is a 32-bit application](https://sparxsystems.com/products/ea/sysreq.html)
-3. Copy the file SSJavaCom.dll located in `<EA installation folder>/Java API` to
-    1. `<Windows folder>/SysWOW64` (on a 64-bit machine)
-    2. `<Windows folder>/System32` (on a 32-bit machine)
-
-    See also the [EA User Guide](https://www.sparxsystems.com/search/sphider/search.php?query=%22Connect%20to%20the%20interface%22&type=and&category=User+Guide+Latest&tab=5&search=1).
-    
-    ⚠️ Administrator rights are needed for this operation.
+1. **Windows**: The modelling tools only work on Windows systems.
+2. **Enterprise Architect**: Verify that you have installed Enterprise Architect and that folder `<EA installation folder>\Java API` exists. It should contain at least files `SSJavaCOM.dll` and `eaapi.jar` and it may also contain `SSJavaCOM64.dll`.
+3. **Java**: Verify that you have installed a Java Runtime Environment (JRE) that is version 11 or later (as required according to the pom.xml file, see `/project/build/plugins/plugin[artifactId='maven-compiler-plugin']/configuration/release`).
+    1. If `<EA installation folder>\Java API\SSJavaCOM64.dll` exists, you can choose whether you use a 64-bit JRE or a 32-bit JRE.
+    2. If `<EA installation folder>\Java API\SSJavaCOM64.dll` does not exist, you must use a 32-bit JRE.
 
 ### Installation
 
-1. Download the modelling tools to a location on your computer.
-2. Set user environment variables `JAVACMD` and `EAMT_HOME` using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line. `JAVACMD` must point to the java.exe in a **32-bit** Java installation and is used in the .bat-files. `EAMT_HOME` is used when invoking the .bat-files from within a script in Enterprise Architect.
-    
-    ```
-    SETX JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
-    SETX EAMT_HOME "C:\path\to\folder\containing\bin\conf\log\and\repo"
-    ```
+1. **Download**:
+    1. Go to the "Releases", where you can find a link to a zip file containing the modelling tools.
+    2. Download the modelling tools and unzip the zip file.
+    3. Place the contents somewhere in a suitable location, in a folder called `ea-modelling-tools-java` (so without the version number).
 
-    Note: The user environment variable name `JAVACMD` is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler), the user environment variable name `EAMT_HOME` is defined by this project.
+   You should now have the following structure in `C:\path\to\ea-modelling-tools-java`:
 
-3. Close the command line window and open a new one. Check using `echo`, that the environment variables are set correctly. The input should show the chosen paths:
-    
-    ```
-    echo %JAVACMD% 
-    echo %EAMT_HOME%
-    ```
+   ```
+   +---C:\path\to\ea-modelling-tools-java
+   |   +---bin
+   |   |       *.bat
+   |   |
+   |   +---conf
+   |   |   |   logback.xml
+   |   |   |
+   |   |   \---templates
+   |   |           *.ftl
+   |   |           *.ftlx
+   |   |
+   |   +---log
+   |   \---repo
+   |           *.jar
+   ```
+
+   ℹ️ Leaving out the version number makes it easier to install a newer version of the tools, as `EAMT_HOME` (see next step) then does not have to be set again.
+
+2. **User environment variables**: Set user environment variables `EAMT_HOME` (required), `EA_JAVA_API` (required), `JAVACMD` (conditional),  using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line.
+   1. **(required)** `EAMT_HOME` must point to the ea-modelling-tools-java folder and is used when invoking the .bat-files from within a script in Enterprise Architect. This environment variable is defined by this project.
+   2. **(required)** `EA_JAVA_API` must point to the folder Java API in your EA installation folder (see also the prerequisites) and is used in the .bat-files. This environment variable is defined by this project.
+   3. **(conditional)** `JAVACMD` can be used to identify the java.exe that should be used for running the tools, if another java.exe should be used than the one invoked by calling `java` on the command line (tip: get all the details of the default java by calling `java -XshowSettings:properties --version`). `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
+
+
+   ```
+   SETX EAMT_HOME "C:\path\to\ea-modelling-tools-java"
+   SETX EA_JAVA_API "C:\path\to\EA\installation\folder\Java API"
+   SETX JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
+   ```
+
+3. Close the command line window and open a **new** one. Check using `echo`, that the environment variables are set correctly. The input should show the chosen paths:
+
+   ```
+   echo %EAMT_HOME%
+   echo %EA_JAVA_API%
+   echo %JAVACMD% 
+   ```
 
 4. Restart Enterprise Architect, if it is open.
-5. Install the scripts from EA Modelling Tools JavaScript.
+5. Install the scripts from the project EA Modelling Tools JavaScript.
 
 ### Usage
 
