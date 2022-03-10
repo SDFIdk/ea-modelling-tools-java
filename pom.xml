@@ -213,6 +213,10 @@
               <!-- the contents of ${configurationSourceDirectory} are copied to folder ${myConfigurationDirectory} -->
               <copyConfigurationDirectory>true</copyConfigurationDirectory>
               <configurationDirectory>${myConfigurationDirectory}</configurationDirectory>
+              <!-- Windows-specific. There does not seem to be another way to do this, apart from having the user to specify this property.
+              See also https://stackoverflow.com/questions/34334599/appassembler-maven-plugin-how-to-include-native-library-files-when-generating and
+              https://github.com/mojohaus/appassembler/issues/62 -->
+              <extraJvmArguments>-Djava.library.path="%EA_JAVA_API%"</extraJvmArguments>
               <platforms>
                 <platform>windows</platform>
               </platforms>
@@ -231,6 +235,8 @@
                   <id>export-data-model-vocabulary</id>
                 </program>
               </programs>
+              <!-- This is the way Eclipse does it... -->
+              <projectArtifactFirstInClassPath>true</projectArtifactFirstInClassPath>
             </configuration>
           </execution>
         </executions>

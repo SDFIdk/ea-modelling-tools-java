@@ -46,6 +46,18 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
 
   private static final String TASKLIST_EA = "TASKLIST /V /FO CSV /NH /FI \"IMAGENAME eq EA.exe\"";
 
+  /**
+   * Name of the shared library (.dll file) needed to be able to connect to the Enterprise Architect
+   * Automation Interface with a 32-bit Java.
+   */
+  private static final String DLL_NAME_EA_AUTOMATION_32_JVM = "SSJavaCOM";
+
+  /**
+   * Name of the shared library (.dll file) needed to be able to connect to the Enterprise Architect
+   * Automation Interface with a 64-bit Java.
+   */
+  private static final String DLL_NAME_EA_AUTOMATION_64_JVM = "SSJavaCOM64";
+
   private Map<String, Package> packages;
 
   /**
@@ -73,14 +85,63 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
     this.packages = new HashMap<>();
   }
 
+  /**
+   * The static initializer of {@link Services} calls {@link System#loadLibrary(String)}.
+   *
+   * @see System#loadLibrary(String)
+   */
   private Repository retrieveRepository(int eaProcessId) throws ModellingToolsException {
+    printSelectedSystemProperties();
     if (OS.isFamilyWindows()) {
       String output = queryTaskListForEaProcesses(eaProcessId);
       validateOutput(eaProcessId, output);
-      return Services.GetRepository(eaProcessId);
+      LOGGER.info("Get the EA repository for process id {}", eaProcessId);
+      Repository repository = null;
+      try {
+        // involves a call to System#loadLibrary(String)
+        repository = Services.GetRepository(eaProcessId);
+      } catch (UnsatisfiedLinkError e) {
+        LOGGER.error(e.getMessage(), e);
+        // try to see if a more descriptive error appears
+        // same logic as in the static initializers of Services and Repository
+        String jvmArchitecture = System.getProperty("os.arch");
+        String libname;
+        if ("x86".equals(jvmArchitecture)) {
+          libname = DLL_NAME_EA_AUTOMATION_32_JVM;
+        } else {
+          libname = DLL_NAME_EA_AUTOMATION_64_JVM;
+        }
+        try {
+          System.loadLibrary(libname);
+        } catch (UnsatisfiedLinkError e1) {
+          LOGGER.error("Error when trying to load {}, the EA library to connect to Java", libname,
+              e1);
+        }
+        throw new ModellingToolsException("Check the log for more information", e);
+      }
+      return repository;
     } else {
-      throw new ModellingToolsException("This application can currently only be used in Windows");
+      throw new ModellingToolsException("This application can only be used in Windows");
     }
+  }
+
+  /**
+   * Print selected system properties that may be useful for troubleshooting.
+   *
+   * @see System
+   */
+  private void printSelectedSystemProperties() {
+    LOGGER.info("Java installation directory (java.home): {}", System.getProperty("java.home"));
+    LOGGER.info("JVM architecture (os.arch): {}", System.getProperty("os.arch"));
+    LOGGER.info("Java runtime name (java.runtime.name): {}",
+        System.getProperty("java.runtime.name"));
+    LOGGER.info("Java runtime version (java.runtime.version): {}",
+        System.getProperty("java.runtime.version"));
+    LOGGER.info("Java class path (java.class.path): {}", System.getProperty("java.class.path"));
+    LOGGER.info(
+        "List of paths to search when loading native libraries, such as {} or {} (java.library.path): {}",
+        DLL_NAME_EA_AUTOMATION_32_JVM, DLL_NAME_EA_AUTOMATION_64_JVM,
+        System.getProperty("java.library.path"));
   }
 
   private String queryTaskListForEaProcesses() throws ModellingToolsException {

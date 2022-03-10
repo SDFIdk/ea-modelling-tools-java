@@ -9,16 +9,11 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.StopWatch;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Exports the scripts from an Enterprise Architect file.
  */
 public class ExportScripts extends AbstractApplication {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(ExportScripts.class);
 
   private static final String OPTION_SCRIPT_GROUP = "sg";
 
@@ -32,31 +27,7 @@ public class ExportScripts extends AbstractApplication {
    * Entry point.
    */
   public static void main(String... args) {
-    // Ignore duplicated code checking - CPD-OFF
-    StopWatch stopWatch = StopWatch.createStarted();
-    LOGGER.info("Starting java code in {}", System.getProperty("user.dir"));
-    try {
-      new ExportScripts().run(args);
-    } catch (ModellingToolsException e) {
-      LOGGER.debug(e.getMessage(), e);
-      LOGGER.error("Error: {}", e.getMessage());
-    } catch (UnsatisfiedLinkError e) {
-      if (e.getMessage().contains("SSJavaCOM64")) {
-        LOGGER.error("A Java 32-bit must be used for dealing with EA models", e);
-      } else {
-        LOGGER.error("Unexpected error: {}", e.getMessage(), e);
-      }
-      LOGGER.error("Unexpected error: {}", e.getMessage(), e);
-    } catch (IllegalArgumentException e) {
-      LOGGER.error("A method has been passed an illegal or inappropriate argument: {}",
-          e.getMessage(), e);
-    } catch (Throwable e) {
-      LOGGER.error("Unexpected error: {}", e.getMessage(), e);
-    } finally {
-      stopWatch.stop();
-      LOGGER.info("Finished in {}", stopWatch.formatTime());
-    }
-    // Resume duplicated code checking - CPD-ON
+    new ExportScripts().run(args);
   }
 
   @Override
