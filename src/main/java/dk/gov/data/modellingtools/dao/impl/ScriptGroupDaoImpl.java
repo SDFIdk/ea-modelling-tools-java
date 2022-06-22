@@ -72,7 +72,8 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
             + "' and s.Notes like '<Group*' union all"
             + " select s.ScriptCategory, s.ScriptName, s.ScriptAuthor, s.Notes, s.Script"
             + " from t_script s inner join t_script s1 on s1.ScriptName = s.ScriptAuthor"
-            + " where s1.script like '" + scriptGroupNameOrRegex + "' and s1.Notes like '<Group*'";
+            + " where s1.script like '" + scriptGroupNameOrRegex + "' and s1.Notes like '<Group*'"
+            + " order by ScriptCategory, ScriptName";
     String queryResultString = eaWrapper.sqlQuery(sqlQuery);
     return queryResultString;
   }

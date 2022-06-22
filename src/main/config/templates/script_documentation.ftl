@@ -1,13 +1,13 @@
 # Script Documentation
 
-<#list scriptGroups as scriptGroup>
+<#list scriptGroups?sort_by("name") as scriptGroup>
 ## ${scriptGroup.name}
 
 <#if scriptGroup.notes??>
 ${scriptGroup.notes}
 </#if>
 
-<#list scriptGroup.scripts as script>
+<#list scriptGroup.scripts?sort_by("name") as script>
 <#if script.isRunnable>
 ### ${script.name}
 
