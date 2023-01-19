@@ -33,7 +33,7 @@
     <!-- Copied from EA installation folder:
     
       mvn install:install-file -Dfile="C:\Program Files (x86)\Sparx Systems\EA\Java API\eaapi.jar"
-      -DgroupId=org.sparx -DartifactId=eaapi -Dversion=15.1.1525 -Dpackaging=jar
+      -DgroupId=org.sparx -DartifactId=eaapi -Dversion=replace_with_ea_program_version -Dpackaging=jar
       
       The version is equal to the Program Version of Enterprise Architect (see "About Enterprise Architect").
 
@@ -42,7 +42,7 @@
       See also https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html -->
       <groupId>org.sparx</groupId>
       <artifactId>eaapi</artifactId>
-      <version>15.1.1526</version>
+      <version>16.0.1605</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
