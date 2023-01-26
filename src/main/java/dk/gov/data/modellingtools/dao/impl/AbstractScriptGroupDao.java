@@ -28,14 +28,14 @@ import org.slf4j.LoggerFactory;
  * Retrieves scripts group from the Enterprise Architect model.
  */
 @SuppressWarnings("PMD.TooManyStaticImports")
-public class ScriptGroupDaoImpl implements ScriptGroupDao {
+public abstract class AbstractScriptGroupDao implements ScriptGroupDao {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ScriptGroupDaoImpl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractScriptGroupDao.class);
 
   private EnterpriseArchitectWrapper eaWrapper;
 
   @SuppressFBWarnings("EI_EXPOSE_REP")
-  public ScriptGroupDaoImpl(EnterpriseArchitectWrapper eaWrapper) {
+  public AbstractScriptGroupDao(EnterpriseArchitectWrapper eaWrapper) {
     super();
     this.eaWrapper = eaWrapper;
   }
@@ -55,28 +55,15 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
         "/scriptmanagement/transform_to_ea_reference_data.xsl", referenceData);
   }
 
-  // TODO check how expensive this query is, perhaps it should be cached? Is called twice from
-  // ScriptManagerImpl
   private String retrieveScriptGroupsAndScriptsWithSqlQuery(String scriptGroupNameOrRegex)
       throws ModellingToolsException {
-    /*
-     * Requires probably Jet 4.0 (see EA settings).
-     * 
-     * From the JScript used earlier: For some reason, union all gives an error when using
-     * Repository.SQLQuery, therefore two queries instead. The error: EA shows an error box with the
-     * following contents: Error: Code=0x0 Source Line : 0; Char : 0 Error description = (null)
-     */
-    String sqlQuery =
-        "select s.ScriptCategory, s.ScriptName, s.ScriptAuthor, s.Notes, s.Script from t_script s"
-            + " where s.Script like '" + scriptGroupNameOrRegex
-            + "' and s.Notes like '<Group*' union all"
-            + " select s.ScriptCategory, s.ScriptName, s.ScriptAuthor, s.Notes, s.Script"
-            + " from t_script s inner join t_script s1 on s1.ScriptName = s.ScriptAuthor"
-            + " where s1.script like '" + scriptGroupNameOrRegex + "' and s1.Notes like '<Group*'"
-            + " order by ScriptCategory, ScriptName";
+    String sqlQuery = getSqlQueryForRetrievingScriptGroupsAndScripts(scriptGroupNameOrRegex);
     String queryResultString = eaWrapper.sqlQuery(sqlQuery);
     return queryResultString;
   }
+
+  protected abstract String getSqlQueryForRetrievingScriptGroupsAndScripts(
+      String scriptGroupNameOrRegex);
 
 
   private List<ScriptGroup> buildScriptGroupsWithScripts(String queryResultString)
@@ -107,9 +94,6 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
 
   /**
    * Creates a {@link Script} based on the XML.
-   * 
-   * <p>Note: New line is replaced with carriage return + new line, in order to match the encoding
-   * of the scripts when saved as files through EA's GUI in Windows.
    */
   private Script createScript(ScriptGroup scriptGroup, XdmNode scriptRow)
       throws ModellingToolsException {
@@ -126,9 +110,8 @@ public class ScriptGroupDaoImpl implements ScriptGroupDao {
     String scriptLanguage =
         scriptMetadataNode.select(descendant("Script").then(attribute("Language"))).asString();
     String scriptContents = scriptRow.select(child("Script").then(text())).asString();
-    String scriptContents2 = scriptContents.replaceAll("(?m)\n", "\r\n");
     Script script =
-        new Script(scriptId, scriptName, scriptLanguage, scriptGroup.getId(), scriptContents2);
+        new Script(scriptId, scriptName, scriptLanguage, scriptGroup.getId(), scriptContents);
     return script;
   }
 

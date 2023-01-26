@@ -2,8 +2,10 @@ package dk.gov.data.modellingtools.scriptmanagement.impl;
 
 import dk.gov.data.modellingtools.config.FreemarkerTemplateConfiguration;
 import dk.gov.data.modellingtools.dao.ScriptGroupDao;
-import dk.gov.data.modellingtools.dao.impl.ScriptGroupDaoImpl;
+import dk.gov.data.modellingtools.dao.impl.ScriptGroupDaoEapx;
+import dk.gov.data.modellingtools.dao.impl.ScriptGroupDaoQea;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
+import dk.gov.data.modellingtools.ea.RepositoryType;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.Script;
 import dk.gov.data.modellingtools.model.ScriptGroup;
@@ -27,6 +29,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.file.PathUtils;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.mozilla.javascript.CompilerEnvirons;
@@ -52,10 +55,27 @@ public class ScriptManagerImpl implements ScriptManager {
 
   private ScriptGroupDao scriptGroupDao;
 
+  /**
+   * Constructor.
+   */
   public ScriptManagerImpl(EnterpriseArchitectWrapper eaWrapper) {
-    this(new ScriptGroupDaoImpl(eaWrapper));
+    RepositoryType repositoryType = eaWrapper.getRepositoryType();
+    switch (repositoryType) {
+      case QEA:
+        this.scriptGroupDao = new ScriptGroupDaoQea(eaWrapper);
+        break;
+      case EAPX:
+        this.scriptGroupDao = new ScriptGroupDaoEapx(eaWrapper);
+        break;
+      default:
+        throw new NotImplementedException(
+            "Managing scripts is not (yet) supported for repository type " + repositoryType);
+    }
   }
 
+  /**
+   * Constructor mainly for testing purposes.
+   */
   public ScriptManagerImpl(ScriptGroupDao scriptGroupDao) {
     this.scriptGroupDao = scriptGroupDao;
   }

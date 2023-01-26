@@ -50,4 +50,9 @@ public interface EnterpriseArchitectWrapper {
   boolean isConnectorAssociationAndControlledInSamePackageAsElement(Connector connector,
       Element element);
 
+  /**
+   * Returns the type of repository (based on the underlying database).
+   */
+  RepositoryType getRepositoryType();
+
 }

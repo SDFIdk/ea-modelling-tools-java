@@ -5,6 +5,7 @@ import static net.sf.saxon.s9api.streams.Steps.descendant;
 import static net.sf.saxon.s9api.streams.Steps.text;
 
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
+import dk.gov.data.modellingtools.ea.RepositoryType;
 import dk.gov.data.modellingtools.ea.model.ConnectorType;
 import dk.gov.data.modellingtools.ea.model.EaConnectorEnd;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
@@ -27,6 +28,7 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.OS;
 import org.apache.commons.exec.PumpStreamHandler;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -282,6 +284,28 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
             && ConnectorType.ASSOCIATION.getEaType().equals(connector.GetType())
         || connector.GetSupplierID() == element.GetElementID()
             && ConnectorType.AGGREGATION.getEaType().equals(connector.GetType());
+  }
+
+  @Override
+  public RepositoryType getRepositoryType() {
+    String eaRepositoryType = eaRepository.RepositoryType();
+    final RepositoryType repositoryType;
+    switch (eaRepositoryType) {
+      case "JET":
+        repositoryType = RepositoryType.EAPX;
+        break;
+      case "FIREBIRD":
+        repositoryType = RepositoryType.FEAP;
+        break;
+      case "SL3":
+        repositoryType = RepositoryType.QEA;
+        break;
+      default:
+        throw new NotImplementedException(
+            "This application does not (yet) support repositories of type " + eaRepositoryType);
+    }
+    return repositoryType;
+
   }
 
 }
