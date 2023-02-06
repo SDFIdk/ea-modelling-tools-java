@@ -22,7 +22,7 @@ public enum FreemarkerTemplateConfiguration {
     configuration.setDefaultEncoding(encoding);
     configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     configuration.setRecognizeStandardFileExtensions(true);
-    configuration.setLocalizedLookup(false);
+    configuration.setLocalizedLookup(true);
   }
 
   /**

@@ -1,4 +1,4 @@
-package dk.gov.data.modellingtools.dao.impl;
+package dk.gov.data.modellingtools.dao.impl.fda;
 
 import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.ConceptModelDao;
@@ -18,7 +18,8 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.sparx.Element;
 
 /**
- * Implementation based on the FDA rules for concept and data modelling.
+ * Implementation based on the FDA rules for concept and data modelling. Retrieves concepts from a
+ * concept model, not a data model.
  */
 public class ConceptModelDaoFda implements ConceptModelDao {
 
@@ -35,30 +36,28 @@ public class ConceptModelDaoFda implements ConceptModelDao {
 
   @Override
   public ConceptModel findByPackageGuid(String packageGuid) throws ModellingToolsException {
-    // TODO extract all tags to constants and move to FdaConstants
-    // TODO find all tags at once
     Element packageElement = this.eaWrapper.getPackageByGuid(packageGuid).GetElement();
     String fqStereotype = packageElement.GetFQStereotype();
     Validate.isTrue(FdaConstants.FQ_STEREOTYPE_CONCEPT_MODEL.equals(fqStereotype),
         "Stereotype must be " + FdaConstants.FQ_STEREOTYPE_CONCEPT_MODEL + " but is "
             + fqStereotype);
+
     ConceptModel conceptModel = new ConceptModel();
-    try {
-      conceptModel.setIdentifier(TaggedValueUtils.getTaggedValueValueAsUri(packageElement, "URI"));
-    } catch (URISyntaxException e) {
-      throw new ModellingToolsException("Could not create a valid URI", e);
-    }
+    conceptModel.setIdentifier(
+        TaggedValueUtils.getTaggedValueValueAsUri(packageElement, FdaConstants.TAG_URI));
 
     Map<String, String> titles = new HashMap<>();
-    titles.put("da", TaggedValueUtils.getTaggedValueValue(packageElement, "title (da)"));
-    titles.put("en", TaggedValueUtils.getTaggedValueValue(packageElement, "title (en)"));
+    titles.put("da",
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_TITLE_DA));
+    titles.put("en",
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_TITLE_EN));
     conceptModel.setTitles(titles);
 
     Map<String, String> descriptions = new HashMap<>();
     descriptions.put("da",
-        TaggedValueUtils.getTaggedValueValue(packageElement, "description (da)"));
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_DESCRIPTION_DA));
     descriptions.put("en",
-        TaggedValueUtils.getTaggedValueValue(packageElement, "description (en)"));
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_DESCRIPTION_EN));
     conceptModel.setDescriptions(descriptions);
 
     // TODO move logic to split tagged value value to TaggedValueUtils
@@ -78,14 +77,11 @@ public class ConceptModelDaoFda implements ConceptModelDao {
     conceptModel.setLanguages(languages);
 
     conceptModel.setResponsibleEntity(
-        TaggedValueUtils.getTaggedValueValue(packageElement, "responsibleEntity"));
-    try {
-      conceptModel
-          .setPublisher(TaggedValueUtils.getTaggedValueValueAsUri(packageElement, "publisher"));
-    } catch (URISyntaxException e) {
-      throw new ModellingToolsException("Could not create a valid URI", e);
-    }
-    conceptModel.setVersion(TaggedValueUtils.getTaggedValueValue(packageElement, "versionInfo"));
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_RESPONSIBLE_ENTITY));
+    conceptModel.setPublisher(
+        TaggedValueUtils.getTaggedValueValueAsUri(packageElement, FdaConstants.TAG_PUBLISHER));
+    conceptModel
+        .setVersion(TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_VERSION));
     String modifiedDateAsString = TaggedValueUtils.getTaggedValueValueFullyQualifiedName(
         packageElement, FdaConstants.QUALIFIER_TAGS + "modified");
     if (StringUtils.isNotBlank(modifiedDateAsString)) {
@@ -98,13 +94,14 @@ public class ConceptModelDaoFda implements ConceptModelDao {
       }
     }
 
-    conceptModel
-        .setModelStatus(TaggedValueUtils.getTaggedValueValue(packageElement, "modelStatus"));
-    conceptModel
-        .setApprovalStatus(TaggedValueUtils.getTaggedValueValue(packageElement, "approvalStatus"));
-    conceptModel
-        .setApprovingAuthority(TaggedValueUtils.getTaggedValueValue(packageElement, "approvedBy"));
-    conceptModel.setModelScope(TaggedValueUtils.getTaggedValueValue(packageElement, "modelScope"));
+    conceptModel.setModelStatus(
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_MODEL_STATUS));
+    conceptModel.setApprovalStatus(
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_APPROVAL_STATUS));
+    conceptModel.setApprovingAuthority(
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_APPROVER));
+    conceptModel.setModelScope(
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_MODEL_SCOPE));
 
     String taggedValueName = "theme";
     String[] themesAsStrings = StringUtils.stripAll(StringUtils.split(
@@ -123,9 +120,9 @@ public class ConceptModelDaoFda implements ConceptModelDao {
 
     Map<String, String> versionNotes = new HashMap<>();
     versionNotes.put("da",
-        TaggedValueUtils.getTaggedValueValue(packageElement, "versionNotes (da)"));
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_VERSION_NOTES_DA));
     versionNotes.put("en",
-        TaggedValueUtils.getTaggedValueValue(packageElement, "versionNotes (en)"));
+        TaggedValueUtils.getTaggedValueValue(packageElement, FdaConstants.TAG_VERSION_NOTES_EN));
     conceptModel.setVersionNotes(versionNotes);
 
     return conceptModel;

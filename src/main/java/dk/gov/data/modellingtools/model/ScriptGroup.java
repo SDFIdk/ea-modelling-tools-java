@@ -1,5 +1,6 @@
 package dk.gov.data.modellingtools.model;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -54,10 +55,12 @@ public class ScriptGroup {
     this.notes = notes;
   }
 
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   public List<Script> getScripts() {
     return scripts;
   }
 
+  @SuppressFBWarnings("EI_EXPOSE_REP2")
   public void setScripts(List<Script> scripts) {
     this.scripts = scripts;
   }

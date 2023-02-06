@@ -1,0 +1,4 @@
+"Test model v0.1.0","testattribut","at","term attribute","definition attribute","note attribute","example attribute","synonym attribute","https://non.existing.uri.dk[🡭,title=Go to the source] ","deprecated term attribute","testattribut"
+"Test model v0.1.0","testattribut2","at","term attribute 2","definition attribute 2","note attribute 2","example attribute 2","synonym attribute 2","https://www.retsinformation.dk/eli/lta/2017/746[§,title=Go to the legal source] ","deprecated term attribute 2","testattribut2"
+"Test model v0.1.0","Testklasse","kl","term class","definition class","note class","example class","synonym class","kilde klasse ","deprecated term class","Testklasse"
+"Test model v0.1.0","Testkodeliste","en","term code list","definition code list","","","","http://id.loc.gov/vocabulary/iso639-2[☰,title=Go to the code list] ","","Testkodeliste"

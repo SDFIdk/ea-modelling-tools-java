@@ -17,6 +17,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sparx.Attribute;
 import org.sparx.Connector;
 import org.sparx.ConnectorEnd;
@@ -30,6 +32,8 @@ import org.sparx.Package;
  * @see EnterpriseArchitectWrapper
  */
 public final class EaModelUtils {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(EaModelUtils.class);
 
   /*
    * When functionality from the EA Repository is needed, then add a method in
@@ -138,8 +142,11 @@ public final class EaModelUtils {
    * Checks whether the given package has the given stereotype.
    */
   public static boolean hasPackageStereotype(Package umlPackage, String stereotype) {
-    List<String> packageStereotypes =
-        Arrays.asList(StringUtils.split(umlPackage.GetStereotypeEx(), ','));
+    String stereotypeEx = umlPackage.GetStereotypeEx();
+    LOGGER.debug("Stereotypes on package {}: {}", toString(umlPackage), stereotypeEx);
+    LOGGER.debug("Stereotypes on element {}: {}", toString(umlPackage.GetElement()),
+        umlPackage.GetElement().GetFQStereotype());
+    List<String> packageStereotypes = Arrays.asList(StringUtils.split(stereotypeEx, ','));
     return packageStereotypes.contains(stereotype);
   }
 

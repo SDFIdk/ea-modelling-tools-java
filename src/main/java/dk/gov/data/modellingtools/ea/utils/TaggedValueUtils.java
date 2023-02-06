@@ -1,5 +1,6 @@
 package dk.gov.data.modellingtools.ea.utils;
 
+import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -172,10 +173,20 @@ public class TaggedValueUtils {
     return taggedValueValue;
   }
 
+  /**
+   * Return the actual content of the tagged value, as a {@link URI}.
+   *
+   * @throws ModellingToolsException If a valid URI could not be created.
+   */
   public static URI getTaggedValueValueAsUri(Object object, String taggedValueName)
-      throws URISyntaxException {
+      throws ModellingToolsException {
     String taggedValueValue = TaggedValueUtils.getTaggedValueValue(object, taggedValueName);
-    return new URI(taggedValueValue);
+    try {
+      return new URI(taggedValueValue);
+    } catch (URISyntaxException e) {
+      throw new ModellingToolsException(
+          "Could not create a valid URI from string " + taggedValueValue, e);
+    }
   }
 
   /**
@@ -236,7 +247,8 @@ public class TaggedValueUtils {
 
   /**
    * Finds the value of the given tag and splits the value of the given tag in parts according to
-   * the given separator.
+   * the given separator. If a tag with the given name is not present, an empty string array is
+   * returned.
    */
   public static String[] retrieveAndSplitTaggedValueValue(Map<String, String> taggedValues,
       String tag, char splitCharacter) {

@@ -141,7 +141,7 @@ public class XmlAndXsltUtils {
     final String xmlDeclaredAsUtf8;
     if (xmlWithoutBom.startsWith("<?xml")) {
       String xmlDeclaration = xmlWithoutBom.substring(0, xmlWithoutBom.indexOf("?>") + 2);
-      LOGGER.debug("XML declaration: {}", xmlDeclaration);
+      LOGGER.trace("XML declaration: {}", xmlDeclaration);
       final Matcher m = XmlStreamReader.ENCODING_PATTERN.matcher(xmlDeclaration);
       if (m.find()) {
         final String encodingWithQuotes = m.group(1).toUpperCase(Locale.ROOT);

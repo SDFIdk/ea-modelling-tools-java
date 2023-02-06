@@ -4,9 +4,9 @@ import dk.gov.data.modellingtools.config.FreemarkerTemplateConfiguration;
 import dk.gov.data.modellingtools.dao.ConceptDao;
 import dk.gov.data.modellingtools.dao.ConceptModelDao;
 import dk.gov.data.modellingtools.dao.DiagramDao;
-import dk.gov.data.modellingtools.dao.impl.ConceptDaoFda;
-import dk.gov.data.modellingtools.dao.impl.ConceptModelDaoFda;
 import dk.gov.data.modellingtools.dao.impl.DiagramDaoImpl;
+import dk.gov.data.modellingtools.dao.impl.fda.ConceptDaoFdaForLogicalDataModel;
+import dk.gov.data.modellingtools.dao.impl.fda.ConceptModelDaoFda;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.export.AbstractExporter;
@@ -18,6 +18,7 @@ import freemarker.template.SimpleCollection;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,8 @@ public class ConceptModelExporterImpl extends AbstractExporter implements Concep
   public void exportConceptModel(String packageGuid, File folder, String format)
       throws ModellingToolsException {
     LOGGER.info("Start exporting concept model to format {}", format);
-    export(packageGuid, folder, format);
+    // TODO change behaviour to allow for different locales
+    export(packageGuid, folder, format, Locale.forLanguageTag("da"));
   }
 
   @Override
@@ -78,7 +80,7 @@ public class ConceptModelExporterImpl extends AbstractExporter implements Concep
   @Override
   protected void prepareExport() throws ModellingToolsException {
     conceptModelDao = new ConceptModelDaoFda(getEaWrapper());
-    conceptDao = new ConceptDaoFda(getEaWrapper());
+    conceptDao = new ConceptDaoFdaForLogicalDataModel();
     diagramDao = new DiagramDaoImpl(getEaWrapper());
   }
 

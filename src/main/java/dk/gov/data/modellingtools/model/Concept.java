@@ -37,6 +37,10 @@ public class Concept {
 
   private String sourceTextualReference;
 
+  // 0..* in FDA profile
+  private URI legalSource;
+
+
   // TODO add broader concept
 
 
@@ -135,5 +139,12 @@ public class Concept {
     this.sourceTextualReference = sourceTextualReference;
   }
 
+  public URI getLegalSource() {
+    return legalSource;
+  }
+
+  public void setLegalSource(URI legalSource) {
+    this.legalSource = legalSource;
+  }
 
 }

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.lang3.Validate;
 import org.asciidoctor.Asciidoctor;
@@ -34,6 +35,7 @@ public abstract class AbstractExporter {
   private File outputFolder;
   private String outputFormat;
   private String packageGuid;
+  private Locale locale;
 
   /**
    * Constructor.
@@ -50,22 +52,23 @@ public abstract class AbstractExporter {
    */
   protected abstract Map<String, Object> prepareDataForTemplate() throws ModellingToolsException;
 
-  protected final void export(String packageGuid, File outputFolder, String outputFormat)
-      throws ModellingToolsException {
-    processInputParameters(packageGuid, outputFolder, outputFormat);
+  protected final void export(String packageGuid, File outputFolder, String outputFormat,
+      Locale locale) throws ModellingToolsException {
+    processInputParameters(packageGuid, outputFolder, outputFormat, locale);
     prepareExport();
     prepareFoldersAndFiles();
     writeFiles(prepareDataForTemplate());
   }
 
-  private void processInputParameters(String packageGuid, File outputFolder, String outputFormat)
-      throws ModellingToolsException {
+  private void processInputParameters(String packageGuid, File outputFolder, String outputFormat,
+      Locale locale) throws ModellingToolsException {
     this.packageGuid = packageGuid;
     this.outputFolder = outputFolder;
     this.outputFormat = outputFormat;
     this.outputFileExtension = FileFormatUtils.getFileFormatExtension(this.outputFormat);
     this.templateFileName = getTemplateFileNamePrefix() + this.outputFormat
         + FileFormatUtils.getTemplateExtension(this.outputFormat);
+    this.locale = locale;
   }
 
   /**
@@ -96,8 +99,8 @@ public abstract class AbstractExporter {
 
       // retrieve and populate template
       LOGGER.debug("Using template {}", templateFileName);
-      Template template =
-          FreemarkerTemplateConfiguration.INSTANCE.getConfiguration().getTemplate(templateFileName);
+      Template template = FreemarkerTemplateConfiguration.INSTANCE.getConfiguration()
+          .getTemplate(templateFileName, locale);
       template.process(dataForTemplate, writer);
 
       if ("asciidoc".equals(outputFormat)) {
