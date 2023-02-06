@@ -1,6 +1,8 @@
-package dk.gov.data.modellingtools.dao.impl;
+package dk.gov.data.modellingtools.dao.impl.fda;
 
 import dk.gov.data.modellingtools.constants.FdaConstants;
+import dk.gov.data.modellingtools.dao.impl.AbstractSemanticModelElementDao;
+import dk.gov.data.modellingtools.dao.impl.EaConceptDaoForLogicalDataModel;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.model.EaConnectorEnd;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
@@ -16,26 +18,26 @@ import org.sparx.Element;
  */
 public class SemanticModelElementDaoFda extends AbstractSemanticModelElementDao {
 
-  private ConceptDaoFda conceptDaoFda;
+  private EaConceptDaoForLogicalDataModel eaConceptDao;
 
   public SemanticModelElementDaoFda(EnterpriseArchitectWrapper enterpriseArchitectWrapper) {
     super(enterpriseArchitectWrapper);
-    this.conceptDaoFda = new ConceptDaoFda(enterpriseArchitectWrapper);
+    this.eaConceptDao = new ConceptDaoFdaForLogicalDataModel();
   }
 
   @Override
   protected Concept createConcept(Element element) throws ModellingToolsException {
-    return conceptDaoFda.findByElement(element);
+    return eaConceptDao.findByElement(element);
   }
 
   @Override
   protected Concept createConcept(Attribute attribute) throws ModellingToolsException {
-    return conceptDaoFda.findByAttribute(attribute);
+    return eaConceptDao.findByAttribute(attribute);
   }
 
   @Override
   protected Concept createConcept(ConnectorEnd connectorEnd) throws ModellingToolsException {
-    return conceptDaoFda.findByConnectorEnd(connectorEnd);
+    return eaConceptDao.findByConnectorEnd(connectorEnd);
   }
 
   @Override

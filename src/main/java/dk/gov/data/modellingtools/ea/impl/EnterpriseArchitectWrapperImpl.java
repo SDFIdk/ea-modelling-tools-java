@@ -65,9 +65,9 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   /**
    * Regex for contents of column t_xref.description (where column name = 'Stereotypes').
    * 
-   * <p>Matches e.g. both
-   * <code>@STEREO;Name=DKEgenskab;GUID={60F575A8-BB25-4f93-98A1-2751EE93B5C5};FQName=Grunddata::DKEgenskab;@ENDSTEREO;</code>
-   * and <code>@STEREO;Name=DKEgenskab;FQName=Grunddata::DKEgenskab;@ENDSTEREO;</code></p>
+   * <p>Matches e.g. both<ul>
+   * <li><code>@STEREO;Name=DKEgenskab;GUID={60F575A8-BB25-4f93-98A1-2751EE93B5C5};FQName=Grunddata::DKEgenskab;@ENDSTEREO;</code></li>
+   * <li><code>@STEREO;Name=DKEgenskab;FQName=Grunddata::DKEgenskab;@ENDSTEREO;</code></li></ul></p>
    */
   private static final String REGEX_STEREOTYPES =
       "@STEREO;Name=[^;]*;(?:GUID=[^;]*;)?FQName=([^;]*);@ENDSTEREO;";
@@ -216,6 +216,19 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   }
 
   @Override
+  public Collection<String> retrievePackageFqStereotypes(Package umlPackage)
+      throws ModellingToolsException {
+    String query = "select o.ea_guid as id, x.description as stereotypes "
+        + "from t_object o inner join t_xref x on o.ea_guid = x.client where o.ea_guid = '"
+        + umlPackage.GetElement().GetElementGUID() + "' and x.Name ='Stereotypes'";
+    Collection<String> packageFqStereotypes =
+        retrieveFqStereotypes(query).get(umlPackage.GetElement().GetElementGUID());
+    LOGGER.debug("Fully qualified stereotypes on {}: {}", EaModelUtils.toString(umlPackage),
+        StringUtils.join(packageFqStereotypes, ", "));
+    return packageFqStereotypes;
+  }
+
+  @Override
   public MultiValuedMap<String, String> retrieveAttributeFqStereotypes(Package umlPackage)
       throws ModellingToolsException {
     String query =
@@ -248,6 +261,7 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
         }
       }
     }
+    LOGGER.trace("Fully-qualified stereotypes: {}", multiValuedMap);
     return multiValuedMap;
   }
 
@@ -269,7 +283,7 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
       packageIds.add(subPackage.GetPackageID());
     }
     String packageIdString = StringUtils.join(packageIds, ',');
-    LOGGER.debug("Package ids: {}", packageIdString);
+    LOGGER.debug("Package and subpackage ids for {}: {}", umlPackage, packageIdString);
     return packageIdString;
   }
 

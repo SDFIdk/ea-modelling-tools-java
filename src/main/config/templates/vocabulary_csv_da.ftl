@@ -1,0 +1,8 @@
+<#ftl strip_whitespace=true>
+<#if hasHeader>
+"Model","Navn i model","Type","Foretrukken term","Definition","Kommentar","Eksempel","Accepterede termer","Info","Frarådede termer","Translitereret navn i model"
+</#if>
+<#assign umlTypeAbbreviations = {"CLASS":"kl", "ATTRIBUTE":"at", "ASSOCIATION_END":"ae", "ENUMERATION":"en", "ENUMERATION_LITERAL":"ev", "DATA_TYPE":"da"}>
+<#list modelElements as modelElement>
+"<#if hasMetadata>${metadataUrl}[</#if>${model.name?replace("\"", "\"\"")} v${model.version?replace("\"", "\"\"")}<#if hasMetadata>,title=Læs mere om ${model.name?replace("\"", "\"\"")}]</#if>","${modelElement.umlName?replace("\"", "\"\"")}","${umlTypeAbbreviations[modelElement.umlModelElementType.name()]}","${modelElement.concept.preferredTerms["da"]?replace("\"", "\"\"")}","${modelElement.concept.definitions["da"]?replace("\"", "\"\"")}","${modelElement.concept.notes["da"]?replace("\"", "\"\"")}","${modelElement.concept.examples["da"]?replace("\"", "\"\"")}","${modelElement.concept.acceptedTerms["da"]?join("; ")?replace("\"", "\"\"")}","<#if modelElement.concept.legalSource??>${modelElement.concept.legalSource}[§,title=Gå til den juridiske kilde] </#if><#if modelElement.concept.source??>${modelElement.concept.source}[🡭,title=Gå til kilden] <#elseif modelElement.concept.sourceTextualReference??>${modelElement.concept.sourceTextualReference?replace("\"", "\"\"")!""} </#if><#if modelElement.concept.definingConceptModel??>${modelElement.concept.definingConceptModel}[☰,title=Gå til kodelisten] </#if>","${modelElement.concept.deprecatedTerms["da"]?join("; ")?replace("\"", "\"\"")}","${modelElement.transliteratedUmlName?replace("\"", "\"\"")}"
+</#list>

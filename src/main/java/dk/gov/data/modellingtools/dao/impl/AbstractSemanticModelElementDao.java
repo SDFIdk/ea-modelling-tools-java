@@ -74,8 +74,10 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
       if (qualifiesAsSemanticModelElement(attribute, attributeFqStereotypes)) {
         semanticModelElements.add(createSemanticModelElement(element, attribute));
       } else {
-        LOGGER.warn("Skipping {} as it does not have the right stereotype",
-            EaModelUtils.toString(attribute));
+        LOGGER.warn(
+            "Skipping {} as it does not have the right stereotype. Stereotypes it does have: {}",
+            EaModelUtils.toString(attribute),
+            attributeFqStereotypes.get(attribute.GetAttributeGUID()));
       }
     }
     return semanticModelElements;

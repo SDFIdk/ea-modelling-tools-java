@@ -1,6 +1,7 @@
 package dk.gov.data.modellingtools.ea;
 
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
+import java.util.Collection;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.sparx.Connector;
 import org.sparx.Element;
@@ -25,6 +26,9 @@ public interface EnterpriseArchitectWrapper {
   Package getPackageByGuid(String packageGuid) throws ModellingToolsException;
 
   Element getElementById(int id);
+
+  Collection<String> retrievePackageFqStereotypes(Package umlPackage)
+      throws ModellingToolsException;
 
   /**
    * Because {@link Attribute} has no "hasStereoType" method like

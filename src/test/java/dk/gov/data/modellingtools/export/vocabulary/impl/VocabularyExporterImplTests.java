@@ -1,5 +1,6 @@
 package dk.gov.data.modellingtools.export.vocabulary.impl;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -13,15 +14,17 @@ import dk.gov.data.modellingtools.model.ModelElement.ModelElementType;
 import dk.gov.data.modellingtools.model.SemanticModelElement;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,6 +70,16 @@ public class VocabularyExporterImplTests {
     LOGGER.debug("{} created: {}", folderForTest.getAbsolutePath(), mkdir);
   }
 
+  @BeforeEach
+  public void cleanTestDirectory() throws IOException {
+    FileUtils.cleanDirectory(folderForTest);
+  }
+
+  @AfterAll
+  public static void deleteTestDirectory() {
+    // FileUtils.deleteQuietly(folderForTest);
+  }
+
   /**
    * Sets up {@link VocabularyExporterImpl}.
    */
@@ -98,12 +111,14 @@ public class VocabularyExporterImplTests {
     semanticModelElement1.setUmlModelElementType(ModelElementType.CLASS);
     semanticModelElement1.setUmlName("Testklasse");
     Concept concept1 = new Concept();
-    concept1.setPreferredTerms(createStringMapWithOneEntry("term klasse"));
-    concept1.setDefinitions(createStringMapWithOneEntry("definition klasse"));
-    concept1.setNotes(createStringMapWithOneEntry("note klasse"));
-    concept1.setExamples(createStringMapWithOneEntry("eksempel klasse"));
-    concept1.setAcceptedTerms(createStringArrayMapWithOneEntry("synonym klasse"));
-    concept1.setDeprecatedTerms(createStringArrayMapWithOneEntry("frarådet term klasse"));
+    concept1.setPreferredTerms(Map.of("da", "term klasse", "en", "term class"));
+    concept1.setDefinitions(Map.of("da", "definition klasse", "en", "definition class"));
+    concept1.setNotes(Map.of("da", "note klasse", "en", "note class"));
+    concept1.setExamples(Map.of("da", "eksempel klasse", "en", "example class"));
+    concept1.setAcceptedTerms(
+        Map.of("da", new String[] {"synonym klasse"}, "en", new String[] {"synonym class"}));
+    concept1.setDeprecatedTerms(Map.of("da", new String[] {"frarådet term klasse"}, "en",
+        new String[] {"deprecated term class"}));
     concept1.setSourceTextualReference("kilde klasse");
     semanticModelElement1.setConcept(concept1);
     SemanticModelElement semanticModelElement2 = new SemanticModelElement();
@@ -111,51 +126,95 @@ public class VocabularyExporterImplTests {
     semanticModelElement2.setUmlModelElementType(ModelElementType.ATTRIBUTE);
     semanticModelElement2.setUmlName("testattribut");
     Concept concept2 = new Concept();
-    concept2.setPreferredTerms(createStringMapWithOneEntry("term attribut"));
-    concept2.setDefinitions(createStringMapWithOneEntry("definition attribut"));
-    concept2.setNotes(createStringMapWithOneEntry("note attribut"));
-    concept2.setExamples(createStringMapWithOneEntry("eksempel attribut"));
-    concept2.setAcceptedTerms(createStringArrayMapWithOneEntry("synonym attribut"));
-    concept2.setDeprecatedTerms(createStringArrayMapWithOneEntry("frarådet term attribut"));
+    concept2.setPreferredTerms(Map.of("da", "term attribut", "en", "term attribute"));
+    concept2.setDefinitions(Map.of("da", "definition attribut", "en", "definition attribute"));
+    concept2.setNotes(Map.of("da", "note attribut", "en", "note attribute"));
+    concept2.setExamples(Map.of("da", "eksempel attribut", "en", "example attribute"));
+    concept2.setAcceptedTerms(
+        Map.of("da", new String[] {"synonym attribut"}, "en", new String[] {"synonym attribute"}));
+    concept2.setDeprecatedTerms(Map.of("da", new String[] {"frarådet term attribut"}, "en",
+        new String[] {"deprecated term attribute"}));
     concept2.setSource(URI.create("https://non.existing.uri.dk"));
     semanticModelElement2.setConcept(concept2);
+    SemanticModelElement semanticModelElement3 = new SemanticModelElement();
+    semanticModelElement3.setEaGuid("{B75D36A8-C0DC-413D-89B4-A3CDBF466E38}");
+    semanticModelElement3.setUmlModelElementType(ModelElementType.ATTRIBUTE);
+    semanticModelElement3.setUmlName("testattribut2");
+    Concept concept3 = new Concept();
+    concept3.setPreferredTerms(Map.of("da", "term attribut 2", "en", "term attribute 2"));
+    concept3.setDefinitions(Map.of("da", "definition attribut 2", "en", "definition attribute 2"));
+    concept3.setNotes(Map.of("da", "note attribut 2", "en", "note attribute 2"));
+    concept3.setExamples(Map.of("da", "eksempel attribut 2", "en", "example attribute 2"));
+    concept3.setAcceptedTerms(Map.of("da", new String[] {"synonym attribut 2"}, "en",
+        new String[] {"synonym attribute 2"}));
+    concept3.setDeprecatedTerms(Map.of("da", new String[] {"frarådet term attribut 2"}, "en",
+        new String[] {"deprecated term attribute 2"}));
+    concept3.setLegalSource(URI.create("https://www.retsinformation.dk/eli/lta/2017/746"));
+    semanticModelElement3.setConcept(concept3);
+    SemanticModelElement semanticModelElement4 = new SemanticModelElement();
+    semanticModelElement4.setEaGuid("{C1B46085-5F59-4FEA-8F29-504E66F9E381}");
+    semanticModelElement4.setUmlModelElementType(ModelElementType.ENUMERATION);
+    semanticModelElement4.setUmlName("Testkodeliste");
+    Concept concept4 = new Concept();
+    concept4.setPreferredTerms(Map.of("da", "term kodeliste", "en", "term code list"));
+    concept4.setDefinitions(Map.of("da", "definition kodeliste", "en", "definition code list"));
+    concept4.setNotes(Map.of("da", "", "en", ""));
+    concept4.setExamples(Map.of("da", "", "en", ""));
+    concept4.setAcceptedTerms(Map.of("da", new String[] {}, "en", new String[] {}));
+    concept4.setDeprecatedTerms(Map.of("da", new String[] {}, "en", new String[] {}));
+    concept4.setDefiningConceptModel(URI.create("http://id.loc.gov/vocabulary/iso639-2"));
+    semanticModelElement4.setConcept(concept4);
     List<SemanticModelElement> semanticModelElements = new ArrayList<>();
     semanticModelElements.add(semanticModelElement1);
     semanticModelElements.add(semanticModelElement2);
+    semanticModelElements.add(semanticModelElement3);
+    semanticModelElements.add(semanticModelElement4);
     return semanticModelElements;
-  }
-
-  private Map<String, String> createStringMapWithOneEntry(String value) {
-    Map<String, String> map = new HashMap<>();
-    map.put("da", value);
-    return map;
-  }
-
-  private Map<String, String[]> createStringArrayMapWithOneEntry(String... values) {
-    Map<String, String[]> map = new HashMap<>();
-    map.put("da", values);
-    return map;
   }
 
   /**
    * Test for
-   * {@link VocabularyExporterImpl#exportVocabulary(String, java.io.File, String, String, boolean, boolean, java.net.URL)}.
+   * {@link VocabularyExporterImpl#exportVocabulary(String, java.io.File, String, Locale, boolean, boolean, java.net.URL)}.
    */
   @Test
-  public void testExportVocabulary() throws ModellingToolsException, IOException {
-    vocabularyExporterImpl.exportVocabulary(PACKAGE_GUID, folderForTest, "csv", "da", false, false,
-        null);
+  public void testExportVocabularyDa() throws ModellingToolsException, IOException {
+    textExportVocabulary("da");
+  }
+
+  /**
+   * Test for
+   * {@link VocabularyExporterImpl#exportVocabulary(String, java.io.File, String, Locale, boolean, boolean, java.net.URL)}.
+   */
+  @Test
+  public void testExportVocabularyEn() throws ModellingToolsException, IOException {
+    textExportVocabulary("en");
+  }
+
+  /**
+   * Test for
+   * {@link VocabularyExporterImpl#exportVocabulary(String, java.io.File, String, Locale, boolean, boolean, java.net.URL)}.
+   */
+  @Test
+  public void testExportVocabularyLanguageNotSupported()
+      throws ModellingToolsException, IOException {
+    assertThrows(ModellingToolsException.class, () -> textExportVocabulary("nl"));
+  }
+
+  private void textExportVocabulary(String languageTag)
+      throws ModellingToolsException, IOException, FileNotFoundException {
+    vocabularyExporterImpl.exportVocabulary(PACKAGE_GUID, folderForTest, "csv",
+        Locale.forLanguageTag(languageTag), false, false, null);
     File file = new File(folderForTest, "Test_model_v0.1.0.csv");
     LOGGER.info("Files in folder {}: {}", folderForTest.getAbsolutePath(),
         StringUtils.join(folderForTest.list(), ", "));
     assertTrue(file.exists(),
         "The file with the data vocabulary was not created or did not have the expected name.");
     try (FileInputStream fileInputStream = new FileInputStream(file)) {
-      assertTrue(IOUtils.contentEquals(
-          VocabularyExporterImplTests.class.getResourceAsStream("/export/testvocabulary.csv"),
-          fileInputStream), "The vocabulary did not contain the expected contents.");
+      assertTrue(
+          IOUtils.contentEquals(VocabularyExporterImplTests.class.getResourceAsStream(
+              "/export/testvocabulary_" + languageTag + ".csv"), fileInputStream),
+          "The vocabulary did not contain the expected contents.");
     }
-    FileUtils.deleteQuietly(folderForTest);
   }
 
 }

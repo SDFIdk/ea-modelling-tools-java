@@ -159,6 +159,9 @@ public abstract class AbstractApplication {
     } catch (IllegalArgumentException e) {
       LOGGER.error("A method has been passed an illegal or inappropriate argument: {}",
           e.getMessage(), e);
+    } catch (NullPointerException e) {
+      // org.apache.commons.lang3.Validate.notNull throws a NullPointerException
+      LOGGER.error("A method has been passed a null argument: {}", e.getMessage(), e);
     } catch (Throwable e) {
       LOGGER.error("Unexpected error: {}", e.getMessage(), e);
     } finally {

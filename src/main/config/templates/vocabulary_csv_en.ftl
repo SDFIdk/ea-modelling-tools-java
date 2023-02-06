@@ -1,0 +1,8 @@
+<#ftl strip_whitespace=true>
+<#if hasHeader>
+"Model","Name in model","Type","Preferred term","Definition","Note","Example","Accepted terms","Info","Deprecated terms","Transliterated name in model"
+</#if>
+<#assign umlTypeAbbreviations = {"CLASS":"kl", "ATTRIBUTE":"at", "ASSOCIATION_END":"ae", "ENUMERATION":"en", "ENUMERATION_LITERAL":"ev", "DATA_TYPE":"da"}>
+<#list modelElements as modelElement>
+"<#if hasMetadata>${metadataUrl}[</#if>${model.name?replace("\"", "\"\"")} v${model.version?replace("\"", "\"\"")}<#if hasMetadata>,title=Read more about ${model.name?replace("\"", "\"\"")}]</#if>","${modelElement.umlName?replace("\"", "\"\"")}","${umlTypeAbbreviations[modelElement.umlModelElementType.name()]}","${modelElement.concept.preferredTerms["en"]?replace("\"", "\"\"")}","${modelElement.concept.definitions["en"]?replace("\"", "\"\"")}","${modelElement.concept.notes["en"]?replace("\"", "\"\"")}","${modelElement.concept.examples["en"]?replace("\"", "\"\"")}","${modelElement.concept.acceptedTerms["en"]?join("; ")?replace("\"", "\"\"")}","<#if modelElement.concept.legalSource??>${modelElement.concept.legalSource}[§,title=Go to the legal source] </#if><#if modelElement.concept.source??>${modelElement.concept.source}[🡭,title=Go to the source] <#elseif modelElement.concept.sourceTextualReference??>${modelElement.concept.sourceTextualReference?replace("\"", "\"\"")!""} </#if><#if modelElement.concept.definingConceptModel??>${modelElement.concept.definingConceptModel}[☰,title=Go to the code list] </#if>","${modelElement.concept.deprecatedTerms["en"]?join("; ")?replace("\"", "\"\"")}","${modelElement.transliteratedUmlName?replace("\"", "\"\"")}"
+</#list>
