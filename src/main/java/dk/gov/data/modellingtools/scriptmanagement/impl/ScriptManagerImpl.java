@@ -55,11 +55,13 @@ public class ScriptManagerImpl implements ScriptManager {
 
   private ScriptGroupDao scriptGroupDao;
 
+  private RepositoryType repositoryType;
+
   /**
    * Constructor.
    */
   public ScriptManagerImpl(EnterpriseArchitectWrapper eaWrapper) {
-    RepositoryType repositoryType = eaWrapper.getRepositoryType();
+    repositoryType = eaWrapper.getRepositoryType();
     switch (repositoryType) {
       case QEA:
         this.scriptGroupDao = new ScriptGroupDaoQea(eaWrapper);
@@ -140,17 +142,29 @@ public class ScriptManagerImpl implements ScriptManager {
           scriptGroup.toString(), scriptFolder.getAbsolutePath());
       List<Script> scripts = scriptGroup.getScripts();
       for (Script script : scripts) {
-        LOGGER.info(script.toString());
-        File scriptFile = new File(scriptFolder, script.getFileName());
-        try {
-          FileUtils.writeStringToFile(scriptFile, script.getContents(), StandardCharsets.UTF_8);
-          LOGGER.info("{} written.", scriptFile.getAbsolutePath());
-        } catch (IOException e) {
-          throw new ModellingToolsException(
-              "Could not write content to " + scriptFile.getPath() + e.getMessage(), e);
-        }
+        writeScriptToFile(scriptFolder, script);
       }
       inspectScriptFolderContents(scriptFolder, scripts);
+    }
+  }
+
+  private void writeScriptToFile(File scriptFolder, Script script) throws ModellingToolsException {
+    LOGGER.info(script.toString());
+    File scriptFile = new File(scriptFolder, script.getFileName());
+    try {
+      final String scriptContentsToWrite;
+      switch (repositoryType) {
+        case EAPX:
+          scriptContentsToWrite = script.getContents().replaceAll("(?m)\n", "\r\n");
+          break;
+        default:
+          scriptContentsToWrite = script.getContents();
+      }
+      FileUtils.writeStringToFile(scriptFile, scriptContentsToWrite, StandardCharsets.UTF_8);
+      LOGGER.info("{} written.", scriptFile.getAbsolutePath());
+    } catch (IOException e) {
+      throw new ModellingToolsException(
+          "Could not write content to " + scriptFile.getPath() + e.getMessage(), e);
     }
   }
 
