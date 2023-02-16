@@ -7,6 +7,7 @@ import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.impl.EnterpriseArchitectWrapperImpl;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.logging.EnterpriseArchitectScriptWindowAppender;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.util.Iterator;
 import org.apache.commons.cli.CommandLine;
@@ -31,14 +32,18 @@ public abstract class AbstractApplication {
 
   public static final String OPTION_EA_PROCESS_ID = "eapid";
   public static final String OPTION_PAUSE = "p";
+  public static final String OPTION_INPUT_FOLDER = "i";
   public static final String OPTION_OUTPUT_FOLDER = "o";
   public static final String OPTION_PACKAGE = "pkg";
+  public static final String OPTION_INPUT_FORMAT = "f";
   public static final String OPTION_OUTPUT_FORMAT = "t";
   public static final String OPTION_LANGUAGE = "l";
 
 
   private HelpFormatter helpFormatter;
   protected Options options;
+
+  private boolean shouldEaBeTerminated;
 
   public AbstractApplication() {
     super();
@@ -65,6 +70,15 @@ public abstract class AbstractApplication {
   }
 
   /**
+   * Adds a required option for an input folder.
+   */
+  protected final void addOptionInputFolder() {
+    options.addOption(Option.builder(AbstractApplication.OPTION_INPUT_FOLDER)
+        .longOpt("input-folder").hasArg().argName("folder path").argName("folder").type(File.class)
+        .required().desc("specifies the input folder path (required)").build());
+  }
+
+  /**
    * Adds a required option for an output folder.
    */
   protected final void addOptionOutputFolder() {
@@ -80,6 +94,15 @@ public abstract class AbstractApplication {
     options.addOption(Option.builder(AbstractApplication.OPTION_PACKAGE).longOpt("package-guid")
         .hasArg().argName("UML package GUID").type(String.class).required()
         .desc("GUID of the package in the model").build());
+  }
+
+  /**
+   * Adds a required option for an input format.
+   */
+  protected final void addOptionInputFormat() {
+    options.addOption(Option.builder(AbstractApplication.OPTION_INPUT_FORMAT).longOpt("from-format")
+        .hasArg().argName("format name").type(String.class).desc("input file format").required()
+        .build());
   }
 
   /**
@@ -144,6 +167,7 @@ public abstract class AbstractApplication {
    * Creates the options for the application, runs the application and handles exceptions and
    * throwables.
    */
+  @SuppressFBWarnings("DCN_NULLPOINTER_EXCEPTION")
   protected final void run(String... args) {
     StopWatch stopWatch = StopWatch.createStarted();
     try {
@@ -172,9 +196,10 @@ public abstract class AbstractApplication {
 
   private void parseArgumentsAndRunApplication(String... args) throws ModellingToolsException {
     CommandLine commandLine = null;
+    EnterpriseArchitectWrapper eaWrapper = null;
     try {
       commandLine = new DefaultParser().parse(options, args);
-      EnterpriseArchitectWrapper eaWrapper = createEaWrapper(commandLine);
+      eaWrapper = createEaWrapper(commandLine);
 
       startEaScriptWindowAppenders(eaWrapper);
       doApplicationSpecificLogic(commandLine, eaWrapper);
@@ -194,14 +219,25 @@ public abstract class AbstractApplication {
       } else {
         pauseApplicationIfRequested(commandLine);
       }
+      if (eaWrapper != null && shouldEaBeTerminated) {
+        eaWrapper.terminate();
+      }
     }
   }
 
   private EnterpriseArchitectWrapper createEaWrapper(CommandLine commandLine)
       throws ModellingToolsException {
-    int eaProcessId =
-        Integer.parseInt(commandLine.getOptionValue(AbstractApplication.OPTION_EA_PROCESS_ID));
-    EnterpriseArchitectWrapper eaWrapper = new EnterpriseArchitectWrapperImpl(eaProcessId);
+    String eaProcessIdFromCommandLine =
+        commandLine.getOptionValue(AbstractApplication.OPTION_EA_PROCESS_ID);
+    EnterpriseArchitectWrapper eaWrapper;
+    if (eaProcessIdFromCommandLine == null) {
+      eaWrapper = new EnterpriseArchitectWrapperImpl();
+      shouldEaBeTerminated = true;
+    } else {
+      int eaProcessId = Integer.parseInt(eaProcessIdFromCommandLine);
+      eaWrapper = new EnterpriseArchitectWrapperImpl(eaProcessId);
+      shouldEaBeTerminated = false;
+    }
     return eaWrapper;
   }
 

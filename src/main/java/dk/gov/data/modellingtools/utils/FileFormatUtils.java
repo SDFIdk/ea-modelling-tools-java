@@ -1,5 +1,7 @@
 package dk.gov.data.modellingtools.utils;
 
+import java.util.Locale;
+
 /**
  * Utilities for file format.
  */
@@ -9,8 +11,9 @@ public class FileFormatUtils {
    * Get the extension that should be use for the given file format.
    */
   public static String getFileFormatExtension(String fileFormat) {
+    String fileFormatlowerCase = fileFormat.toLowerCase(Locale.ENGLISH);
     String outputFileExtension;
-    switch (fileFormat) {
+    switch (fileFormatlowerCase) {
       case "asciidoc":
         outputFileExtension = ".adoc";
         break;
@@ -19,6 +22,21 @@ public class FileFormatUtils {
         break;
       case "csv":
         outputFileExtension = ".csv";
+        break;
+      case "eap":
+        outputFileExtension = ".eap";
+        break;
+      case "eapx":
+        outputFileExtension = ".eapx";
+        break;
+      case "feap":
+        outputFileExtension = ".feap";
+        break;
+      case "qea":
+        outputFileExtension = ".qea";
+        break;
+      case "qeax":
+        outputFileExtension = ".qeax";
         break;
       default:
         throw new IllegalArgumentException("Unknown format " + fileFormat);

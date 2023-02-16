@@ -88,6 +88,14 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   }
 
   /**
+   * Constructor to be used when no Windows process id is available, e.g. because EA is not yet
+   * running.
+   */
+  public EnterpriseArchitectWrapperImpl() {
+    this.eaRepository = new Repository();
+  }
+
+  /**
    * The static initializer of {@link Services} calls {@link System#loadLibrary(String)}.
    *
    * @see System#loadLibrary(String)
@@ -320,6 +328,30 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
     }
     return repositoryType;
 
+  }
+
+  @Override
+  public boolean transferProject(String sourceFilePath, String targetFilePath)
+      throws ModellingToolsException {
+    return eaRepository.GetProjectInterface().ProjectTransfer(sourceFilePath, targetFilePath, null);
+  }
+
+  @Override
+  public int getMajorVersion() throws ModellingToolsException {
+    int eaLibraryVersion = eaRepository.GetLibraryVersion();
+    LOGGER.info("EA Library version " + eaLibraryVersion);
+    if (eaLibraryVersion >= 1000) {
+      return Math.floorDiv(eaLibraryVersion, 100);
+    } else {
+      throw new ModellingToolsException("Unsupported version of EA: " + eaLibraryVersion);
+    }
+  }
+
+  @Override
+  public void terminate() {
+    eaRepository.Exit();
+    eaRepository.destroy();
+    eaRepository = null;
   }
 
 }

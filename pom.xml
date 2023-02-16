@@ -32,7 +32,7 @@
     <dependency>
     <!-- Copied from EA installation folder:
     
-      mvn install:install-file -Dfile="C:\Program Files (x86)\Sparx Systems\EA\Java API\eaapi.jar"
+      mvn install:install-file -Dfile="C:\Program Files\Sparx Systems\EA\Java API\eaapi.jar"
       -DgroupId=org.sparx -DartifactId=eaapi -Dversion=replace_with_ea_program_version -Dpackaging=jar
       
       The version is equal to the Program Version of Enterprise Architect (see "About Enterprise Architect").
@@ -42,7 +42,7 @@
       See also https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html -->
       <groupId>org.sparx</groupId>
       <artifactId>eaapi</artifactId>
-      <version>16.0.1605</version>
+      <version>16.1.1623</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
@@ -65,7 +65,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
-      <version>1.9.0</version>
+      <version>1.10.0</version>
     </dependency>
     <dependency>
       <groupId>commons-validator</groupId>
@@ -236,6 +236,10 @@
                   <mainClass>dk.gov.data.modellingtools.app.ExportDataModelVocabulary</mainClass>
                   <id>export-data-model-vocabulary</id>
                 </program>
+                <program>
+                  <mainClass>dk.gov.data.modellingtools.app.TransferProjects</mainClass>
+                  <id>transfer-projects</id>
+                </program>
               </programs>
               <!-- This is the way Eclipse does it... -->
               <projectArtifactFirstInClassPath>true</projectArtifactFirstInClassPath>
@@ -328,7 +332,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>10.6.0</version>
+            <version>10.7.0</version>
           </dependency>
         </dependencies>
         <configuration>
@@ -429,7 +433,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>3.0.0-M8</version>
+        <version>3.0.0-M9</version>
       </plugin>
     </plugins>
   </reporting>
