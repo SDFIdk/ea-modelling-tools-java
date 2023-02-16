@@ -1,7 +1,8 @@
 # EA Modelling Tools
 
-This project contains a set of tools, written in Java, to support model driven development for models made with Sparx
-Enterprise Architect (EA).
+This repository contains a set of tools, written in Java, to support model driven development for models made with Sparx
+Enterprise Architect (EA). These tools are supposed to be used together with the scripts from the repository 
+EA Modelling Tools JavaScript.
 
 ## Using the tools
 
@@ -10,8 +11,8 @@ Enterprise Architect (EA).
 1. **Windows**: The modelling tools only work on Windows systems.
 2. **Enterprise Architect**: Verify that you have installed Enterprise Architect and that folder `<EA installation folder>\Java API` exists. It should contain at least files `SSJavaCOM.dll` and `eaapi.jar` and it may also contain `SSJavaCOM64.dll`.
 3. **Java**: Verify that you have installed a Java Runtime Environment (JRE) that is version 11 or later (as required according to the pom.xml file, see `/project/build/plugins/plugin[artifactId='maven-compiler-plugin']/configuration/release`).
-    1. If `<EA installation folder>\Java API\SSJavaCOM64.dll` exists, you can choose whether you use a 64-bit JRE or a 32-bit JRE.
-    2. If `<EA installation folder>\Java API\SSJavaCOM64.dll` does not exist, you must use a 32-bit JRE.
+    1. You may choose between a 64-bit JRE or a 32-bit JRE if `<EA installation folder>\Java API\SSJavaCOM64.dll` exists.
+    2. You must use a 32-bit JRE if `<EA installation folder>\Java API\SSJavaCOM64.dll` does not exist.
 
 ### Installation
 
@@ -42,9 +43,9 @@ Enterprise Architect (EA).
    ℹ️ Leaving out the version number makes it easier to install a newer version of the tools, as `EAMT_HOME` (see next step) then does not have to be set again.
 
 2. **User environment variables**: Set user environment variables `EAMT_HOME` (required), `EA_JAVA_API` (required), `JAVACMD` (conditional),  using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line.
-   1. **(required)** `EAMT_HOME` must point to the ea-modelling-tools-java folder and is used when invoking the .bat-files from within a script in Enterprise Architect. This environment variable is defined by this project.
-   2. **(required)** `EA_JAVA_API` must point to the folder Java API in your EA installation folder (see also the prerequisites) and is used in the .bat-files. This environment variable is defined by this project.
-   3. **(conditional)** `JAVACMD` can be used to identify the java.exe that should be used for running the tools, if another java.exe should be used than the one invoked by calling `java` on the command line (tip: get all the details of the default java by calling `java -XshowSettings:properties --version`). `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
+   1. **(required)** `EAMT_HOME` must point to the ea-modelling-tools-java folder and is used when invoking the .bat-files from within a script in Enterprise Architect. This environment variable is defined by the EA Modelling Tools.
+   2. **(required)** `EA_JAVA_API` must point to the folder Java API in your EA installation folder (see also the prerequisites) and is used in the .bat-files. This environment variable is defined by the EA Modelling Tools.
+   3. **(conditional)** `JAVACMD` must point to the java.exe that is to be used for running the tools, **if** another java.exe is to be used than the one invoked by calling `java` on the command line (tip: get all the details of the default java by calling `java -XshowSettings:properties --version`). `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
 
 
    ```
@@ -62,13 +63,13 @@ Enterprise Architect (EA).
    ```
 
 4. Restart Enterprise Architect, if it is open.
-5. Install the scripts from the project EA Modelling Tools JavaScript.
+5. Import the scripts from the repository EA Modelling Tools JavaScript.
 
 ### Usage
 
 #### In Enterprise Architect
 
-Run a script from within Enterprise Architect that calls a bat file, it will contain something like the following:
+Run a script from the repository EA Modelling Tools JavaScript that calls a bat file (e.g. `export-eamt-scripts`), it will contain something like the following:
 
 ```
 runBatFileInDefaultWorkingDirectory("script-name.bat", "options");
@@ -101,9 +102,9 @@ The output is produced with the logging configuration that comes with the tools 
 
 ### Using the tools in an Integrated Development Environment (IDE)
 
-Add folder `src/main/config` to the build path of the project.
+Add folder `src/main/config` to the class path of the project.
 
-⚠️ Do not add folder `src/main/config` as a source folder, as the contents otherwise will be add to folder target by your IDE during the building of the project, and this does not reflect the Maven configuration.
+⚠️ Do **not** add folder `src/main/config` as a source folder, as the contents otherwise will be add to folder target by your IDE during the building of the project, and this does not reflect the Maven configuration.
 
 ℹ️ The maven-assembly-plugin assembles the
 code in such a way that the contents of the `conf` folder is added to the classpath, see also "Building the tools" and the [Maven configuration](./pom.xml).
@@ -123,10 +124,12 @@ Provide that process id as option `-eapid` to the main class you want to run.
 The project has a dependency on the Enterprise Architect Java API, which can be installed by executing the following command:
 
 ```
-mvn install:install-file -Dfile="C:\Program Files (x86)\Sparx Systems\EA\Java API\eaapi.jar" -DgroupId=org.sparx -DartifactId=eaapi -Dversion=15.1.1525 -Dpackaging=jar
+mvn install:install-file -Dfile="C:\Program Files\Sparx Systems\EA\Java API\eaapi.jar" -DgroupId=org.sparx -DartifactId=eaapi -Dversion=replace_with_ea_program_version -Dpackaging=jar
 ```
       
 See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html).
+
+The EA API does not change often, so a eaapi.jar from a different EA version may also work.
 
 `mvn package` invokes the assemble goal of the appassembler-maven-plugin. It creates the following structure:
 
@@ -172,5 +175,5 @@ The logging framework used is [logback](https://logback.qos.ch/manual/index.html
 Logging messages can be done by means of [parameterised logging](https://logback.qos.ch/manual/architecture.html#parametrized), e.g.
 
 ```java
-logger.debug("This is a message containing two values passed in the next arguments: {} and {}.", argument1, argument2);
+LOGGER.debug("This is a message containing two values passed in the next arguments: {} and {}.", argument1, argument2);
 ```
