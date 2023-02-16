@@ -151,15 +151,14 @@ public class ScriptManagerImpl implements ScriptManager {
   private void writeScriptToFile(File scriptFolder, Script script) throws ModellingToolsException {
     LOGGER.info(script.toString());
     File scriptFile = new File(scriptFolder, script.getFileName());
+    final String scriptContentsToWrite;
+    if (RepositoryType.EAPX.equals(repositoryType)) {
+      scriptContentsToWrite = script.getContents().replaceAll("(?m)\n", "\r\n");
+    } else {
+      scriptContentsToWrite = script.getContents();
+
+    }
     try {
-      final String scriptContentsToWrite;
-      switch (repositoryType) {
-        case EAPX:
-          scriptContentsToWrite = script.getContents().replaceAll("(?m)\n", "\r\n");
-          break;
-        default:
-          scriptContentsToWrite = script.getContents();
-      }
       FileUtils.writeStringToFile(scriptFile, scriptContentsToWrite, StandardCharsets.UTF_8);
       LOGGER.info("{} written.", scriptFile.getAbsolutePath());
     } catch (IOException e) {
