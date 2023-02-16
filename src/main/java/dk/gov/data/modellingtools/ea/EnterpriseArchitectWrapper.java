@@ -54,9 +54,23 @@ public interface EnterpriseArchitectWrapper {
   boolean isConnectorAssociationAndControlledInSamePackageAsElement(Connector connector,
       Element element);
 
+  boolean transferProject(String sourceFilePath, String targetFilePath)
+      throws ModellingToolsException;
+
   /**
    * Returns the type of repository (based on the underlying database).
    */
   RepositoryType getRepositoryType();
+
+  /**
+   * Returns the major version of Enterprise Architect. E.g. 15 or 16.
+   */
+  int getMajorVersion() throws ModellingToolsException;
+
+  /**
+   * Terminates whatever needs to be terminated.
+   */
+  void terminate();
+
 
 }

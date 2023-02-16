@@ -236,6 +236,10 @@
                   <mainClass>dk.gov.data.modellingtools.app.ExportDataModelVocabulary</mainClass>
                   <id>export-data-model-vocabulary</id>
                 </program>
+                <program>
+                  <mainClass>dk.gov.data.modellingtools.app.TransferProjects</mainClass>
+                  <id>transfer-projects</id>
+                </program>
               </programs>
               <!-- This is the way Eclipse does it... -->
               <projectArtifactFirstInClassPath>true</projectArtifactFirstInClassPath>
