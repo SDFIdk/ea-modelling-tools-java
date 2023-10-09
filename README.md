@@ -42,21 +42,25 @@ EA Modelling Tools JavaScript.
 
    ℹ️ Leaving out the version number makes it easier to install a newer version of the tools, as `EAMT_HOME` (see next step) then does not have to be set again.
 
-2. **User environment variables**: Set user environment variables `EAMT_HOME` (required), `EA_JAVA_API` (required), `JAVACMD` (conditional),  using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line.
+2. **User environment variables**: Set user environment variables `EAMT_HOME` (required), `EA_JAVA_API` (required), `JAVACMD` (conditional),  for example by using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line.
    1. **(required)** `EAMT_HOME` must point to the ea-modelling-tools-java folder and is used when invoking the .bat-files from within a script in Enterprise Architect. This environment variable is defined by the EA Modelling Tools.
    2. **(required)** `EA_JAVA_API` must point to the folder Java API in your EA installation folder (see also the prerequisites) and is used in the .bat-files. This environment variable is defined by the EA Modelling Tools.
-   3. **(conditional)** `JAVACMD` must point to the java.exe that is to be used for running the tools, **if** another java.exe is to be used than the one invoked by calling `java` on the command line (tip: get all the details of the default java by calling `java -XshowSettings:properties --version`). `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
+   3. **(conditional)** **Only if** another java.exe is to be used than the one invoked by calling `java` on the command line, `JAVACMD` must point to the java.exe that is to be used for running the tools. `JAVACMD` must not contain whitespace. Tip: get all the details of the default java by calling `java -XshowSettings:properties --version`. `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
 
 
-   ```
-   SETX EAMT_HOME "C:\path\to\ea-modelling-tools-java"
-   SETX EA_JAVA_API "C:\path\to\EA\installation\folder\Java API"
-   SETX JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
+   ```bat
+   rem Set required user environment variable EAMT_HOME
+   setx EAMT_HOME "C:\path\to\ea-modelling-tools-java"
+   rem Set required user environment variable EA_JAVA_API
+   setx EA_JAVA_API "C:\path\to\EA\installation\folder\Java API"
+   rem The next command is only needed when another java installation than the default one should be used!
+   rem Set conditional user environment variable JAVACMD, make sure that it does not contain whitespace!
+   setx JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
    ```
 
 3. Close the command line window and open a **new** one. Check using `echo`, that the environment variables are set correctly. The input should show the chosen paths:
 
-   ```
+   ```bat
    echo %EAMT_HOME%
    echo %EA_JAVA_API%
    echo %JAVACMD% 
@@ -71,7 +75,7 @@ EA Modelling Tools JavaScript.
 
 Run a script from the repository EA Modelling Tools JavaScript that calls a bat file (e.g. `export-eamt-scripts`), it will contain something like the following:
 
-```
+```js
 runBatFileInDefaultWorkingDirectory("script-name.bat", "options");
 ```
 
@@ -83,14 +87,14 @@ Provide that process id as option `-eapid` to the main class you want to run.
 
 Use an application directly by navigating to the folder containing the tools and invoking a script:
 
-```
+```bat
 cd %EAMT_HOME%
 bin\script-name.bat
 ```
 
 e.g.
 
-```
+```bat
 bin\export-scripts.bat
 ```
 
@@ -123,7 +127,7 @@ Provide that process id as option `-eapid` to the main class you want to run.
 
 The project has a dependency on the Enterprise Architect Java API, which can be installed by executing the following command:
 
-```
+```bat
 mvn install:install-file -Dfile="C:\Program Files\Sparx Systems\EA\Java API\eaapi.jar" -DgroupId=org.sparx -DartifactId=eaapi -Dversion=replace_with_ea_program_version -Dpackaging=jar
 ```
       
