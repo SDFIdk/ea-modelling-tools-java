@@ -154,11 +154,16 @@ The EA API does not change often, so a eaapi.jar from a different EA version may
 
 `mvn site` creates an overview of the projects, include CheckStyle, PMD and SpotBugs reports.
 
-`mvn versions:display-plugin-updates` finds the plugin versions that should be updated.
+Find more information about Maven's build lifecyle on [Introduction to the Build Lifecycle](http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html).
 
-`mvn versions:display-dependency-updates` finds dependencies that may be updated.
+`mvn versions:display-dependency-updates` identifies the dependencies that should be updated because a newer release is available.
 
-See more information about Maven's build lifecyle on http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html.
+`mvn versions:use-latest-releases` updates the dependency versions. The plugin versions and the versions of any dependencies of the plugins have to be updated manually, see next goal.
+
+`mvn versions:display-plugin-updates` identifies the plugin versions that should be updated because a newer release is available.
+
+Read more about the [Versions Maven Plugin](https://www.mojohaus.org/versions/versions-maven-plugin/index.html).
+
 
 ### Adding applications
 
