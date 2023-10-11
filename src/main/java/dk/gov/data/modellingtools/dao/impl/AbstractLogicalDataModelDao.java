@@ -42,7 +42,7 @@ public abstract class AbstractLogicalDataModelDao implements LogicalDataModelDao
       Validate.isTrue(taggedValues.keySet().containsAll(getTagsLogicalDataModel()), EaModelUtils
           .toString(umlPackage)
           + " does not contain all expected tags, synchronize the stereotypes in your EA model. "
-          + "\r\nexpected tags: " + StringUtils.join(getTagsLogicalDataModel() + "; found tags: "
+          + "\r\nexpected tags: " + StringUtils.join(getTagsLogicalDataModel() + ";\r\nfound tags: "
               + StringUtils.join(taggedValues.keySet())));
       return createLogicalDataModel(umlPackage, taggedValues);
     } else {

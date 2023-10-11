@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
- * Exports a concept model modelled according to the FDA MGG.
+ * Exports a concept model modelled according to the FDA UML profile.
  */
 public class ExportConceptModel extends AbstractApplication {
 
