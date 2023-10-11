@@ -10,6 +10,7 @@ import dk.gov.data.modellingtools.logging.EnterpriseArchitectScriptWindowAppende
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.util.Iterator;
+import java.util.Locale;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -38,6 +39,9 @@ public abstract class AbstractApplication {
   public static final String OPTION_INPUT_FORMAT = "f";
   public static final String OPTION_OUTPUT_FORMAT = "t";
   public static final String OPTION_LANGUAGE = "l";
+
+  // UNDetermined language
+  public static final String DEFAULT_LANGUAGE = "und";
 
 
   private HelpFormatter helpFormatter;
@@ -276,5 +280,15 @@ public abstract class AbstractApplication {
 
   protected abstract void doApplicationSpecificLogic(CommandLine commandLine,
       EnterpriseArchitectWrapper eaWrapper) throws ParseException, ModellingToolsException;
+
+  protected Locale retrieveLocale(String language) {
+    final Locale locale;
+    if (language == null) {
+      locale = Locale.forLanguageTag(DEFAULT_LANGUAGE);
+    } else {
+      locale = Locale.forLanguageTag(language);
+    }
+    return locale;
+  }
 
 }

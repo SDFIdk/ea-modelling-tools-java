@@ -2,6 +2,7 @@ package dk.gov.data.modellingtools.config;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
+import java.util.Locale;
 
 /**
  * Gives access to the Freemarker configuration.
@@ -16,13 +17,16 @@ public enum FreemarkerTemplateConfiguration {
   private final Configuration configuration;
 
   FreemarkerTemplateConfiguration() {
-    configuration = new Configuration(Configuration.VERSION_2_3_31);
+    configuration = new Configuration(Configuration.VERSION_2_3_32);
     String encoding = "UTF-8";
     configuration.setTemplateLoader(new ResourceStreamTemplateLoader("/templates", encoding));
     configuration.setDefaultEncoding(encoding);
     configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     configuration.setRecognizeStandardFileExtensions(true);
+    // UNDetermined language
+    configuration.setLocale(Locale.forLanguageTag("und"));
     configuration.setLocalizedLookup(true);
+    configuration.setLogTemplateExceptions(false);
   }
 
   /**
