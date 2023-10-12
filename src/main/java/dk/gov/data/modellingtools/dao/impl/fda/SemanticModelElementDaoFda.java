@@ -1,6 +1,5 @@
 package dk.gov.data.modellingtools.dao.impl.fda;
 
-import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.impl.AbstractSemanticModelElementDao;
 import dk.gov.data.modellingtools.dao.impl.EaConceptDaoForLogicalDataModel;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
@@ -41,22 +40,21 @@ public class SemanticModelElementDaoFda extends AbstractSemanticModelElementDao 
   }
 
   @Override
-  protected boolean qualifiesAsSemanticModelElement(Element element) {
-    return element.HasStereotype(FdaConstants.FQ_STEREOTYPE_MODEL_ELEMENT);
+  protected boolean qualifiesAsSemanticModelElement(Element element,
+      MultiValuedMap<String, String> elementFqStereotypes) {
+    return FdaDaoUtils.isRelevantModelElement(element, elementFqStereotypes);
   }
 
   @Override
   protected boolean qualifiesAsSemanticModelElement(Attribute attribute,
       MultiValuedMap<String, String> attributeFqStereotypes) {
-    return attributeFqStereotypes.containsMapping(attribute.GetAttributeGUID(),
-        FdaConstants.FQ_STEREOTYPE_MODEL_ELEMENT);
+    return FdaDaoUtils.isRelevantModelElement(attribute, attributeFqStereotypes);
   }
 
   @Override
-  protected boolean qualifiesOppositeEndAsSemanticModelElement(
-      MultiValuedMap<String, String> connectorEndFqStereotypes, EaConnectorEnd eaConnectorEnd) {
-    return connectorEndFqStereotypes.containsMapping(eaConnectorEnd.getConnectorEndUniqueId(),
-        FdaConstants.FQ_STEREOTYPE_MODEL_ELEMENT);
+  protected boolean qualifiesOppositeEndAsSemanticModelElement(EaConnectorEnd eaConnectorEnd,
+      MultiValuedMap<String, String> connectorEndFqStereotypes) {
+    return FdaDaoUtils.isRelevantModelElement(eaConnectorEnd, connectorEndFqStereotypes);
   }
 
 }

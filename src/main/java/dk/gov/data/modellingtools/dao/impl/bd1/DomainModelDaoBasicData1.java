@@ -5,7 +5,6 @@ import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
 import dk.gov.data.modellingtools.dao.impl.AbstractLogicalDataModelDao;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
-import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.LogicalDataModel;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
@@ -18,18 +17,13 @@ import org.sparx.Package;
 /**
  * Implementation of {@link LogicalDataModelDao} for the Basic Data modelling rules version 1.
  */
-public class LogicalDataModelDaoBasicData1 extends AbstractLogicalDataModelDao {
+public class DomainModelDaoBasicData1 extends AbstractLogicalDataModelDao {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(LogicalDataModelDaoBasicData1.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DomainModelDaoBasicData1.class);
 
   @SuppressFBWarnings("EI_EXPOSE_REP")
-  public LogicalDataModelDaoBasicData1(EnterpriseArchitectWrapper eaWrapper) {
+  public DomainModelDaoBasicData1(EnterpriseArchitectWrapper eaWrapper) {
     super(eaWrapper);
-  }
-
-  @Override
-  public LogicalDataModel findByPackageGuid(String packageGuid) throws ModellingToolsException {
-    return validateAndFindByPackageGuid(packageGuid);
   }
 
   @Override

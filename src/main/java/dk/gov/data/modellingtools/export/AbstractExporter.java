@@ -56,6 +56,7 @@ public abstract class AbstractExporter {
       Locale locale) throws ModellingToolsException {
     processInputParameters(packageGuid, outputFolder, outputFormat, locale);
     prepareExport();
+    determineTemplateFileName();
     prepareFoldersAndFiles();
     writeFiles(prepareDataForTemplate());
   }
@@ -66,8 +67,6 @@ public abstract class AbstractExporter {
     this.outputFolder = outputFolder;
     this.outputFormat = outputFormat;
     this.outputFileExtension = FileFormatUtils.getFileFormatExtension(this.outputFormat);
-    this.templateFileName = getTemplateFileNamePrefix() + this.outputFormat
-        + FileFormatUtils.getTemplateExtension(this.outputFormat);
     this.locale = locale;
   }
 
@@ -75,6 +74,11 @@ public abstract class AbstractExporter {
    * Sets up any DAOs needed. Is called before {@link #prepareFoldersAndFiles()}.
    */
   protected abstract void prepareExport() throws ModellingToolsException;
+
+  private void determineTemplateFileName() {
+    this.templateFileName = getTemplateFileNamePrefix() + this.outputFormat
+        + FileFormatUtils.getTemplateExtension(this.outputFormat);
+  }
 
   protected String getPackageGuid() throws ModellingToolsException {
     if (this.packageGuid == null) {
@@ -117,7 +121,7 @@ public abstract class AbstractExporter {
           "Could not write content to " + outputFile.getAbsolutePath() + ": " + e.getMessage(), e);
     } catch (TemplateException e) {
       throw new ModellingToolsException(
-          "Could not process template " + templateFileName + ": " + e.getMessage(), e);
+          "Could not process template " + e.getTemplateSourceName() + ": " + e.getMessage(), e);
     }
   }
 

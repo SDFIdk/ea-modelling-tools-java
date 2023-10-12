@@ -233,6 +233,10 @@
                   <id>export-concept-model</id>
                 </program>
                 <program>
+                  <mainClass>dk.gov.data.modellingtools.app.ExportDataModel</mainClass>
+                  <id>export-data-model</id>
+                </program>
+                <program>
                   <mainClass>dk.gov.data.modellingtools.app.ExportDataModelVocabulary</mainClass>
                   <id>export-data-model-vocabulary</id>
                 </program>

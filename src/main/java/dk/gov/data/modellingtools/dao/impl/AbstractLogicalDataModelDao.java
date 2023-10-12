@@ -27,6 +27,12 @@ public abstract class AbstractLogicalDataModelDao implements LogicalDataModelDao
     this.eaWrapper = eaWrapper;
   }
 
+  @Override
+  public final LogicalDataModel findByPackageGuid(String packageGuid)
+      throws ModellingToolsException {
+    return validateAndFindByPackageGuid(packageGuid);
+  }
+
   /**
    * Create a logical model based on the tagged values of the package containing it.
    */

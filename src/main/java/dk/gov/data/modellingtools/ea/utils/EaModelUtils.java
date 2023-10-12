@@ -6,6 +6,7 @@ import dk.gov.data.modellingtools.ea.model.EaConnectorEnd;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.model.ModelElement;
 import dk.gov.data.modellingtools.model.ModelElement.ModelElementType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +45,12 @@ public final class EaModelUtils {
 
   private EaModelUtils() {}
 
+  private static final Collection<String> dataModellingClassifiers =
+      Set.of("Class", "DataType", "Enumeration", "Interface");
+
+  private static final Collection<String> dataModellingClassifiersWithAttributes =
+      Set.of("Class", "DataType", "Interface");
+
   /**
    * Determines the type of the given element.
    *
@@ -57,11 +65,37 @@ public final class EaModelUtils {
       umlModelElementType = ModelElement.ModelElementType.DATA_TYPE;
     } else if (ModelElement.ModelElementType.ENUMERATION.getEaType().equals(element.GetType())) {
       umlModelElementType = ModelElement.ModelElementType.ENUMERATION;
+    } else if (ModelElement.ModelElementType.INTERFACE.getEaType().equals(element.GetType())) {
+      umlModelElementType = ModelElement.ModelElementType.INTERFACE;
     } else {
       throw new UnsupportedOperationException(
           "Unexpected type of " + toString(element) + ": " + element.GetType());
     }
     return umlModelElementType;
+  }
+
+  /**
+   * Determines the type of the given attribute. Both UML attributes and UML enumeration literals
+   * are represented by {@link Attribute}.
+   */
+  public static ModelElementType determineUmlModelElementType(Attribute attribute) {
+    ModelElementType umlModelElementType;
+    if (attribute.GetStyleEx().contains("IsLiteral=1")) {
+      umlModelElementType = ModelElement.ModelElementType.ENUMERATION_LITERAL;
+    } else {
+      umlModelElementType = ModelElement.ModelElementType.ATTRIBUTE;
+    }
+    return umlModelElementType;
+  }
+
+  @SuppressFBWarnings("MS_EXPOSE_REP")
+  public static Collection<String> getDataModellingClassifiers() {
+    return dataModellingClassifiers;
+  }
+
+  @SuppressFBWarnings("MS_EXPOSE_REP")
+  public static Collection<String> getDataModellingClassifiersWithAttributes() {
+    return dataModellingClassifiersWithAttributes;
   }
 
   /**
@@ -165,6 +199,7 @@ public final class EaModelUtils {
           }
         });
   }
+
 
   /**
    * Returns a string containing the name and GUID of the given package, e.g. for use in logging.

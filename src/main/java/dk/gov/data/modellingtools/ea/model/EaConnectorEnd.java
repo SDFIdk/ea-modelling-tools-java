@@ -3,9 +3,7 @@ package dk.gov.data.modellingtools.ea.model;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import org.apache.commons.collections4.list.UnmodifiableList;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -19,10 +17,8 @@ import org.sparx.Element;
  */
 public final class EaConnectorEnd {
 
-  public static final String ID_SUFFIX_SOURCE =
-      ConnectorEndType.SOURCE.toString().toLowerCase(Locale.ENGLISH);
-  public static final String ID_SUFFIX_TARGET =
-      ConnectorEndType.TARGET.toString().toLowerCase(Locale.ENGLISH);
+  public static final String ID_PREFIX_SOURCE = "src";
+  public static final String ID_PREFIX_TARGET = "dst";
 
   private Connector connector;
   private ConnectorEnd connectorEnd;
@@ -51,8 +47,7 @@ public final class EaConnectorEnd {
    */
   public static Collection<EaConnectorEnd> createConnectorEnds(Element element) {
     List<EaConnectorEnd> connectorEnds = new ArrayList<>();
-    for (Iterator<Connector> iterator = element.GetConnectors().iterator(); iterator.hasNext();) {
-      Connector connector = iterator.next();
+    for (Connector connector : element.GetConnectors()) {
       ConnectorType connectorType = ConnectorType.findType(connector.GetType());
       ConnectorEndType connectorEndType;
       ConnectorEnd connectorEnd;
@@ -110,26 +105,39 @@ public final class EaConnectorEnd {
    * Gets a unique id for the connector end based on the EA GUID of the connector.
    */
   public String getConnectorEndUniqueId() {
-    String suffix;
+    String prefix;
     if (getConnectorEndType().equals(ConnectorEndType.SOURCE)) {
-      suffix = ID_SUFFIX_SOURCE;
+      prefix = ID_PREFIX_SOURCE;
     } else {
-      suffix = ID_SUFFIX_TARGET;
+      prefix = ID_PREFIX_TARGET;
     }
-    return getConnector().GetConnectorGUID().concat(suffix);
+    return createConnectorEndUniqueId(prefix);
   }
 
   /**
    * Gets a unique id for the opposite connector end based on the EA GUID of the connector.
    */
   public String getOppositeConnectorEndUniqueId() {
-    String suffix;
+    String prefix;
     if (getConnectorEndType().equals(ConnectorEndType.SOURCE)) {
-      suffix = ID_SUFFIX_TARGET;
+      prefix = ID_PREFIX_TARGET;
     } else {
-      suffix = ID_SUFFIX_SOURCE;
+      prefix = ID_PREFIX_SOURCE;
     }
-    return getConnector().GetConnectorGUID().concat(suffix);
+    return createConnectorEndUniqueId(prefix);
+  }
+
+  /**
+   * Create a "GUID-like" id, so starting and ending with a curly brace.
+   */
+  private String createConnectorEndUniqueId(String prefix) {
+    String connectorGuid = getConnector().GetConnectorGUID();
+    /*
+     * The connector GUID starts with a curly brace. The next two characters are removed. Therefore
+     * remove three characters in total. String are 0-based indexed in Java, so substring(3) is
+     * needed.
+     */
+    return "{" + prefix + connectorGuid.substring(3);
   }
 
   @Override

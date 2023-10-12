@@ -9,6 +9,7 @@ import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.logging.EnterpriseArchitectScriptWindowAppender;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Locale;
 import org.apache.commons.cli.CommandLine;
@@ -39,6 +40,7 @@ public abstract class AbstractApplication {
   public static final String OPTION_INPUT_FORMAT = "f";
   public static final String OPTION_OUTPUT_FORMAT = "t";
   public static final String OPTION_LANGUAGE = "l";
+  public static final String OPTION_STRICTNESS_MODE = "m";
 
   // UNDetermined language
   public static final String DEFAULT_LANGUAGE = "und";
@@ -48,6 +50,7 @@ public abstract class AbstractApplication {
   protected Options options;
 
   private boolean shouldEaBeTerminated;
+
 
   public AbstractApplication() {
     super();
@@ -125,6 +128,15 @@ public abstract class AbstractApplication {
     options.addOption(Option.builder(AbstractApplication.OPTION_LANGUAGE).longOpt("language")
         .hasArg().argName("2-letter language code").type(String.class)
         .desc("language for the output").required(false).build());
+  }
+
+  /**
+   * Adds an optional option for the strictness mode.
+   */
+  protected final void addOptionStrictnessMode() {
+    options.addOption(Option.builder(AbstractApplication.OPTION_STRICTNESS_MODE).longOpt("mode")
+        .hasArg().argName("strictness mode").type(String.class)
+        .desc("'strict', 'moderate' or 'lenient'").required(false).build());
   }
 
   private HelpFormatter getHelpFormatter() {
@@ -289,6 +301,17 @@ public abstract class AbstractApplication {
       locale = Locale.forLanguageTag(language);
     }
     return locale;
+  }
+
+  protected StrictnessMode retrieveStrictnessMode(String strictnessModeString) {
+    try {
+      StrictnessMode strictnessMode =
+          StrictnessMode.valueOf(strictnessModeString.toUpperCase(Locale.ENGLISH));
+      return strictnessMode;
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Expected one of the following values (case-insensitive): "
+          + Arrays.toString(StrictnessMode.values()), e);
+    }
   }
 
 }

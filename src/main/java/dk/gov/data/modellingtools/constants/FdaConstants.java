@@ -13,6 +13,7 @@ public final class FdaConstants {
   public static final String FQ_STEREOTYPE_CONCEPT = "FDAprofil::Concept";
   public static final String FQ_STEREOTYPE_CONCEPT_MODEL = "FDAprofil::ConceptModel";
   public static final String FQ_STEREOTYPE_LOGICAL_DATA_MODEL = "FDAprofil::LogicalDataModel";
+  public static final String FQ_STEREOTYPE_CLASSIFICATION_MODEL = "FDAprofil::ClassificationModel";
   public static final String FQ_STEREOTYPE_MODEL_ELEMENT = "FDAprofil::ModelElement";
 
   // model element tags
