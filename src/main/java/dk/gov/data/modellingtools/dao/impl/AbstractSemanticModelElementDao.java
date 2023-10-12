@@ -11,7 +11,6 @@ import dk.gov.data.modellingtools.model.SemanticModelElement;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.slf4j.Logger;
@@ -45,13 +44,15 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
      * Retrieving fully-qualified stereotypes of attributes, connector ends, etc. from the EA model
      * file is time-expensive, so retrieving them all at once for the package.
      */
+    MultiValuedMap<String, String> elementFqStereotypes =
+        this.eaWrapper.retrieveElementFqStereotypes(umlPackage);
     MultiValuedMap<String, String> attributeFqStereotypes =
         this.eaWrapper.retrieveAttributeFqStereotypes(umlPackage);
     MultiValuedMap<String, String> connectorEndFqStereotypes =
         this.eaWrapper.retrieveConnectorEndFqStereotypes();
     List<SemanticModelElement> allSemanticModelElements = new ArrayList<>();
     for (Element element : EaModelUtils.getElementsOfPackageAndSubpackages(umlPackage)) {
-      if (qualifiesAsSemanticModelElement(element)) {
+      if (qualifiesAsSemanticModelElement(element, elementFqStereotypes)) {
         allSemanticModelElements.add(createSemanticModelElement(element));
         allSemanticModelElements
             .addAll(findSemanticModelElementsOnElementAttributes(element, attributeFqStereotypes));
@@ -68,16 +69,11 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
   private List<SemanticModelElement> findSemanticModelElementsOnElementAttributes(Element element,
       MultiValuedMap<String, String> attributeFqStereotypes) throws ModellingToolsException {
     List<SemanticModelElement> semanticModelElements = new ArrayList<>();
-    for (Iterator<Attribute> attributeIterator =
-        element.GetAttributes().iterator(); attributeIterator.hasNext();) {
-      Attribute attribute = attributeIterator.next();
+    for (Attribute attribute : element.GetAttributes()) {
       if (qualifiesAsSemanticModelElement(attribute, attributeFqStereotypes)) {
-        semanticModelElements.add(createSemanticModelElement(element, attribute));
+        semanticModelElements.add(createSemanticModelElement(attribute));
       } else {
-        LOGGER.warn(
-            "Skipping {} as it does not have the right stereotype. Stereotypes it does have: {}",
-            EaModelUtils.toString(attribute),
-            attributeFqStereotypes.get(attribute.GetAttributeGUID()));
+        LOGGER.warn("Skipping {}", EaModelUtils.toString(attribute));
       }
     }
     return semanticModelElements;
@@ -91,13 +87,12 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
         EaModelUtils.getAssocationConnectorEnds(element);
     for (EaConnectorEnd eaConnectorEnd : assocationConnectorEnds) {
       if (eaConnectorEnd.getOppositeConnectorEnd().GetIsNavigable()) {
-        if (qualifiesOppositeEndAsSemanticModelElement(connectorEndFqStereotypes, eaConnectorEnd)) {
+        if (qualifiesOppositeEndAsSemanticModelElement(eaConnectorEnd, connectorEndFqStereotypes)) {
           semanticModelElements
               .add(createSemanticModelElement(eaConnectorEnd.getOppositeConnectorEnd(),
                   eaConnectorEnd.getOppositeConnectorEndUniqueId()));
         } else {
-          LOGGER.warn("Skipping the opposite end of {} as it does not have the right stereotype",
-              eaConnectorEnd);
+          LOGGER.warn("Skipping the opposite end of {}", eaConnectorEnd);
         }
       }
     }
@@ -105,14 +100,15 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
   }
 
   protected abstract boolean qualifiesOppositeEndAsSemanticModelElement(
-      MultiValuedMap<String, String> connectorEndFqStereotypes, EaConnectorEnd eaConnectorEnd);
+      EaConnectorEnd eaConnectorEnd, MultiValuedMap<String, String> connectorEndFqStereotypes);
 
-  protected abstract boolean qualifiesAsSemanticModelElement(Element element);
+  protected abstract boolean qualifiesAsSemanticModelElement(Element element,
+      MultiValuedMap<String, String> elementFqStereotypes);
 
   protected abstract boolean qualifiesAsSemanticModelElement(Attribute attribute,
       MultiValuedMap<String, String> attributeFqStereotypes);
 
-  protected final SemanticModelElement createSemanticModelElement(Element element)
+  private SemanticModelElement createSemanticModelElement(Element element)
       throws ModellingToolsException {
     SemanticModelElement semanticModelElement = new SemanticModelElement();
     semanticModelElement.setEaGuid(element.GetElementGUID());
@@ -122,18 +118,13 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
     return semanticModelElement;
   }
 
-  protected final SemanticModelElement createSemanticModelElement(Element element,
-      Attribute attribute) throws ModellingToolsException {
+  private SemanticModelElement createSemanticModelElement(Attribute attribute)
+      throws ModellingToolsException {
     SemanticModelElement semanticModelElement = new SemanticModelElement();
     semanticModelElement.setEaGuid(attribute.GetAttributeGUID());
     semanticModelElement.setUmlName(attribute.GetName());
-    if (ModelElement.ModelElementType.CLASS.getEaType().equals(element.GetType())
-        || ModelElement.ModelElementType.DATA_TYPE.getEaType().equals(element.GetType())) {
-      semanticModelElement.setUmlModelElementType(ModelElement.ModelElementType.ATTRIBUTE);
-    } else if (ModelElement.ModelElementType.ENUMERATION.getEaType().equals(element.GetType())) {
-      semanticModelElement
-          .setUmlModelElementType(ModelElement.ModelElementType.ENUMERATION_LITERAL);
-    }
+    semanticModelElement
+        .setUmlModelElementType(EaModelUtils.determineUmlModelElementType(attribute));
     semanticModelElement.setConcept(createConcept(attribute));
     return semanticModelElement;
   }

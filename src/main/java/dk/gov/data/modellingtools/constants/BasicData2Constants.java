@@ -1,8 +1,9 @@
 package dk.gov.data.modellingtools.constants;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -36,7 +37,6 @@ public final class BasicData2Constants {
   public static final String TAG_PREFERRED_LABEL_DA = "prefLabel (da)";
   public static final String TAG_PREFERRED_LABEL_EN = "prefLabel (en)";
   public static final String TAG_SOURCE = "source";
-  public static final String TAG_VOCABULARY = "vokabularium";
   public static final String TAG_URI = "URI";
 
   // model tags
@@ -55,63 +55,72 @@ public final class BasicData2Constants {
   public static final String TAG_TITLE_DA = "title (da)";
   public static final String TAG_TITLE_EN = "title (en)";
   public static final String TAG_VERSION = "versionInfo";
-  public static final String TAG_VERSION_NOTES = "versionNotes";
+  public static final String TAG_VERSION_NOTES_DA = "versionNotes (da)";
+  public static final String TAG_VERSION_NOTES_EN = "versionNotes (en)";
 
   // tags on models and model elements
   public static final String TAG_LEGALSOURCE = "legalSource";
 
-  private static Set<String> modelElementTags = new HashSet<>();
-  private static Set<String> modelTags = new HashSet<>();
+  // tag on DKObjekttype
+  public static final String TAG_HISTORYMODEL = "historikmodel";
 
-  static {
-    modelElementTags.add(TAG_ALTERNATIVE_LABEL_DA);
-    modelElementTags.add(TAG_ALTERNATIVE_LABEL_EN);
-    modelElementTags.add(TAG_APPLICATION_NOTE_DA);
-    modelElementTags.add(TAG_APPLICATION_NOTE_EN);
-    modelElementTags.add(TAG_COMMENT_DA);
-    modelElementTags.add(TAG_COMMENT_EN);
-    modelElementTags.add(TAG_DEFINITION_DA);
-    modelElementTags.add(TAG_DEFINITION_EN);
-    modelElementTags.add(TAG_DEPRECATED_LABEL_DA);
-    modelElementTags.add(TAG_DEPRECATED_LABEL_EN);
-    modelElementTags.add(TAG_EXAMPLE_DA);
-    modelElementTags.add(TAG_EXAMPLE_EN);
-    modelElementTags.add(TAG_LEGALSOURCE);
-    modelElementTags.add(TAG_PREFERRED_LABEL_DA);
-    modelElementTags.add(TAG_PREFERRED_LABEL_EN);
-    modelElementTags.add(TAG_SOURCE);
-    modelElementTags.add(TAG_URI);
-  }
+  // tag on DKKodeliste
+  public static final String TAG_VOCABULARY = "vokabularium";
 
-  static {
-    modelTags.add(TAG_APPROVAL_STATUS);
-    modelTags.add(TAG_APPROVER);
-    modelTags.add(TAG_DESCRIPTION_DA);
-    modelTags.add(TAG_DESCRIPTION_EN);
-    modelTags.add(TAG_LANGUAGE);
-    modelTags.add(TAG_MODEL_SCOPE);
-    modelTags.add(TAG_MODEL_STATUS);
-    modelTags.add(TAG_MODIFIED);
-    modelTags.add(TAG_NAMESPACE);
-    modelTags.add(TAG_NAMESPACE_PREFIX);
-    modelTags.add(TAG_RESPONSIBLE_ENTITY);
-    modelTags.add(TAG_THEME);
-    modelTags.add(TAG_TITLE_DA);
-    modelTags.add(TAG_TITLE_EN);
-    modelTags.add(TAG_VERSION);
-    modelTags.add(TAG_VERSION_NOTES);
-  }
+  private static Set<String> commonModelElementTags;
+  private static final Set<String> commonModelTags;
 
-  public static Collection<String> getAllModelElementTags() {
-    return Collections.unmodifiableCollection(modelElementTags);
-  }
-
-  public static Collection<String> getAllModelTags() {
-    return Collections.unmodifiableCollection(modelTags);
-  }
+  private static final Map<String, Collection<String>> tagsPerStereotype;
 
   private BasicData2Constants() {
     super();
   }
+
+  static {
+    commonModelTags = Set.of(TAG_APPROVAL_STATUS, TAG_APPROVER, TAG_DESCRIPTION_DA,
+        TAG_DESCRIPTION_EN, TAG_LANGUAGE, TAG_LEGALSOURCE, TAG_MODEL_SCOPE, TAG_MODEL_STATUS,
+        TAG_MODIFIED, TAG_NAMESPACE, TAG_NAMESPACE_PREFIX, TAG_RESPONSIBLE_ENTITY, TAG_THEME,
+        TAG_TITLE_DA, TAG_TITLE_EN, TAG_VERSION, TAG_VERSION_NOTES_DA, TAG_VERSION_NOTES_EN);
+
+    commonModelElementTags = Set.of(TAG_ALTERNATIVE_LABEL_DA, TAG_ALTERNATIVE_LABEL_EN,
+        TAG_APPLICATION_NOTE_DA, TAG_APPLICATION_NOTE_EN, TAG_COMMENT_DA, TAG_COMMENT_EN,
+        TAG_DEFINITION_DA, TAG_DEFINITION_EN, TAG_DEPRECATED_LABEL_DA, TAG_DEPRECATED_LABEL_EN,
+        TAG_EXAMPLE_DA, TAG_EXAMPLE_EN, TAG_LEGALSOURCE, TAG_PREFERRED_LABEL_DA,
+        TAG_PREFERRED_LABEL_EN, TAG_SOURCE, TAG_URI);
+
+    Set<String> objectTypeTags = new HashSet<>(commonModelElementTags);
+    objectTypeTags.add(TAG_HISTORYMODEL);
+    objectTypeTags = Set.copyOf(objectTypeTags);
+    Set<String> codeListTags = new HashSet<>(commonModelElementTags);
+    codeListTags.add(TAG_VOCABULARY);
+    codeListTags = Set.copyOf(codeListTags);
+    tagsPerStereotype =
+        Map.ofEntries(Map.entry(FQ_STEREOTYPE_CLASSIFICATION_MODEL, commonModelTags),
+            Map.entry(FQ_STEREOTYPE_CODE_LIST, codeListTags),
+            Map.entry(FQ_STEREOTYPE_DATA_TYPE, commonModelElementTags),
+            Map.entry(FQ_STEREOTYPE_DOMAIN_MODEL, commonModelTags),
+            Map.entry(FQ_STEREOTYPE_ENUMERATION, commonModelElementTags),
+            Map.entry(FQ_STEREOTYPE_ENUMERATION_LITERAL, commonModelElementTags),
+            Map.entry(FQ_STEREOTYPE_OBJECT_TYPE, objectTypeTags),
+            Map.entry(FQ_STEREOTYPE_PROPERTY, commonModelElementTags));
+  }
+
+  // Set.of returns an unmodifiable Set, therefore suppress warning MS_EXPOSE_REP.
+  @SuppressFBWarnings("MS_EXPOSE_REP")
+  public static Collection<String> getCommonModelElementTags() {
+    return commonModelElementTags;
+  }
+
+  @SuppressFBWarnings("MS_EXPOSE_REP")
+  public static Collection<String> getCommonModelTags() {
+    return commonModelTags;
+  }
+
+  @SuppressFBWarnings("MS_EXPOSE_REP")
+  public static Map<String, Collection<String>> getTagsPerStereotype() {
+    return tagsPerStereotype;
+  }
+
+
 
 }

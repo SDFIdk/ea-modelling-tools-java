@@ -7,10 +7,13 @@ import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
 import dk.gov.data.modellingtools.dao.SemanticModelElementDao;
 import dk.gov.data.modellingtools.dao.impl.bd1.ConceptDaoLer;
-import dk.gov.data.modellingtools.dao.impl.bd1.LogicalDataModelDaoBasicData1;
+import dk.gov.data.modellingtools.dao.impl.bd1.DomainModelDaoBasicData1;
 import dk.gov.data.modellingtools.dao.impl.bd1.SemanticModelElementDaoBasicData1;
-import dk.gov.data.modellingtools.dao.impl.bd2.LogicalDataModelDaoBasicData2;
+import dk.gov.data.modellingtools.dao.impl.bd2.ClassificationModelDaoBasicData2;
+import dk.gov.data.modellingtools.dao.impl.bd2.DomainModelDaoBasicData2;
 import dk.gov.data.modellingtools.dao.impl.bd2.SemanticModelElementDaoBasicData2;
+import dk.gov.data.modellingtools.dao.impl.fda.ClassificationModelDaoFdaV20;
+import dk.gov.data.modellingtools.dao.impl.fda.ClassificationModelDaoFdaV21;
 import dk.gov.data.modellingtools.dao.impl.fda.LogicalDataModelDaoFdaV20;
 import dk.gov.data.modellingtools.dao.impl.fda.LogicalDataModelDaoFdaV21;
 import dk.gov.data.modellingtools.dao.impl.fda.SemanticModelElementDaoFda;
@@ -101,25 +104,43 @@ public class VocabularyExporterImpl extends AbstractExporter implements Vocabula
             FdaConstants.TAG_TITLE_DA);
         logicalDataModelDao = new LogicalDataModelDaoFdaV20(getEaWrapper());
       }
+    } else if (packageFqStereotypes.contains(FdaConstants.FQ_STEREOTYPE_CLASSIFICATION_MODEL)) {
+      LOGGER.info("FDA profile is used");
+      semanticModelElementDao = new SemanticModelElementDaoFda(getEaWrapper());
+      if (TaggedValueUtils.getTaggedValues(umlPackage).containsKey(FdaConstants.TAG_TITLE_DA)) {
+        LOGGER.info("Tag {} is present, assuming that v2.1 of the FDA profile is used and not v2.0",
+            FdaConstants.TAG_TITLE_DA);
+        logicalDataModelDao = new ClassificationModelDaoFdaV21(getEaWrapper());
+      } else {
+        LOGGER.info(
+            "Tag {} is not present, assuming that v2.0 of the FDA profile is used and not v2.1",
+            FdaConstants.TAG_TITLE_DA);
+        logicalDataModelDao = new ClassificationModelDaoFdaV20(getEaWrapper());
+      }
     } else if (packageFqStereotypes.contains(BasicData2Constants.FQ_STEREOTYPE_DOMAIN_MODEL)) {
       LOGGER.info("Basic data v2 profile is used");
       semanticModelElementDao = new SemanticModelElementDaoBasicData2(getEaWrapper());
-      logicalDataModelDao = new LogicalDataModelDaoBasicData2(getEaWrapper());
+      logicalDataModelDao = new DomainModelDaoBasicData2(getEaWrapper());
+    } else if (packageFqStereotypes
+        .contains(BasicData2Constants.FQ_STEREOTYPE_CLASSIFICATION_MODEL)) {
+      LOGGER.info("Basic data v2 profile is used");
+      semanticModelElementDao = new SemanticModelElementDaoBasicData2(getEaWrapper());
+      logicalDataModelDao = new ClassificationModelDaoBasicData2(getEaWrapper());
     } else if (packageFqStereotypes.contains(BasicData1Constants.FQ_STEREOTYPE_DOMAIN_MODEL)
         && umlPackage.GetName().equals("LER")) {
       LOGGER.info("Basic data v1 profile is used, for LER datamodel"); // workaround...
       semanticModelElementDao =
           new SemanticModelElementDaoBasicData1(getEaWrapper(), new ConceptDaoLer());
-      logicalDataModelDao = new LogicalDataModelDaoBasicData1(getEaWrapper());
+      logicalDataModelDao = new DomainModelDaoBasicData1(getEaWrapper());
     } else if (packageFqStereotypes.contains(BasicData1Constants.FQ_STEREOTYPE_DOMAIN_MODEL)) {
       LOGGER.info("Basic data v1 profile is used");
       semanticModelElementDao = new SemanticModelElementDaoBasicData1(getEaWrapper());
-      logicalDataModelDao = new LogicalDataModelDaoBasicData1(getEaWrapper());
+      logicalDataModelDao = new DomainModelDaoBasicData1(getEaWrapper());
     } else {
       String message;
       if (packageFqStereotypes.size() == 0) {
         message = "Package " + EaModelUtils.toString(umlPackage)
-            + " has no fully qualified stereotypes, check whether the stereotype is correctly set in the model";
+            + " has no fully qualified stereotypes, check the UML model";
       } else {
         message = "Cannot export vocabulary from " + EaModelUtils.toString(umlPackage)
             + " with stereotype(s) " + StringUtils.join(packageFqStereotypes, ", ");

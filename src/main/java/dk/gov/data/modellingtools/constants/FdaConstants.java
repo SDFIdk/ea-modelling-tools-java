@@ -1,8 +1,7 @@
 package dk.gov.data.modellingtools.constants;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,6 +13,7 @@ public final class FdaConstants {
   public static final String FQ_STEREOTYPE_CONCEPT = "FDAprofil::Concept";
   public static final String FQ_STEREOTYPE_CONCEPT_MODEL = "FDAprofil::ConceptModel";
   public static final String FQ_STEREOTYPE_LOGICAL_DATA_MODEL = "FDAprofil::LogicalDataModel";
+  public static final String FQ_STEREOTYPE_CLASSIFICATION_MODEL = "FDAprofil::ClassificationModel";
   public static final String FQ_STEREOTYPE_MODEL_ELEMENT = "FDAprofil::ModelElement";
 
   // model element tags
@@ -59,83 +59,46 @@ public final class FdaConstants {
   public static final String TAG_LEGALSOURCE = "legalSource";
   public static final String TAG_URI = "URI";
 
-  private static Set<String> modelElementTags = new HashSet<>();
-  private static Set<String> modelTagsV20 = new HashSet<>();
-  private static Set<String> modelTagsV21 = new HashSet<>();
+  private static Set<String> modelElementTags;
+  private static Set<String> modelTagsV20;
+  private static Set<String> modelTagsV21;
 
   static {
-    modelElementTags.add(TAG_ALTERNATIVE_LABEL_DA);
-    modelElementTags.add(TAG_ALTERNATIVE_LABEL_EN);
-    modelElementTags.add(TAG_APPLICATION_NOTE_DA);
-    modelElementTags.add(TAG_APPLICATION_NOTE_EN);
-    modelElementTags.add(TAG_COMMENT_DA);
-    modelElementTags.add(TAG_COMMENT_EN);
-    modelElementTags.add(TAG_DEFINITION_DA);
-    modelElementTags.add(TAG_DEFINITION_EN);
-    modelElementTags.add(TAG_DEPRECATED_LABEL_DA);
-    modelElementTags.add(TAG_DEPRECATED_LABEL_EN);
-    modelElementTags.add(TAG_EXAMPLE_DA);
-    modelElementTags.add(TAG_EXAMPLE_EN);
-    modelElementTags.add(TAG_IS_DEFINED_BY);
-    modelElementTags.add(TAG_LEGALSOURCE);
-    modelElementTags.add(TAG_PREFERRED_LABEL_DA);
-    modelElementTags.add(TAG_PREFERRED_LABEL_EN);
-    modelElementTags.add(TAG_SOURCE);
-    modelElementTags.add(TAG_URI);
-  }
+    modelTagsV20 = Set.of(TAG_APPROVAL_STATUS, TAG_APPROVER, TAG_COMMENT_DA, TAG_COMMENT_EN,
+        TAG_LANGUAGE, TAG_MODEL_SCOPE, TAG_MODEL_STATUS, TAG_MODIFIED, TAG_NAMESPACE,
+        TAG_NAMESPACE_PREFIX, TAG_RESPONSIBLE_ENTITY, TAG_LABEL_DA, TAG_LABEL_EN, TAG_VERSION);
 
-  static {
-    modelTagsV20.add(TAG_APPROVAL_STATUS);
-    modelTagsV20.add(TAG_APPROVER);
-    modelTagsV20.add(TAG_DESCRIPTION_DA);
-    modelTagsV20.add(TAG_DESCRIPTION_EN);
-    modelTagsV20.add(TAG_LANGUAGE);
-    modelTagsV20.add(TAG_MODEL_SCOPE);
-    modelTagsV20.add(TAG_MODEL_STATUS);
-    modelTagsV20.add(TAG_MODIFIED);
-    modelTagsV20.add(TAG_NAMESPACE);
-    modelTagsV20.add(TAG_NAMESPACE_PREFIX);
-    modelTagsV20.add(TAG_RESPONSIBLE_ENTITY);
-    modelTagsV20.add(TAG_TITLE_DA);
-    modelTagsV20.add(TAG_TITLE_EN);
-    modelTagsV20.add(TAG_VERSION);
-    modelTagsV20.add(TAG_VERSION_NOTES_DA);
-    modelTagsV20.add(TAG_VERSION_NOTES_EN);
-  }
+    modelTagsV21 = Set.of(TAG_APPROVAL_STATUS, TAG_APPROVER, TAG_DESCRIPTION_DA, TAG_DESCRIPTION_EN,
+        TAG_LANGUAGE, TAG_MODEL_SCOPE, TAG_MODEL_STATUS, TAG_MODIFIED, TAG_NAMESPACE,
+        TAG_NAMESPACE_PREFIX, TAG_RESPONSIBLE_ENTITY, TAG_TITLE_DA, TAG_TITLE_EN, TAG_VERSION,
+        TAG_VERSION_NOTES_DA, TAG_VERSION_NOTES_EN);
 
-  static {
-    modelTagsV21.add(TAG_APPROVAL_STATUS);
-    modelTagsV21.add(TAG_APPROVER);
-    modelTagsV21.add(TAG_DESCRIPTION_DA);
-    modelTagsV21.add(TAG_DESCRIPTION_EN);
-    modelTagsV21.add(TAG_LANGUAGE);
-    modelTagsV21.add(TAG_MODEL_SCOPE);
-    modelTagsV21.add(TAG_MODEL_STATUS);
-    modelTagsV21.add(TAG_MODIFIED);
-    modelTagsV21.add(TAG_NAMESPACE);
-    modelTagsV21.add(TAG_NAMESPACE_PREFIX);
-    modelTagsV21.add(TAG_RESPONSIBLE_ENTITY);
-    modelTagsV21.add(TAG_TITLE_DA);
-    modelTagsV21.add(TAG_TITLE_EN);
-    modelTagsV21.add(TAG_VERSION);
-    modelTagsV21.add(TAG_VERSION_NOTES_DA);
-    modelTagsV21.add(TAG_VERSION_NOTES_EN);
+    modelElementTags = Set.of(TAG_ALTERNATIVE_LABEL_DA, TAG_ALTERNATIVE_LABEL_EN,
+        TAG_APPLICATION_NOTE_DA, TAG_APPLICATION_NOTE_EN, TAG_COMMENT_DA, TAG_COMMENT_EN,
+        TAG_DEFINITION_DA, TAG_DEFINITION_EN, TAG_DEPRECATED_LABEL_DA, TAG_DEPRECATED_LABEL_EN,
+        TAG_EXAMPLE_DA, TAG_EXAMPLE_EN, TAG_IS_DEFINED_BY, TAG_LABEL_DA, TAG_LABEL_EN,
+        TAG_LEGALSOURCE, TAG_PREFERRED_LABEL_DA, TAG_PREFERRED_LABEL_EN, TAG_SOURCE, TAG_URI);
   }
 
   private FdaConstants() {
     super();
   }
 
+
+  // Set.of returns an unmodifiable Set, therefore suppress warning MS_EXPOSE_REP.
+  @SuppressFBWarnings("MS_EXPOSE_REP")
   public static Collection<String> getAllModelElementTags() {
-    return Collections.unmodifiableCollection(modelElementTags);
+    return modelElementTags;
   }
 
+  @SuppressFBWarnings("MS_EXPOSE_REP")
   public static Collection<String> getAllModelTagsV20() {
-    return Collections.unmodifiableCollection(modelTagsV20);
+    return modelTagsV20;
   }
 
+  @SuppressFBWarnings("MS_EXPOSE_REP")
   public static Collection<String> getAllModelTagsV21() {
-    return Collections.unmodifiableCollection(modelTagsV21);
+    return modelTagsV21;
   }
 
 }

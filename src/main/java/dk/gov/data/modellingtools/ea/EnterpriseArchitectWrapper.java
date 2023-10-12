@@ -31,11 +31,15 @@ public interface EnterpriseArchitectWrapper {
       throws ModellingToolsException;
 
   /**
-   * Because {@link Attribute} has no "hasStereoType" method like
-   * {@link Element#HasStereotype(String)}.
-   *
-   * @return multi-valued map containing the GUIDs of the attribute in the given package as keys,
-   *         and their fully-qualified names as values
+   * Returns a multi-valued map containing the GUIDs of the element in the given package as keys,
+   * and their fully-qualified names as values.
+   */
+  MultiValuedMap<String, String> retrieveElementFqStereotypes(Package umlPackage)
+      throws ModellingToolsException;
+
+  /**
+   * Returns a multi-valued map containing the GUIDs of the attribute in the given package as keys,
+   * and their fully-qualified names as values.
    */
   MultiValuedMap<String, String> retrieveAttributeFqStereotypes(Package umlPackage)
       throws ModellingToolsException;

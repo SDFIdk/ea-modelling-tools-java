@@ -2,35 +2,20 @@ package dk.gov.data.modellingtools.dao.impl.fda;
 
 import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
-import dk.gov.data.modellingtools.dao.impl.AbstractLogicalDataModelDao;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import dk.gov.data.modellingtools.exception.ModellingToolsException;
-import dk.gov.data.modellingtools.model.LogicalDataModel;
 import java.util.Collection;
-import java.util.Map;
-import org.sparx.Package;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of {@link LogicalDataModelDao} for the FDA v2.0 profile.
  */
-public class LogicalDataModelDaoFdaV20 extends AbstractLogicalDataModelDao {
+public class LogicalDataModelDaoFdaV20 extends AbstractLogicalDataModelFda {
+
+  static final Logger LOGGER = LoggerFactory.getLogger(LogicalDataModelDaoFdaV20.class);
 
   public LogicalDataModelDaoFdaV20(EnterpriseArchitectWrapper eaWrapper) {
     super(eaWrapper);
-  }
-
-  @Override
-  public LogicalDataModel findByPackageGuid(String packageGuid) throws ModellingToolsException {
-    return validateAndFindByPackageGuid(packageGuid);
-  }
-
-  @Override
-  protected LogicalDataModel createLogicalDataModel(Package umlPackage,
-      Map<String, String> taggedValues) throws ModellingToolsException {
-    LogicalDataModel logicalDataModel = new LogicalDataModel();
-    logicalDataModel.setName(taggedValues.get(FdaConstants.TAG_LABEL_DA));
-    logicalDataModel.setVersion(taggedValues.get(FdaConstants.TAG_VERSION));
-    return logicalDataModel;
   }
 
   @Override

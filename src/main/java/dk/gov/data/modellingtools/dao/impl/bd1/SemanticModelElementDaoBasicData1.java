@@ -1,6 +1,5 @@
 package dk.gov.data.modellingtools.dao.impl.bd1;
 
-import dk.gov.data.modellingtools.constants.BasicData1Constants;
 import dk.gov.data.modellingtools.dao.impl.AbstractSemanticModelElementDao;
 import dk.gov.data.modellingtools.dao.impl.EaConceptDaoForLogicalDataModel;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
@@ -34,26 +33,21 @@ public class SemanticModelElementDaoBasicData1 extends AbstractSemanticModelElem
   }
 
   @Override
-  protected boolean qualifiesAsSemanticModelElement(Element element) {
-    return element.HasStereotype(BasicData1Constants.FQ_STEREOTYPE_OBJECT_TYPE)
-        || element.HasStereotype(BasicData1Constants.FQ_STEREOTYPE_FEATURE_TYPE)
-        || element.HasStereotype(BasicData1Constants.FQ_STEREOTYPE_ENUMERATION)
-        || element.HasStereotype(BasicData1Constants.FQ_STEREOTYPE_CODE_LIST)
-        || element.HasStereotype(BasicData1Constants.FQ_STEREOTYPE_DATA_TYPE);
+  protected boolean qualifiesAsSemanticModelElement(Element element,
+      MultiValuedMap<String, String> elementFqStereotypes) {
+    return BasicData1DaoUtils.isRelevantModelElement(element, elementFqStereotypes);
   }
 
   @Override
   protected boolean qualifiesAsSemanticModelElement(Attribute attribute,
       MultiValuedMap<String, String> attributeFqStereotypes) {
-    return attributeFqStereotypes.containsMapping(attribute.GetAttributeGUID(),
-        BasicData1Constants.FQ_STEREOTYPE_PROPERTY);
+    return BasicData1DaoUtils.isRelevantModelElement(attribute, attributeFqStereotypes);
   }
 
   @Override
-  protected boolean qualifiesOppositeEndAsSemanticModelElement(
-      MultiValuedMap<String, String> connectorEndFqStereotypes, EaConnectorEnd eaConnectorEnd) {
-    return connectorEndFqStereotypes.containsMapping(eaConnectorEnd.getConnectorEndUniqueId(),
-        BasicData1Constants.FQ_STEREOTYPE_PROPERTY);
+  protected boolean qualifiesOppositeEndAsSemanticModelElement(EaConnectorEnd eaConnectorEnd,
+      MultiValuedMap<String, String> connectorEndFqStereotypes) {
+    return BasicData1DaoUtils.isOppositeEndRelevantModelElement(eaConnectorEnd, connectorEndFqStereotypes);
   }
 
   @Override

@@ -237,6 +237,17 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   }
 
   @Override
+  public MultiValuedMap<String, String> retrieveElementFqStereotypes(Package umlPackage)
+      throws ModellingToolsException {
+    String query =
+        "SELECT o.ea_guid as id, x.description as stereotypes FROM t_object o INNER JOIN t_xref x ON o.ea_guid = x.client AND x.name = 'Stereotypes' WHERE o.package_id IN ("
+            + getPackageIdStringForSql(umlPackage)
+            + ") AND o.object_type IN ('Class', 'DataType', 'Enumeration', 'Interface')";
+    MultiValuedMap<String, String> multiValuedMap = retrieveFqStereotypes(query);
+    return multiValuedMap;
+  }
+
+  @Override
   public MultiValuedMap<String, String> retrieveAttributeFqStereotypes(Package umlPackage)
       throws ModellingToolsException {
     String query =
@@ -249,7 +260,7 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   }
 
   /**
-   * The query result must include columns with name ea_guid and stereotypes.
+   * The query result must include columns with name "id" and "stereotypes".
    */
   private MultiValuedMap<String, String> retrieveFqStereotypes(String query)
       throws ModellingToolsException {
@@ -276,9 +287,17 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   @Override
   public MultiValuedMap<String, String> retrieveConnectorEndFqStereotypes()
       throws ModellingToolsException {
-    String query = "select Client & IIF(Type = 'connectorSrcEnd property', '"
-        + EaConnectorEnd.ID_SUFFIX_SOURCE + "', '" + EaConnectorEnd.ID_SUFFIX_TARGET
-        + "') as id, Description as stereotypes from t_xref x "
+    /*
+     * See also class EaConnectorEnd.
+     */
+    /*
+     * The connector GUID starts with a curly brace. The next two characters are removed. Therefore
+     * remove three characters in total. String are 1-based indexed in SQLite, so substring(4) is
+     * needed.
+     */
+    String query = "select '{' + IIF(Type = 'connectorSrcEnd property', '"
+        + EaConnectorEnd.ID_PREFIX_SOURCE + "', '" + EaConnectorEnd.ID_PREFIX_TARGET
+        + "') + substring(Client, 4) as id, Description as stereotypes from t_xref x "
         + "where x.Name = 'Stereotypes' and x.Type in ('connectorSrcEnd property', 'connectorDestEnd property')";
     MultiValuedMap<String, String> multiValuedMap = retrieveFqStereotypes(query);
     return multiValuedMap;

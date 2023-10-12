@@ -27,6 +27,12 @@ public abstract class AbstractLogicalDataModelDao implements LogicalDataModelDao
     this.eaWrapper = eaWrapper;
   }
 
+  @Override
+  public final LogicalDataModel findByPackageGuid(String packageGuid)
+      throws ModellingToolsException {
+    return validateAndFindByPackageGuid(packageGuid);
+  }
+
   /**
    * Create a logical model based on the tagged values of the package containing it.
    */
@@ -42,7 +48,7 @@ public abstract class AbstractLogicalDataModelDao implements LogicalDataModelDao
       Validate.isTrue(taggedValues.keySet().containsAll(getTagsLogicalDataModel()), EaModelUtils
           .toString(umlPackage)
           + " does not contain all expected tags, synchronize the stereotypes in your EA model. "
-          + "\r\nexpected tags: " + StringUtils.join(getTagsLogicalDataModel() + "; found tags: "
+          + "\r\nexpected tags: " + StringUtils.join(getTagsLogicalDataModel() + ";\r\nfound tags: "
               + StringUtils.join(taggedValues.keySet())));
       return createLogicalDataModel(umlPackage, taggedValues);
     } else {

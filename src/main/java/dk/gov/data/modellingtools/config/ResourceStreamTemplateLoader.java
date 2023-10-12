@@ -23,7 +23,7 @@ class ResourceStreamTemplateLoader implements TemplateLoader {
 
   public ResourceStreamTemplateLoader(String basePath, String encoding) {
     super();
-    Validate.notNull(basePath);
+    Validate.notNull(basePath, "A base path (the folder name) must be given");
     Validate.isTrue(basePath.startsWith("/"),
         "An absolute path must be given. See also method java.lang.Class.getResourceAsStream(String)");
     this.basePath = StringUtils.removeEnd(basePath, "/");
@@ -36,12 +36,11 @@ class ResourceStreamTemplateLoader implements TemplateLoader {
   @Override
   public Object findTemplateSource(String name) throws IOException {
     String absoluteName = basePath + "/" + name;
-    LOGGER.debug("Finding template resource with absolute name {}", absoluteName);
+    LOGGER.debug("Trying to find template resource with absolute name {}", absoluteName);
     InputStream resourceAsStream = this.getClass().getResourceAsStream(absoluteName);
     if (resourceAsStream == null) {
-      LOGGER.warn(
-          "Are the templates on the classpath? Could not find resource with absolute name {}. Classpath: {}",
-          absoluteName, System.getProperty("java.class.path"));
+      LOGGER.info("Resource with absolute name {} does not exist on classpath: {}", absoluteName,
+          System.getProperty("java.class.path"));
     }
     return resourceAsStream;
   }

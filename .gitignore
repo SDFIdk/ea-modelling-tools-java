@@ -8,3 +8,4 @@ target/
 log/
 *.launch
 .pmd
+.pmdruleset.xml

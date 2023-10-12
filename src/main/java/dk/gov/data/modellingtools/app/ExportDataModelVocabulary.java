@@ -18,7 +18,6 @@ import org.apache.commons.lang3.Validate;
  */
 public class ExportDataModelVocabulary extends AbstractApplication {
 
-  private static final String DEFAULT_LANGUAGE = "da";
   private static final String OPTION_HEADER = "h";
   private static final String OPTION_METADATA = "m";
 
@@ -57,17 +56,6 @@ public class ExportDataModelVocabulary extends AbstractApplication {
             + StringUtils.join(vocabularyExporter.getSupportedFormats(), ", "));
     vocabularyExporter.exportVocabulary(packageGuid, folder, format, locale, hasHeader, hasMetadata,
         metadataUrl);
-  }
-
-  private Locale retrieveLocale(String language) {
-    final Locale locale;
-    Locale localeFromLanguageTag = Locale.forLanguageTag(language);
-    if (localeFromLanguageTag == null) {
-      locale = Locale.forLanguageTag(DEFAULT_LANGUAGE);
-    } else {
-      locale = localeFromLanguageTag;
-    }
-    return locale;
   }
 
   @Override

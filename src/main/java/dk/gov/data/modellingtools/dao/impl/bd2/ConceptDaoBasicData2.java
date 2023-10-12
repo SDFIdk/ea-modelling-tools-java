@@ -38,11 +38,11 @@ public class ConceptDaoBasicData2 extends EaConceptDaoForLogicalDataModel {
   protected Concept findByObject(Object object) throws ModellingToolsException {
     Concept concept = new Concept();
     Map<String, String> taggedValues = TaggedValueUtils.getTaggedValues(object);
-    Validate.isTrue(taggedValues.keySet().containsAll(BasicData2Constants.getAllModelElementTags()),
+    Validate.isTrue(taggedValues.keySet().containsAll(BasicData2Constants.getCommonModelElementTags()),
         EaModelUtils.toString(object)
             + " does not contain all required tags, synchronize the stereotypes in your EA model. "
-            + "\r\nrequired tags: " + StringUtils.join(BasicData2Constants.getAllModelElementTags()
-                + "; found tags: " + StringUtils.join(taggedValues.keySet())));
+            + "\r\nrequired tags: " + StringUtils.join(BasicData2Constants.getCommonModelElementTags()
+                + ";\r\nfound tags: " + StringUtils.join(taggedValues.keySet())));
 
     try {
       concept.setIdentifier(new URI(taggedValues.get(BasicData2Constants.TAG_URI)));

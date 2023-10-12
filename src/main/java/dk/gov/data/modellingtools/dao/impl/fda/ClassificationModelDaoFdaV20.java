@@ -6,22 +6,22 @@ import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import java.util.Collection;
 
 /**
- * Implementation of {@link LogicalDataModelDao} for the FDA modelling rules v2.1.
+ * Implementation of {@link LogicalDataModelDao} for the FDA modelling rules v2.0.
  */
-public class LogicalDataModelDaoFdaV21 extends AbstractLogicalDataModelFda {
+public class ClassificationModelDaoFdaV20 extends AbstractLogicalDataModelFda {
 
-  public LogicalDataModelDaoFdaV21(EnterpriseArchitectWrapper eaWrapper) {
+  public ClassificationModelDaoFdaV20(EnterpriseArchitectWrapper eaWrapper) {
     super(eaWrapper);
   }
 
   @Override
   protected String getFqStereotypeLogicalDataModel() {
-    return FdaConstants.FQ_STEREOTYPE_LOGICAL_DATA_MODEL;
+    return FdaConstants.FQ_STEREOTYPE_CLASSIFICATION_MODEL;
   }
 
   @Override
   protected Collection<String> getTagsLogicalDataModel() {
-    return FdaConstants.getAllModelTagsV21();
+    return FdaConstants.getAllModelTagsV20();
   }
 
 }
