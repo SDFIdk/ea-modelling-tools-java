@@ -1,27 +1,27 @@
 # EA Modelling Tools
 
-This repository contains a set of tools, written in Java, to support model driven development for models made with Sparx
-Enterprise Architect (EA). These tools are supposed to be used together with the scripts from the repository 
-EA Modelling Tools JavaScript.
+This repository contains a set of tools, written in Java, to support model driven development for models made with [Sparx Enterprise Architect (EA)](https://sparxsystems.com/). These tools are supposed to be used together with the scripts from the repository EA Modelling Tools JavaScript.
 
 ## Using the tools
 
 ### Prerequisites
 
 1. **Windows**: The modelling tools only work on Windows systems.
-2. **Enterprise Architect**: Verify that you have installed Enterprise Architect and that folder `<EA installation folder>\Java API` exists. It should contain at least files `SSJavaCOM.dll` and `eaapi.jar` and it may also contain `SSJavaCOM64.dll`.
-3. **Java**: Verify that you have installed a Java Runtime Environment (JRE) that is version 11 or later (as required according to the pom.xml file, see `/project/build/plugins/plugin[artifactId='maven-compiler-plugin']/configuration/release`).
+2. **Enterprise Architect**: Verify that you have installed Enterprise Architect and that folder `<EA installation folder>\Java API` exists. It contains at least files `SSJavaCOM.dll` and `eaapi.jar` and it can also contain `SSJavaCOM64.dll`.
+3. **Java**: Verify that you have installed a Java Runtime Environment (JRE) that is version 11 or later.
     1. You may choose between a 64-bit JRE or a 32-bit JRE if `<EA installation folder>\Java API\SSJavaCOM64.dll` exists.
     2. You must use a 32-bit JRE if `<EA installation folder>\Java API\SSJavaCOM64.dll` does not exist.
+
+    💡 Type `java -XshowSettings:properties -version` or `C:\path\to\jre\or\jdk\bin\java.exe -XshowSettings:properties -version` on the command line to view all properties of your Java installation.
 
 ### Installation
 
 1. **Download**:
-    1. Go to the "Releases", where you can find a link to a zip file containing the modelling tools.
+    1. Go to the "Releases", where you can find a link to a zip file containing the packaged modelling tools. Find more information about viewing releases on GitLab instances in the [GitLab Docs](https://docs.gitlab.com/ee/user/project/releases/#view-releases) and about viewing releases on GitHub in the [GitHub Docs](https://docs.github.com/en/repositories/releasing-projects-on-github/viewing-your-repositorys-releases-and-tags#viewing-releases).
     2. Download the modelling tools and unzip the zip file.
     3. Place the contents somewhere in a suitable location, in a folder called `ea-modelling-tools-java` (so without the version number).
 
-   You should now have the following structure in `C:\path\to\ea-modelling-tools-java`:
+   Verify that you have the following structure in `C:\path\to\ea-modelling-tools-java`:
 
    ```
    +---C:\path\to\ea-modelling-tools-java
@@ -40,12 +40,16 @@ EA Modelling Tools JavaScript.
    |           *.jar
    ```
 
+   ⚠ If you do not have the structure above, verify that you downloaded the _packaged_ modelling tools, as opposed to the _source code_ of the modelling tools.
+   
    ℹ️ Leaving out the version number makes it easier to install a newer version of the tools, as `EAMT_HOME` (see next step) then does not have to be set again.
 
-2. **User environment variables**: Set user environment variables `EAMT_HOME` (required), `EA_JAVA_API` (required), `JAVACMD` (conditional),  for example by using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line.
+2. **User environment variables**: Set user environment variables `EAMT_HOME` (required), `EA_JAVA_API` (required), `JAVACMD` (conditional), for example by using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line.
    1. **(required)** `EAMT_HOME` must point to the ea-modelling-tools-java folder and is used when invoking the .bat-files from within a script in Enterprise Architect. This environment variable is defined by the EA Modelling Tools.
    2. **(required)** `EA_JAVA_API` must point to the folder Java API in your EA installation folder (see also the prerequisites) and is used in the .bat-files. This environment variable is defined by the EA Modelling Tools.
-   3. **(conditional)** **Only if** another java.exe is to be used than the one invoked by calling `java` on the command line, `JAVACMD` must point to the java.exe that is to be used for running the tools. `JAVACMD` must not contain whitespace. Tip: get all the details of the default java by calling `java -XshowSettings:properties --version`. `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
+   3. **(conditional)** **Only if** another java.exe is to be used than the one invoked by calling `java` on the command line, `JAVACMD` must point to the java.exe that is to be used for running the tools. `JAVACMD` must not contain whitespace. `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
+   
+      💡 Get all the details of the default java by calling `java -XshowSettings:properties --version` on the command line.
 
 
    ```bat
@@ -58,7 +62,7 @@ EA Modelling Tools JavaScript.
    setx JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
    ```
 
-3. Close the command line window and open a **new** one. Check using `echo`, that the environment variables are set correctly. The input should show the chosen paths:
+3. Close the command line window and open a **new** one. Verify using `echo`, that the environment variables are set correctly. The input should show the chosen paths:
 
    ```bat
    echo %EAMT_HOME%
@@ -133,7 +137,7 @@ mvn install:install-file -Dfile="C:\Program Files\Sparx Systems\EA\Java API\eaap
       
 See also [Guide to installing 3rd party JARs](https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html).
 
-The EA API does not change often, so a eaapi.jar from a different EA version may also work.
+The EA API does not change often, so a eaapi.jar from a different EA version can also work.
 
 `mvn package` invokes the assemble goal of the appassembler-maven-plugin. It creates the following structure:
 
