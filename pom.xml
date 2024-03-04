@@ -244,6 +244,10 @@
                   <mainClass>dk.gov.data.modellingtools.app.TransferProjects</mainClass>
                   <id>transfer-projects</id>
                 </program>
+                <program>
+                  <mainClass>dk.gov.data.modellingtools.app.ExportSqlQueryResultToCsv</mainClass>
+                  <id>export-sqlquery-result-to-csv</id>
+                </program>
               </programs>
               <!-- This is the way Eclipse does it... -->
               <projectArtifactFirstInClassPath>true</projectArtifactFirstInClassPath>

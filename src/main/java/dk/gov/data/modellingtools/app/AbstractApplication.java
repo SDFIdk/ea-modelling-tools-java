@@ -104,6 +104,15 @@ public abstract class AbstractApplication {
   }
 
   /**
+   * Adds an optional option for a package.
+   */
+  protected final void addOptionalOptionPackage() {
+    options.addOption(Option.builder(AbstractApplication.OPTION_PACKAGE).longOpt("package-guid")
+        .hasArg().argName("UML package GUID").type(String.class).required(false)
+        .desc("GUID of the package in the model").build());
+  }
+
+  /**
    * Adds a required option for an input format.
    */
   protected final void addOptionInputFormat() {

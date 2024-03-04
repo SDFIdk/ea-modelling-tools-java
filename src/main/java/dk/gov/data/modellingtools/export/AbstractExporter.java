@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Abstract superclass for functionality that exports a model.
+ * Abstract superclass for functionality that exports a model using Apache FreeMarker.
  */
 public abstract class AbstractExporter {
 
