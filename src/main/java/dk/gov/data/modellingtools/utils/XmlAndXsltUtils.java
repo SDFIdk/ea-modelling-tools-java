@@ -7,15 +7,19 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import net.sf.saxon.lib.NamespaceConstant;
 import net.sf.saxon.s9api.DocumentBuilder;
 import net.sf.saxon.s9api.Processor;
+import net.sf.saxon.s9api.QName;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
+import net.sf.saxon.s9api.XdmAtomicValue;
 import net.sf.saxon.s9api.XdmNode;
 import net.sf.saxon.s9api.Xslt30Transformer;
 import net.sf.saxon.s9api.XsltExecutable;
@@ -70,7 +74,7 @@ public class XmlAndXsltUtils {
   public static void transformXml(String xml, String stylesheetResourceName, Writer writer)
       throws ModellingToolsException {
     Serializer serializer = getSaxonProcessor().newSerializer(writer);
-    transformXml(xml, stylesheetResourceName, serializer);
+    transformXml(xml, stylesheetResourceName, new HashMap<>(), serializer);
   }
 
   /**
@@ -82,7 +86,20 @@ public class XmlAndXsltUtils {
   public static void transformXml(String xml, String stylesheetResourceName, File outputFile)
       throws ModellingToolsException {
     Serializer serializer = getSaxonProcessor().newSerializer(outputFile);
-    transformXml(xml, stylesheetResourceName, serializer);
+    transformXml(xml, stylesheetResourceName, new HashMap<>(), serializer);
+  }
+
+  /**
+   * Transforms the given xml using the given stylesheet and the given parameters and writes it to
+   * the given file.
+   *
+   * @param stylesheetResourceName must start with a slash and consist of resource folder (or config
+   *        folder) and file name, concatenated with /
+   */
+  public static void transformXml(String xml, String stylesheetResourceName,
+      Map<QName, XdmAtomicValue> parameters, File outputFile) throws ModellingToolsException {
+    Serializer serializer = getSaxonProcessor().newSerializer(outputFile);
+    transformXml(xml, stylesheetResourceName, parameters, serializer);
   }
 
   /**
@@ -92,8 +109,8 @@ public class XmlAndXsltUtils {
    * @param stylesheetResourceName must start with a slash and consist of resource folder (or config
    *        folder) and file name, concatenated with /
    */
-  private static void transformXml(String xml, String stylesheetResourceName, Serializer serializer)
-      throws ModellingToolsException {
+  private static void transformXml(String xml, String stylesheetResourceName,
+      Map<QName, XdmAtomicValue> parameters, Serializer serializer) throws ModellingToolsException {
     Validate.isTrue(stylesheetResourceName.startsWith("/"),
         "Stylesheet name must start with slash (/), see also javadoc of java.lang.Class.getResourceAsStream(String name)");
     try {
@@ -103,6 +120,7 @@ public class XmlAndXsltUtils {
       XsltExecutable stylesheet =
           getSaxonProcessor().newXsltCompiler().compile(new StreamSource(inputStreamXsl));
       Xslt30Transformer xslt30Transformer = stylesheet.load30();
+      xslt30Transformer.setStylesheetParameters(parameters);
       xslt30Transformer.transform(source, serializer);
     } catch (IOException e) {
       throw new ModellingToolsException("An exception occurred while processing an XML string", e);

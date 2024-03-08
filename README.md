@@ -59,7 +59,9 @@ This repository contains a set of tools, written in Java, to support model drive
    setx EA_JAVA_API "C:\path\to\EA\installation\folder\Java API"
    rem The next command is only needed when another java installation than the default one should be used!
    rem Set conditional user environment variable JAVACMD, make sure that it does not contain whitespace!
-   setx JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
+   rem If environment variable JAVA_HOME is set, it can be used in the specification of JAVACMD if the java it points to is to be used for running the tools.
+   rem setx JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
+   setx JAVACMD %JAVA_HOME%\bin\java.exe
    ```
 
 3. Close the command line window and open a **new** one. Verify using `echo`, that the environment variables are set correctly. The input should show the chosen paths:
