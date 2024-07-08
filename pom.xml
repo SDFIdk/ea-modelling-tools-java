@@ -42,12 +42,12 @@
       See also https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html -->
       <groupId>org.sparx</groupId>
       <artifactId>eaapi</artifactId>
-      <version>16.1.1627</version>
+      <version>16.1.1628</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
       <artifactId>commons-cli</artifactId>
-      <version>1.6.0</version>
+      <version>1.8.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -60,17 +60,17 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.15.1</version>
+      <version>2.16.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
-      <version>1.10.0</version>
+      <version>1.11.0</version>
     </dependency>
     <dependency>
       <groupId>commons-validator</groupId>
       <artifactId>commons-validator</artifactId>
-      <version>1.8.0</version>
+      <version>1.9.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -95,12 +95,12 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
-      <version>1.5.3</version>
+      <version>1.5.6</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.5.3</version>
+      <version>1.5.6</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -109,7 +109,7 @@
     <dependency>
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
-      <version>12.4</version>
+      <version>12.5</version>
       <exclusions>
         <exclusion><!-- To avoid error "package javax.xml.parsers is accessible from more than one module" -->
           <groupId>xml-apis</groupId>
@@ -120,28 +120,28 @@
     <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
-      <version>2.3.32</version>
+      <version>2.3.33</version>
     </dependency>
     <dependency>
       <groupId>org.asciidoctor</groupId>
       <artifactId>asciidoctorj</artifactId>
-      <version>2.5.11</version>
+      <version>2.5.13</version>
     </dependency>
     <dependency>
       <groupId>org.mozilla</groupId>
       <artifactId>rhino</artifactId>
-      <version>1.7.14</version>
+      <version>1.7.15</version>
     </dependency>
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
-      <version>4.8.3</version>
+      <version>4.8.6</version>
       <scope>provided</scope>
     </dependency>
     <dependency><!-- See also https://junit.org/junit5/docs/current/user-guide/#dependency-metadata-junit-jupiter -->
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>5.10.2</version>
+      <version>5.10.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -162,14 +162,14 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.12.1</version>
+        <version>3.13.0</version>
         <configuration>
           <release>11</release>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.3.2</version>
+        <version>3.4.0</version>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
@@ -177,15 +177,15 @@
       </plugin>
       <plugin>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.2</version>
       </plugin>
       <plugin>
         <artifactId>maven-install-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.2</version>
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.2</version>
         <configuration>
           <archive>
             <manifestEntries>
@@ -257,7 +257,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.7.1</version>
         <executions>
           <execution>
             <id>create-zip</id>
@@ -276,7 +276,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.1.0</version>
         <configuration>
           <tagNameFormat>@{project.version}</tagNameFormat>
           <!-- push manually -->
@@ -289,7 +289,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.2.5</version>
+        <version>3.3.0</version>
         <configuration>
           <additionalClasspathElements>
             <additionalClasspathElement>${basedir}/src/main/config</additionalClasspathElement>
@@ -299,7 +299,7 @@
       <plugin><!-- From advice in https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/  -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.16.2</version>
+        <version>2.17.0</version>
         <configuration>
 		  <allowMajorUpdates>false</allowMajorUpdates>
           <ruleSet>
@@ -323,7 +323,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.4.1</version>
+        <version>3.5.0</version>
         <executions>
           <execution>
             <id>enforce</id>
@@ -338,9 +338,9 @@
                 	</excludes>
                 </bannedDependencies>
                 <requireMavenVersion>
-                  <!-- Approved version in agency -->
-                  <version>[3.6,)</version>
-                  <message>Invalid Maven version. It should, at least, be 3.6</message>
+                  <!-- In April 2023, Maven before 3.6.3 has been marked as EOL, meaning that plugins should use 3.6.3 as minimum, see https://maven.apache.org/developers/compatibility-plan.html -->
+                  <version>[3.6.3,)</version>
+                  <message>Invalid Maven version. It should, at least, be 3.6.3</message>
                 </requireMavenVersion>
               </rules>
             </configuration>
@@ -349,7 +349,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.4.0</version>
         <!-- See https://maven.apache.org/plugins/maven-checkstyle-plugin/examples/upgrading-checkstyle.html
         and https://checkstyle.sourceforge.io/releasenotes.html -->
         <dependencies>
@@ -377,7 +377,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.21.2</version>
+        <version>3.23.0</version>
+        <configuration>
+        	<failurePriority>3</failurePriority>
+        </configuration>
         <executions>
           <execution>
             <id>validate-pmd</id>
@@ -391,7 +394,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.8.3.1</version>
+        <version>4.8.6.2</version>
         <configuration>
           <!-- https://spotbugs.readthedocs.io/en/latest/effort.html -->
           <effort>max</effort>
@@ -435,28 +438,28 @@
     <plugins>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.6.1</version>
       </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.4.0</version>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.21.2</version>
+        <version>3.23.0</version>
       </plugin>
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.8.3.1</version>
+        <version>4.8.6.2</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>3.2.5</version>
+        <version>3.3.0</version>
       </plugin>
     </plugins>
   </reporting>
@@ -470,7 +473,7 @@
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-text</artifactId>
-        <version>1.11.0</version>
+        <version>1.12.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
@@ -485,12 +488,12 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>2.0.12</version>
+        <version>2.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.10.2</version>
+        <version>5.10.3</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
