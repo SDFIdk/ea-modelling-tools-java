@@ -136,6 +136,9 @@ public final class EaConnectorEnd {
      * The connector GUID starts with a curly brace. The next two characters are removed. Therefore
      * remove three characters in total. String are 0-based indexed in Java, so substring(3) is
      * needed.
+     * 
+     * For example: the connector GUID {0D467508-0484-4a26-B670-7A54ABB7F73D} is transformed to
+     * {src467508-0484-4a26-B670-7A54ABB7F73D} and {dst467508-0484-4a26-B670-7A54ABB7F73D}.
      */
     return "{" + prefix + connectorGuid.substring(3);
   }
