@@ -62,9 +62,9 @@ public abstract class AbstractModelElementDao implements ModelElementDao {
             modelElements.add(createModelElement(element, attribute));
           }
         }
-        Collection<EaConnectorEnd> assocationConnectorEnds =
-            EaModelUtils.getAssocationConnectorEnds(element);
-        for (EaConnectorEnd eaConnectorEnd : assocationConnectorEnds) {
+        Collection<EaConnectorEnd> associationConnectorEnds =
+            EaModelUtils.getAssociationConnectorEnds(element);
+        for (EaConnectorEnd eaConnectorEnd : associationConnectorEnds) {
           if (isOppositeConnectorEndRelevantModelElement(eaConnectorEnd,
               connectorEndFqStereotypes)) {
             modelElements.add(createModelElementForOppositeConnectorEnd(element, eaConnectorEnd,

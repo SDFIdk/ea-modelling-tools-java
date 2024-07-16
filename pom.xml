@@ -26,6 +26,7 @@
     <myBinFolder>bin</myBinFolder><!-- bin is also default in plugin, specified here so it can be used in assembly.xml -->
     <myConfigurationDirectory>conf</myConfigurationDirectory>
     <myRepositoryName>repo</myRepositoryName><!-- repo is also default in plugin, specified here so it can be used in assembly.xml -->
+    <myJavaLibraryPath>C:\Program Files\Sparx Systems\EA\Java API</myJavaLibraryPath>
   </properties>
 
   <dependencies>
@@ -248,6 +249,10 @@
                   <mainClass>dk.gov.data.modellingtools.app.ExportSqlQueryResultToCsv</mainClass>
                   <id>export-sqlquery-result-to-csv</id>
                 </program>
+                <program>
+                  <mainClass>dk.gov.data.modellingtools.app.UpdateDataModelTags</mainClass>
+                  <id>update-data-model-tags</id>
+                </program>
               </programs>
               <!-- This is the way Eclipse does it... -->
               <projectArtifactFirstInClassPath>true</projectArtifactFirstInClassPath>
@@ -291,6 +296,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
+          <argLine>-Djava.library.path="${myJavaLibraryPath}"</argLine>
           <additionalClasspathElements>
             <additionalClasspathElement>${basedir}/src/main/config</additionalClasspathElement>
           </additionalClasspathElements>

@@ -28,13 +28,13 @@ public class ExportDataModel extends AbstractApplication {
   @Override
   protected void doApplicationSpecificLogic(CommandLine commandLine,
       EnterpriseArchitectWrapper eaWrapper) throws ParseException, ModellingToolsException {
-    String packageGuid = commandLine.getOptionValue(AbstractApplication.OPTION_PACKAGE);
-    File folder = (File) commandLine.getParsedOptionValue(AbstractApplication.OPTION_OUTPUT_FOLDER);
-    String format = commandLine.getOptionValue(AbstractApplication.OPTION_OUTPUT_FORMAT);
-    String language = commandLine.getOptionValue(AbstractApplication.OPTION_LANGUAGE);
+    String packageGuid = commandLine.getOptionValue(OPTION_PACKAGE);
+    File folder = (File) commandLine.getParsedOptionValue(OPTION_OUTPUT_FOLDER);
+    String format = commandLine.getOptionValue(OPTION_OUTPUT_FORMAT);
+    String language = commandLine.getOptionValue(OPTION_LANGUAGE);
     Locale locale = retrieveLocale(language);
-    String strictnessModeString = commandLine.getOptionValue(
-        AbstractApplication.OPTION_STRICTNESS_MODE, StrictnessMode.STRICT.toString());
+    String strictnessModeString =
+        commandLine.getOptionValue(OPTION_STRICTNESS_MODE, StrictnessMode.STRICT.toString());
     StrictnessMode strictnessMode = retrieveStrictnessMode(strictnessModeString);
 
     DataModelExporter dataModelExporter = new DataModelExporterImpl(eaWrapper);

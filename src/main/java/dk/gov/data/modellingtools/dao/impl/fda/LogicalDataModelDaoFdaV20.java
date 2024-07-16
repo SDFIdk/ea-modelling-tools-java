@@ -3,7 +3,6 @@ package dk.gov.data.modellingtools.dao.impl.fda;
 import dk.gov.data.modellingtools.constants.FdaConstants;
 import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +20,6 @@ public class LogicalDataModelDaoFdaV20 extends AbstractLogicalDataModelFda {
   @Override
   protected String getFqStereotypeLogicalDataModel() {
     return FdaConstants.FQ_STEREOTYPE_LOGICAL_DATA_MODEL;
-  }
-
-  @Override
-  protected Collection<String> getTagsLogicalDataModel() {
-    return FdaConstants.getAllModelTagsV20();
   }
 
 }

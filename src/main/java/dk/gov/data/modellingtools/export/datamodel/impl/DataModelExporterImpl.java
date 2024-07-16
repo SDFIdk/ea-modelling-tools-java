@@ -5,6 +5,7 @@ import dk.gov.data.modellingtools.config.FreemarkerTemplateConfiguration;
 import dk.gov.data.modellingtools.constants.BasicData1Constants;
 import dk.gov.data.modellingtools.constants.BasicData2Constants;
 import dk.gov.data.modellingtools.constants.FdaConstants;
+import dk.gov.data.modellingtools.constants.Iso19103Constants;
 import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
 import dk.gov.data.modellingtools.dao.ModelElementDao;
 import dk.gov.data.modellingtools.dao.impl.bd1.DomainModelDaoBasicData1;
@@ -17,6 +18,8 @@ import dk.gov.data.modellingtools.dao.impl.fda.ClassificationModelDaoFdaV21;
 import dk.gov.data.modellingtools.dao.impl.fda.LogicalDataModelDaoFdaV20;
 import dk.gov.data.modellingtools.dao.impl.fda.LogicalDataModelDaoFdaV21;
 import dk.gov.data.modellingtools.dao.impl.fda.ModelElementDaoFda;
+import dk.gov.data.modellingtools.dao.impl.iso19103.AbstractSchemaDaoIso19103;
+import dk.gov.data.modellingtools.dao.impl.iso19103.ModelElementDaoIso19103;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
 import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
 import dk.gov.data.modellingtools.ea.utils.TaggedValueUtils;
@@ -136,14 +139,20 @@ public class DataModelExporterImpl extends AbstractExporter implements DataModel
       }
     } else if (packageFqStereotypes.contains(BasicData2Constants.FQ_STEREOTYPE_DOMAIN_MODEL)) {
       LOGGER.info("Basic data v2 profile is used");
-      templateFilePrefix = "data_model_basicdata2_";
+      String mdgVersion = getEaWrapper().getMdgVersion(BasicData2Constants.MDG_ID);
+      templateFilePrefix = "data_model_basicdata_v" + mdgVersion + "_";
+      LOGGER.info("MDG version {} is installed, therefore using template file prefix {}",
+          mdgVersion, templateFilePrefix);
       modelElementDao = new ModelElementDaoBasicData2(getEaWrapper());
       logicalDataModelDao = new DomainModelDaoBasicData2(getEaWrapper());
     } else if (packageFqStereotypes
         .contains(BasicData2Constants.FQ_STEREOTYPE_CLASSIFICATION_MODEL)) {
       // use same template as for domain model, for now
       LOGGER.info("Basic data v2 profile is used");
-      templateFilePrefix = "data_model_basicdata2_";
+      String mdgVersion = getEaWrapper().getMdgVersion(BasicData2Constants.MDG_ID);
+      templateFilePrefix = "data_model_basicdata_v" + mdgVersion + "_";
+      LOGGER.info("MDG version {} is installed, therefore using template file prefix {}",
+          mdgVersion, templateFilePrefix);
       modelElementDao = new ModelElementDaoBasicData2(getEaWrapper());
       logicalDataModelDao = new ClassificationModelDaoBasicData2(getEaWrapper());
     } else if (packageFqStereotypes.contains(BasicData1Constants.FQ_STEREOTYPE_DOMAIN_MODEL)
@@ -156,6 +165,13 @@ public class DataModelExporterImpl extends AbstractExporter implements DataModel
       templateFilePrefix = "data_model_basicdata1_";
       modelElementDao = new ModelElementDaoBasicData1(getEaWrapper());
       logicalDataModelDao = new DomainModelDaoBasicData1(getEaWrapper());
+      throw new NotImplementedException(
+          "Export of data models using the Basic data v1 profile is not implemented");
+    } else if (packageFqStereotypes.contains(Iso19103Constants.FQ_STEREOTYPE_ABSTRACT_SCHEMA)) {
+      LOGGER.info("ISO 19103 profile is used");
+      templateFilePrefix = "schema_iso19103_";
+      modelElementDao = new ModelElementDaoIso19103(getEaWrapper());
+      logicalDataModelDao = new AbstractSchemaDaoIso19103(getEaWrapper());
     } else {
       String message;
       if (packageFqStereotypes.size() == 0) {

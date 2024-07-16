@@ -13,8 +13,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sparx.Element;
@@ -38,12 +36,6 @@ public class ConceptDaoBasicData2 extends EaConceptDaoForLogicalDataModel {
   protected Concept findByObject(Object object) throws ModellingToolsException {
     Concept concept = new Concept();
     Map<String, String> taggedValues = TaggedValueUtils.getTaggedValues(object);
-    Validate.isTrue(taggedValues.keySet().containsAll(BasicData2Constants.getCommonModelElementTags()),
-        EaModelUtils.toString(object)
-            + " does not contain all required tags, synchronize the stereotypes in your EA model. "
-            + "\r\nrequired tags: " + StringUtils.join(BasicData2Constants.getCommonModelElementTags()
-                + ";\r\nfound tags: " + StringUtils.join(taggedValues.keySet())));
-
     try {
       concept.setIdentifier(new URI(taggedValues.get(BasicData2Constants.TAG_URI)));
     } catch (URISyntaxException e) {
@@ -79,7 +71,8 @@ public class ConceptDaoBasicData2 extends EaConceptDaoForLogicalDataModel {
             taggedValues.get(BasicData2Constants.TAG_COMMENT_EN)));
     setSourceOrSourceTextualReference(object, concept,
         taggedValues.get(BasicData2Constants.TAG_SOURCE));
-    setLegalSource(object, concept, taggedValues.get(BasicData2Constants.TAG_LEGALSOURCE));
+    setLegalSource(object, concept,
+        taggedValues.get(BasicData2Constants.TAG_LEGALSOURCE_MODEL_ELEMENT));
 
     if (object instanceof Element
         && ((Element) object).HasStereotype(BasicData2Constants.FQ_STEREOTYPE_CODE_LIST)) {

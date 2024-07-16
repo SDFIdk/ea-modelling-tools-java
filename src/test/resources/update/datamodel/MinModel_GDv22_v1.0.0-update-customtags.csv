@@ -1,0 +1,14 @@
+"GUID","UML-NAVN","NAMESPACE","TYPE","testtag"
+,,,,
+"{0D440DBC-36E8-42bb-97D2-4256F71BABE4}","DKObjekttype1","MinModel_GDv22","CLASS","test value DKObjekttype1"
+"{76740982-592B-4a05-BB27-633D16AAE2D4}","DKEnumeration1","MinModel_GDv22","ENUMERATION","test value DKEnumeration1"
+"{91A4860B-5771-4091-9337-7DCBF2DD3FAC}","DKKodeliste1","MinModel_GDv22","ENUMERATION","test value DKKodeliste1"
+"{FB7F8A23-ACE6-4bee-AC0A-0C334F53EF85}","DKObjekttype2","MinModel_GDv22","CLASS",
+"{840B4697-4A18-4d07-9207-1E023E02CABA}","type","DKObjekttype1","ATTRIBUTE","test value type"
+"{D913CDA7-D596-48db-838F-9789E0E3E7B0}","geometri","DKObjekttype1","ATTRIBUTE","test value geometri"
+"{03CDA8A0-8F47-4b20-8C1C-603D967D6078}","kode","DKObjekttype1","ATTRIBUTE",
+"{7318E431-AB6C-46ce-B8C1-DFEBB35A90EE}","værdi1","DKEnumeration1","ENUMERATION_LITERAL","test value værdi1"
+"{1C3ED97C-3A76-4a2c-8D51-CE28D7131DD4}","værdi2","DKEnumeration1","ENUMERATION_LITERAL",
+"{dst467508-0484-4a26-B670-7A54ABB7F73D}","dkObjekttype2","DKObjekttype1","ASSOCIATION_END","test value dkObjekttype2"
+"{src467508-0484-4a26-B670-7A54ABB7F73D}"," ","DKObjekttype2","ASSOCIATION_END",
+"{0D467508-0484-4a26-B670-7A54ABB7F73D}","erRelateretTil"," ","ASSOCIATION","test value erRelateretTil"

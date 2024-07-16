@@ -53,7 +53,8 @@ final class BasicData1DaoUtils {
       LOGGER.warn("{} has more than one stereotype: {}",
           EaModelUtils.toString(eaConnectorEnd.getOppositeConnectorEnd()), stereotypes);
     }
-    return connectorEndFqStereotypes.containsMapping(eaConnectorEnd.getConnectorEndUniqueId(),
+    return connectorEndFqStereotypes.containsMapping(
+        eaConnectorEnd.getOppositeConnectorEndUniqueId(),
         BasicData1Constants.FQ_STEREOTYPE_PROPERTY) && stereotypes.size() == 1;
   }
 

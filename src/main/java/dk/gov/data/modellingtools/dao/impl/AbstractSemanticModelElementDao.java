@@ -83,9 +83,9 @@ public abstract class AbstractSemanticModelElementDao implements SemanticModelEl
       Element element, MultiValuedMap<String, String> connectorEndFqStereotypes)
       throws ModellingToolsException {
     List<SemanticModelElement> semanticModelElements = new ArrayList<>();
-    Collection<EaConnectorEnd> assocationConnectorEnds =
-        EaModelUtils.getAssocationConnectorEnds(element);
-    for (EaConnectorEnd eaConnectorEnd : assocationConnectorEnds) {
+    Collection<EaConnectorEnd> associationConnectorEnds =
+        EaModelUtils.getAssociationConnectorEnds(element);
+    for (EaConnectorEnd eaConnectorEnd : associationConnectorEnds) {
       if (eaConnectorEnd.getOppositeConnectorEnd().GetIsNavigable()) {
         if (qualifiesOppositeEndAsSemanticModelElement(eaConnectorEnd, connectorEndFqStereotypes)) {
           semanticModelElements

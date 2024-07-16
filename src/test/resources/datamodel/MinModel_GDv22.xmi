@@ -1,0 +1,819 @@
+<?xml  version='1.0' encoding='UTF-8' ?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:umldi="http://www.omg.org/spec/UML/20161101/UMLDI" xmlns:dc="http://www.omg.org/spec/UML/20161101/UMLDC" xmlns:thecustomprofile="http://www.sparxsystems.com/profiles/thecustomprofile/1.0" xmlns:Grunddata2="http://www.sparxsystems.com/profiles/Grunddata2/1.0">
+	<xmi:Documentation exporter="Enterprise Architect" exporterVersion="6.5" exporterID="1628"/>
+	<uml:Model xmi:type="uml:Model" name="EA_Model">
+		<packagedElement xmi:type="uml:Package" xmi:id="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" name="MinModel_GDv22">
+			<packagedElement xmi:type="uml:Class" xmi:id="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4" name="DKObjekttype1">
+				<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_D913CDA7_D596_48db_838F_9789E0E3E7B0" name="geometri">
+					<type xmi:idref="EAID_3CC5A3E8_2ECA_4e42_B09C_935BD5D3B64A"/>
+					<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000001_D596_48db_838F_9789E0E3E7B0" value="1"/>
+					<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000002_D596_48db_838F_9789E0E3E7B0" value="1"/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_03CDA8A0_8F47_4b20_8C1C_603D967D6078" name="kode">
+					<type xmi:idref="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000003_8F47_4b20_8C1C_603D967D6078" value="1"/>
+					<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000004_8F47_4b20_8C1C_603D967D6078" value="1"/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_840B4697_4A18_4d07_9207_1E023E02CABA" name="type">
+					<type xmi:idref="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<lowerValue xmi:type="uml:LiteralInteger" xmi:id="EAID_LI000005_4A18_4d07_9207_1E023E02CABA" value="1"/>
+					<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EAID_LI000006_4A18_4d07_9207_1E023E02CABA" value="1"/>
+				</ownedAttribute>
+				<ownedAttribute xmi:type="uml:Property" xmi:id="EAID_dst467508_0484_4a26_B670_7A54ABB7F73D" name="dkObjekttype2" association="EAID_0D467508_0484_4a26_B670_7A54ABB7F73D">
+					<type xmi:idref="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+				</ownedAttribute>
+			</packagedElement>
+			<packagedElement xmi:type="uml:Association" xmi:id="EAID_0D467508_0484_4a26_B670_7A54ABB7F73D" name="erRelateretTil">
+				<memberEnd xmi:idref="EAID_dst467508_0484_4a26_B670_7A54ABB7F73D"/>
+				<memberEnd xmi:idref="EAID_src467508_0484_4a26_B670_7A54ABB7F73D"/>
+				<ownedEnd xmi:type="uml:Property" xmi:id="EAID_src467508_0484_4a26_B670_7A54ABB7F73D" association="EAID_0D467508_0484_4a26_B670_7A54ABB7F73D">
+					<type xmi:idref="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+				</ownedEnd>
+			</packagedElement>
+			<packagedElement xmi:type="uml:Class" xmi:id="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85" name="DKObjekttype2"/>
+			<packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_76740982_592B_4a05_BB27_633D16AAE2D4" name="DKEnumeration1">
+				<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_7318E431_AB6C_46ce_B8C1_DFEBB35A90EE" name="værdi1"/>
+				<ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="EAID_1C3ED97C_3A76_4a2c_8D51_CE28D7131DD4" name="værdi2"/>
+			</packagedElement>
+			<packagedElement xmi:type="uml:Enumeration" xmi:id="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC" name="DKKodeliste1"/>
+			<packagedElement xmi:type="uml:Usage" xmi:id="EAID_1F93E66C_4D90_4ab1_8E2B_DF070A0CCD2A" supplier="EAPK_BBEF980E_D59E_469d_9164_7A94E1F503C7" client="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+		</packagedElement>
+		<umldi:Diagram xmi:type="umldi:UMLClassDiagram" xmi:id="EAID_FB8F26C0_FEE0_4d99_B846_5EC67E4F5B71" isFrame="false" modelElement="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8">
+			<ownedElement xmi:type="umldi:UMLClassifierShape" xmi:id="EAID_FB8F26C0_FEE0_4d99_97D2_4256F71BABE4" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4">
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000000_FEE0_4d99_97D2_4256F71BABE4" text="DKObjekttype"/>
+				<ownedElement xmi:type="umldi:UMLNameLabel" xmi:id="EAID_NL000000_FEE0_4d99_97D2_4256F71BABE4" text="DKObjekttype1"/>
+				<bounds xmi:type="dc:bounds" xmi:id="EAID_DB000000_FEE0_4d99_97D2_4256F71BABE4" x="54" y="74" width="119" height="102"/>
+			</ownedElement>
+			<ownedElement xmi:type="umldi:UMLClassifierShape" xmi:id="EAID_FB8F26C0_FEE0_4d99_BB27_633D16AAE2D4" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4">
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000000_FEE0_4d99_BB27_633D16AAE2D4" text="enumeration"/>
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000001_FEE0_4d99_BB27_633D16AAE2D4" text="DKEnumeration"/>
+				<ownedElement xmi:type="umldi:UMLNameLabel" xmi:id="EAID_NL000000_FEE0_4d99_BB27_633D16AAE2D4" text="DKEnumeration1"/>
+				<bounds xmi:type="dc:bounds" xmi:id="EAID_DB000000_FEE0_4d99_BB27_633D16AAE2D4" x="299" y="74" width="119" height="102"/>
+			</ownedElement>
+			<ownedElement xmi:type="umldi:UMLClassifierShape" xmi:id="EAID_FB8F26C0_FEE0_4d99_9337_7DCBF2DD3FAC" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC">
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000000_FEE0_4d99_9337_7DCBF2DD3FAC" text="enumeration"/>
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000001_FEE0_4d99_9337_7DCBF2DD3FAC" text="DKKodeliste"/>
+				<ownedElement xmi:type="umldi:UMLNameLabel" xmi:id="EAID_NL000000_FEE0_4d99_9337_7DCBF2DD3FAC" text="DKKodeliste1"/>
+				<bounds xmi:type="dc:bounds" xmi:id="EAID_DB000000_FEE0_4d99_9337_7DCBF2DD3FAC" x="299" y="246" width="119" height="60"/>
+			</ownedElement>
+			<ownedElement xmi:type="umldi:UMLClassifierShape" xmi:id="EAID_FB8F26C0_FEE0_4d99_AC0A_0C334F53EF85" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85">
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000000_FEE0_4d99_AC0A_0C334F53EF85" text="DKObjekttype"/>
+				<ownedElement xmi:type="umldi:UMLNameLabel" xmi:id="EAID_NL000000_FEE0_4d99_AC0A_0C334F53EF85" text="DKObjekttype2"/>
+				<bounds xmi:type="dc:bounds" xmi:id="EAID_DB000000_FEE0_4d99_AC0A_0C334F53EF85" x="54" y="241" width="119" height="70"/>
+			</ownedElement>
+			<ownedElement xmi:type="umldi:UMLEdge" xmi:id="EAID_FB8F26C0_FEE0_4d99_B670_7A54ABB7F73D" source="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4" target="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85" modelElement="EAID_0D467508_0484_4a26_B670_7A54ABB7F73D">
+				<ownedElement xmi:type="umldi:UMLNameLabel" xmi:id="EAID_NL000000_FEE0_4d99_B670_7A54ABB7F73D" text="erRelateretTil">
+					<bounds xmi:type="dc:bounds" xmi:id="EAID_DBNL000000_FEE0_4d99_B670_7A54ABB7F73D" x="87" y="194" width="54" height="14"/>
+				</ownedElement>
+				<ownedElement xmi:type="umldi:UMLAssociationEndLabel" xmi:id="EAID_TEL000000_FEE0_4d99_B670_7A54ABB7F73D" text="dkObjekttype2&#xA;«DKEgenskab»" modelElement="EAID_dst467508_0484_4a26_B670_7A54ABB7F73D">
+					<bounds xmi:type="dc:bounds" xmi:id="EAID_DBTEL000000_FEE0_4d99_B670_7A54ABB7F73D" x="123" y="206" width="61" height="27"/>
+				</ownedElement>
+				<waypoint xmi:type="dc:waypoint" xmi:id="EAID_WP000000_FEE0_4d99_B670_7A54ABB7F73D" x="113" y="176"/>
+				<waypoint xmi:type="dc:waypoint" xmi:id="EAID_WP000001_FEE0_4d99_B670_7A54ABB7F73D" x="113" y="241"/>
+			</ownedElement>
+		</umldi:Diagram>
+		<umldi:Diagram xmi:type="umldi:UMLPackageDiagram" xmi:id="EAID_B6BDF7C9_5A64_4a48_8CF2_D2E6569861B0" isFrame="false" modelElement="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8">
+			<ownedElement xmi:type="umldi:UMLCompartmentableShape" xmi:id="EAID_B6BDF7C9_5A64_4a48_B0A0_E0DC4AF152D8" modelElement="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8">
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000000_5A64_4a48_B0A0_E0DC4AF152D8" text="DKDomænemodel"/>
+				<ownedElement xmi:type="umldi:UMLNameLabel" xmi:id="EAID_NL000000_5A64_4a48_B0A0_E0DC4AF152D8" text="MinModel_GDv22"/>
+				<bounds xmi:type="dc:bounds" xmi:id="EAID_DB000000_5A64_4a48_B0A0_E0DC4AF152D8" x="49" y="53" width="130" height="85"/>
+			</ownedElement>
+			<ownedElement xmi:type="umldi:UMLCompartmentableShape" xmi:id="EAID_B6BDF7C9_5A64_4a48_9164_7A94E1F503C7" modelElement="EAPK_BBEF980E_D59E_469d_9164_7A94E1F503C7">
+				<ownedElement xmi:type="umldi:UMLNameLabel" xmi:id="EAID_NL000000_5A64_4a48_9164_7A94E1F503C7" text="ISO 19107 Edition 1"/>
+				<bounds xmi:type="dc:bounds" xmi:id="EAID_DB000000_5A64_4a48_9164_7A94E1F503C7" x="294" y="53" width="130" height="225"/>
+			</ownedElement>
+			<ownedElement xmi:type="umldi:UMLEdge" xmi:id="EAID_B6BDF7C9_5A64_4a48_8E2B_DF070A0CCD2A" source="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" target="EAPK_BBEF980E_D59E_469d_9164_7A94E1F503C7" modelElement="EAID_1F93E66C_4D90_4ab1_8E2B_DF070A0CCD2A">
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000000_5A64_4a48_8E2B_DF070A0CCD2A" text="use">
+					<bounds xmi:type="dc:bounds" xmi:id="EAID_DBKL000000_5A64_4a48_8E2B_DF070A0CCD2A" x="224" y="98" width="25" height="14"/>
+				</ownedElement>
+				<waypoint xmi:type="dc:waypoint" xmi:id="EAID_WP000000_5A64_4a48_8E2B_DF070A0CCD2A" x="179" y="95"/>
+				<waypoint xmi:type="dc:waypoint" xmi:id="EAID_WP000001_5A64_4a48_8E2B_DF070A0CCD2A" x="294" y="95"/>
+			</ownedElement>
+		</umldi:Diagram>
+		<profileApplication xmi:type="uml:ProfileApplication" xmi:id="profileap_thecustomprofile">
+			<appliedProfile xmi:type="uml:Profile" href="http://www.sparxsystems.com/profiles/thecustomprofile/1.0#thecustomprofile"/>
+		</profileApplication>
+		<profileApplication xmi:type="uml:ProfileApplication" xmi:id="profileap_557545CC-2">
+			<appliedProfile xmi:type="uml:Profile" href="http://www.sparxsystems.com/profiles/Grunddata2/1.0#557545CC-2"/>
+		</profileApplication>
+	</uml:Model>
+	<xmi:Extension extender="Enterprise Architect" extenderID="6.5">
+		<elements>
+			<element xmi:idref="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" xmi:type="uml:Package" name="MinModel_GDv22" scope="public">
+				<model package2="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" package="EAPK_D42F9A71_87C2_4c7a_B2D7_8919D15C2DC5" tpos="0" ea_localid="277" ea_eleType="package"/>
+				<properties isSpecification="false" sType="Package" nType="0" scope="public" stereotype="DKDomænemodel"/>
+				<project author="B004114" version="1.0" phase="1.0" created="2024-07-09 13:44:04" modified="2024-07-11 14:10:25" complexity="1" status="Proposed"/>
+				<code gentype="&lt;none&gt;"/>
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+				<tags>
+					<tag xmi:id="EAID_7FCB66C9_F24E_31f2_B0E6_413B1D89ECEC" name="approvalStatus" value="approved#NOTES#Values: approved&#xA;Default: approved&#xA;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_2E2BA05C_3161_d731_8D4E_6F7D3ADE283C" name="approvedBy" value="#NOTES#Values: Grunddata Arkitekturforum,Grunddata Modelsekretariatet&#xA;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_D6671B7A_385F_d938_8C21_B16508C20878" name="description (da)" value="&lt;memo&gt;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_D6672168_3E4D_d93e_B672_8606F3B62812" name="description (en)" value="&lt;memo&gt;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_DEB7F7C4_FFA9_c1ff_A971_988306835BCA" name="language" value="da#NOTES#Default: da&#xA;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_CC387636_9BDB_b19b_AEBA_FB71356B8CB7" name="legalSource" value="&lt;memo&gt;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_E72C40EB_C5F0_94c5_B673_83E9F81BDA37" name="modelScope" value="application model#NOTES#Values: application model&#xA;Default: application model&#xA;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_CDE06515_8ABA_598a_B935_535583101037" name="modelStatus" value="#NOTES#Values: development,stable&#xA;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_E971A201_A9E6_7ba9_B89F_B7D57E42AB1B" name="modified" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_4CEF338D_3812_3a38_863E_A2C9059208B4" name="namespace" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_51A6BB5B_3B80_813b_8155_F225F43828B2" name="namespacePrefix" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_14B44E23_F388_c4f3_87B3_20DF2A9AC3E2" name="responsibleEntity" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_145BFAB1_C556_08c5_B155_0EEC297A4323" name="source" value="&lt;memo&gt;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_086DDDF3_67F8_a967_B991_CC897B061540" name="theme" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_112DF098_85BD_d985_B9DE_8AFEE112A30F" name="title (da)" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_112DF686_8BAB_d98b_9E4E_712333094A65" name="title (en)" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_AF754732_F4D7_81f4_83B2_111AF903ED1B" name="versionInfo" value="1.0.0" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_A40EE5C5_7B2A_727b_9639_3624A7769606" name="versionNotes (da)" value="&lt;memo&gt;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+					<tag xmi:id="EAID_A40EEBB3_8118_7281_ABDA_42BEEA394C22" name="versionNotes (en)" value="&lt;memo&gt;" modelElement="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+				</tags>
+				<xrefs value="$XREFPROP=$XID={D8779CCA-1D7F-4b75-887A-67E4C54D9E48}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKDomænemodel;FQName=Grunddata2::DKDomænemodel;@ENDSTEREO;$DES;$CLT={3ADDD564-7961-445f-B0A0-E0DC4AF152D8}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+				<extendedProperties tagged="0" package_name="View"/>
+				<packageproperties version="1.0"/>
+				<paths/>
+				<times created="2024-07-09 13:44:04" modified="2024-07-11 14:10:25"/>
+				<flags iscontrolled="0" isprotected="0" usedtd="0" logxml="0"/>
+			</element>
+			<element xmi:idref="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4" xmi:type="uml:Class" name="DKObjekttype1" scope="public">
+				<model package="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" tpos="0" ea_localid="1349" ea_eleType="element"/>
+				<properties isSpecification="false" sType="Class" nType="0" scope="public" stereotype="DKObjekttype" isRoot="false" isLeaf="false" isAbstract="false" isActive="false"/>
+				<project author="B004114" version="1.0" phase="1.0" created="2024-07-09 13:44:32" modified="2024-07-09 13:44:32" complexity="1" status="Proposed"/>
+				<code gentype="&lt;none&gt;"/>
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+				<tags>
+					<tag xmi:id="EAID_CD817B17_0006_0e00_95CF_D2087443224E" name="altLabel (da)" value="altLabel objekttype1 på dansk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_CD818105_05F4_0e05_B2CE_CC0C7E32EDE8" name="altLabel (en)" value="altLabel objekttype1 på engelsk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_59BB15E0_F7EF_aef7_A340_2D0E914D3D8F" name="applicationNote (da)" value="&lt;memo&gt;#NOTES#applikationsnote objekttype1 på dansk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_9850_BA15B736D23A" name="applicationNote (en)" value="&lt;memo&gt;#NOTES#applikationsnote objekttype1 på engelsk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_6D3BD229_1558_5215_A0CC_0B72D6890AED" name="comment (da)" value="&lt;memo&gt;#NOTES#kommentar objekttype1 på dansk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_6D3BD817_1B46_521b_866C_96A6ECE1511C" name="comment (en)" value="&lt;memo&gt;#NOTES#kommentar objekttype1 på engelsk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_B6A7_A1815868E676" name="definition (da)" value="&lt;memo&gt;#NOTES#definition objekttype1 på dansk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_E4EE276D_503C_1b50_8605_2512888DDA80" name="definition (en)" value="&lt;memo&gt;#NOTES#definition objekttype1 på engelsk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_82378FC7_6DD6_676d_8EB8_4974047D4748" name="deprecatedLabel (da)" value="deprecatedLabel objekttype1 på dansk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_823795B5_73C4_6773_A7C8_A1BC323048A2" name="deprecatedLabel (en)" value="deprecatedLabel objekttype1 på engelsk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_B8C86962_AC91_deac_8E56_C998BD4519CD" name="example (da)" value="&lt;memo&gt;#NOTES#eksempel objekttype1 på dansk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_B8C86F50_B27F_deb2_A4D2_CB6A843F1D30" name="example (en)" value="&lt;memo&gt;#NOTES#eksempel objekttype1 på engelsk" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_5B500E3E_57A2_f757_A98E_2803E497A6BB" name="historikmodel" value="registreringshistorik#NOTES#Values: registreringshistorik,bitemporalitet&#xA;" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_CC387636_7B65_467b_9938_C6BAFEC0855B" name="legalSource" value="juridisk kilde objekttype1" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_5D30DBE3_82B2_9282_8944_07D64AA43057" name="prefLabel (da)" value="objekttype1" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_5D30E1D1_88A0_9288_AA56_A1EA6699B766" name="prefLabel (en)" value="object type 1" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_145BFAB1_46A0_c746_90DE_AE593181E6B1" name="source" value="kilde objekttype1" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+					<tag xmi:id="EAID_000200D0_AEBF_b3ae_8131_08DC1DF8152C" name="URI" value="https://uri.objekttype1" modelElement="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4"/>
+				</tags>
+				<xrefs value="$XREFPROP=$XID={D9F19B13-26EA-4fcc-8227-E5AB90CBE367}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKObjekttype;FQName=Grunddata2::DKObjekttype;@ENDSTEREO;$DES;$CLT={0D440DBC-36E8-42bb-97D2-4256F71BABE4}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={08547AE0-EA32-4b47-B1E2-11C985E96F1A}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=_tagGroupings@ENDNAME;@TYPE=string@ENDTYPE;@VALU=URI=Identification;prefLabel (da)=Danish annotations;altLabel (da)=Danish annotations;deprecatedLabel (da)=Danish annotations;label (da)=Danish annotations;definition (da)=Danish annotations;example (da)=Danish annotations;comment (da)=Danish annotations;applicationNote (da)=Danish annotations;prefLabel (en)=English annotations;altLabel (en)=English annotations;deprecatedLabel (en)=English annotations;label (en)=English annotations;definition (en)=English annotations;example (en)=English annotations;comment (en)=English annotations;applicationNote (en)=English annotations;legalSource=Provenance;source=Provenance;isDefinedBy=Provenance;wasDerivedFrom=Provenance;@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroups@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification,Danish annotations,English annotations,Provenance@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroupStates@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification=open;Danish annotations=open;English annotations=closed;Provenance=open@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={0D440DBC-36E8-42bb-97D2-4256F71BABE4}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+				<extendedProperties tagged="0" package_name="MinModel_GDv22"/>
+				<attributes>
+					<attribute xmi:idref="EAID_D913CDA7_D596_48db_838F_9789E0E3E7B0" name="geometri" scope="Public">
+						<initial/>
+						<documentation/>
+						<model ea_localid="2099" ea_guid="{D913CDA7-D596-48db-838F-9789E0E3E7B0}"/>
+						<properties type="GM_Point" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable"/>
+						<coords ordered="0" scale="0"/>
+						<containment containment="Not Specified" position="0"/>
+						<stereotype stereotype="DKEgenskab"/>
+						<bounds lower="1" upper="1"/>
+						<options/>
+						<style/>
+						<styleex value="volatile=0;union=0;"/>
+						<tags>
+							<tag xmi:id="EAID_0001B448_64AB_5e64_B0BB_6D508221B7E9" name="CRS" value="EPSG:25832"/>
+							<tag xmi:id="EAID_2005CA58_601B_ef60_B601_481A0C089C95" name="Z-used" value="False" notes="Values: True,False&#xA;"/>
+							<tag xmi:id="EAID_000200D0_AEBF_b3ae_AFBD_136BB5E091F9" name="URI" value="https://uri.geometri"/>
+							<tag xmi:id="EAID_5D30DBE3_82B2_9282_9E7C_2B7945A48656" name="prefLabel (da)" value="geometri"/>
+							<tag xmi:id="EAID_CD817B17_0006_0e00_8D4B_E84E75CFED0D" name="altLabel (da)" value="altLabel geometri på dansk"/>
+							<tag xmi:id="EAID_82378FC7_6DD6_676d_B129_D0967E2821EF" name="deprecatedLabel (da)" value="deprecatedLabel geometri på dansk"/>
+							<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_8E6D_A9C8E264345B" name="definition (da)" value="&lt;memo&gt;" notes="definition geometri på dansk"/>
+							<tag xmi:id="EAID_B8C86962_AC91_deac_858F_F4B4F06C2690" name="example (da)" value="&lt;memo&gt;" notes="eksempel geometri på dansk"/>
+							<tag xmi:id="EAID_6D3BD229_1558_5215_999C_2AA5F77F3CCB" name="comment (da)" value="&lt;memo&gt;" notes="kommentar geometri på dansk"/>
+							<tag xmi:id="EAID_59BB15E0_F7EF_aef7_83E4_86D3D178392B" name="applicationNote (da)" value="&lt;memo&gt;" notes="applikationsnote geometri på dansk"/>
+							<tag xmi:id="EAID_5D30E1D1_88A0_9288_88F2_5E70368D1463" name="prefLabel (en)" value="geometry"/>
+							<tag xmi:id="EAID_CD818105_05F4_0e05_BAEE_8CD0959F627A" name="altLabel (en)" value="altLabel geometri på engelsk"/>
+							<tag xmi:id="EAID_823795B5_73C4_6773_B238_858FCC1CBE7B" name="deprecatedLabel (en)" value="deprecatedLabel geometri på engelsk"/>
+							<tag xmi:id="EAID_E4EE276D_503C_1b50_8746_15203A83B19B" name="definition (en)" value="&lt;memo&gt;" notes="definition geometri på engelsk"/>
+							<tag xmi:id="EAID_B8C86F50_B27F_deb2_BA68_3A5390C791DA" name="example (en)" value="&lt;memo&gt;" notes="eksempel geometri på engelsk"/>
+							<tag xmi:id="EAID_6D3BD817_1B46_521b_9101_640377CEDB4F" name="comment (en)" value="&lt;memo&gt;" notes="kommentar geometri på engelsk"/>
+							<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_89CB_FE81CE974206" name="applicationNote (en)" value="&lt;memo&gt;" notes="applikationsnote geometri på engelsk"/>
+							<tag xmi:id="EAID_CC387636_7B65_467b_ABE6_FE181BFCD456" name="legalSource" value="juridisk kilde geometri"/>
+							<tag xmi:id="EAID_145BFAB1_46A0_c746_9C5D_ABA99F145E4D" name="source" value="kilde geometri"/>
+						</tags>
+						<xrefs value="$XREFPROP=$XID={4EC07458-83B3-42ff-B5FC-5F0DBB45DA77}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKEgenskab;FQName=Grunddata2::DKEgenskab;@ENDSTEREO;$DES;$CLT={D913CDA7-D596-48db-838F-9789E0E3E7B0}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+					</attribute>
+					<attribute xmi:idref="EAID_03CDA8A0_8F47_4b20_8C1C_603D967D6078" name="kode" scope="Public">
+						<initial/>
+						<documentation/>
+						<model ea_localid="2102" ea_guid="{03CDA8A0-8F47-4b20-8C1C-603D967D6078}"/>
+						<properties type="DKKodeliste1" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable"/>
+						<coords ordered="0" scale="0"/>
+						<containment containment="Not Specified" position="0"/>
+						<stereotype stereotype="DKEgenskab"/>
+						<bounds lower="1" upper="1"/>
+						<options/>
+						<style/>
+						<styleex value="volatile=0;union=0;"/>
+						<tags>
+							<tag xmi:id="EAID_0001B448_64AB_5e64_B255_957FC9C3E750" name="CRS"/>
+							<tag xmi:id="EAID_2005CA58_601B_ef60_95CB_6448174039DB" name="Z-used" notes="Values: True,False&#xA;"/>
+							<tag xmi:id="EAID_000200D0_AEBF_b3ae_9CDD_1A9C5FD75524" name="URI" value="https://uri.kode"/>
+							<tag xmi:id="EAID_5D30DBE3_82B2_9282_983C_3AFB25AE4CEF" name="prefLabel (da)" value="kode"/>
+							<tag xmi:id="EAID_CD817B17_0006_0e00_939F_77BA86BA4A71" name="altLabel (da)" value="altLabel kode på dansk"/>
+							<tag xmi:id="EAID_82378FC7_6DD6_676d_B864_F8512C070529" name="deprecatedLabel (da)" value="deprecatedLabel kode på dansk"/>
+							<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_B3A4_C6B28016A964" name="definition (da)" value="&lt;memo&gt;" notes="definition kode på dansk"/>
+							<tag xmi:id="EAID_B8C86962_AC91_deac_87B4_8EC50FF1EB4C" name="example (da)" value="&lt;memo&gt;" notes="eksempel kode på dansk"/>
+							<tag xmi:id="EAID_6D3BD229_1558_5215_A537_2BB043560887" name="comment (da)" value="&lt;memo&gt;" notes="kommentar kode på dansk"/>
+							<tag xmi:id="EAID_59BB15E0_F7EF_aef7_A4D0_A00D1CF37016" name="applicationNote (da)" value="&lt;memo&gt;" notes="applikationsnote kode på dansk"/>
+							<tag xmi:id="EAID_5D30E1D1_88A0_9288_8E1D_49635458DD33" name="prefLabel (en)" value="code"/>
+							<tag xmi:id="EAID_CD818105_05F4_0e05_8B3D_C3E1F88AF4DF" name="altLabel (en)" value="altLabel kode på engelsk"/>
+							<tag xmi:id="EAID_823795B5_73C4_6773_98CE_D27D676053FC" name="deprecatedLabel (en)" value="deprecatedLabel kode på engelsk"/>
+							<tag xmi:id="EAID_E4EE276D_503C_1b50_A1B3_DFB560D75F94" name="definition (en)" value="&lt;memo&gt;" notes="definition kode på engelsk"/>
+							<tag xmi:id="EAID_B8C86F50_B27F_deb2_9FB0_539C70F7E03D" name="example (en)" value="&lt;memo&gt;" notes="eksempel kode på engelsk"/>
+							<tag xmi:id="EAID_6D3BD817_1B46_521b_9F88_A855C5199A04" name="comment (en)" value="&lt;memo&gt;" notes="kommentar kode på engelsk"/>
+							<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_BB67_B3BE552AF16A" name="applicationNote (en)" value="&lt;memo&gt;" notes="applikationsnote kode på engelsk"/>
+							<tag xmi:id="EAID_CC387636_7B65_467b_B2D9_9FA385A873ED" name="legalSource" value="juridisk kilde kode"/>
+							<tag xmi:id="EAID_145BFAB1_46A0_c746_9108_03A0027D148E" name="source" value="kilde kode"/>
+						</tags>
+						<xrefs value="$XREFPROP=$XID={0CAE5ECE-6D05-4a74-8562-87DF3D03299B}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKEgenskab;FQName=Grunddata2::DKEgenskab;@ENDSTEREO;$DES;$CLT={03CDA8A0-8F47-4b20-8C1C-603D967D6078}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+					</attribute>
+					<attribute xmi:idref="EAID_840B4697_4A18_4d07_9207_1E023E02CABA" name="type" scope="Public">
+						<initial/>
+						<documentation/>
+						<model ea_localid="2098" ea_guid="{840B4697-4A18-4d07-9207-1E023E02CABA}"/>
+						<properties type="DKEnumeration1" derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable"/>
+						<coords ordered="0" scale="0"/>
+						<containment containment="Not Specified" position="0"/>
+						<stereotype stereotype="DKEgenskab"/>
+						<bounds lower="1" upper="1"/>
+						<options/>
+						<style/>
+						<styleex value="volatile=0;union=0;"/>
+						<tags>
+							<tag xmi:id="EAID_0001B448_64AB_5e64_8B0F_DACBD417566F" name="CRS"/>
+							<tag xmi:id="EAID_2005CA58_601B_ef60_86ED_F3F08BD2C835" name="Z-used" notes="Values: True,False&#xA;"/>
+							<tag xmi:id="EAID_000200D0_AEBF_b3ae_8D4E_98D158DC9A4D" name="URI" value="https://uri.type"/>
+							<tag xmi:id="EAID_5D30DBE3_82B2_9282_83AE_D61B40BD7F1A" name="prefLabel (da)" value="type"/>
+							<tag xmi:id="EAID_CD817B17_0006_0e00_AD74_0073492F0030" name="altLabel (da)" value="altLabel type på dansk"/>
+							<tag xmi:id="EAID_82378FC7_6DD6_676d_9A42_ED16931BE6FD" name="deprecatedLabel (da)" value="deprecatedLabel type på dansk"/>
+							<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_AE7D_089DEEE5FCA1" name="definition (da)" value="&lt;memo&gt;" notes="definition type på dansk"/>
+							<tag xmi:id="EAID_B8C86962_AC91_deac_BD29_053D8B3A1FCB" name="example (da)" value="&lt;memo&gt;" notes="eksempel type på dansk"/>
+							<tag xmi:id="EAID_6D3BD229_1558_5215_BCC6_AD21FEF2437B" name="comment (da)" value="&lt;memo&gt;" notes="kommentar type på dansk"/>
+							<tag xmi:id="EAID_59BB15E0_F7EF_aef7_BF29_D1EA8A57D0F5" name="applicationNote (da)" value="&lt;memo&gt;" notes="applikationsnote type på dansk"/>
+							<tag xmi:id="EAID_5D30E1D1_88A0_9288_9907_899CBA70008C" name="prefLabel (en)" value="type"/>
+							<tag xmi:id="EAID_CD818105_05F4_0e05_B89A_57062555AC08" name="altLabel (en)" value="altLabel type på engelsk"/>
+							<tag xmi:id="EAID_823795B5_73C4_6773_ACA1_F143590B3255" name="deprecatedLabel (en)" value="deprecatedLabel type på engelsk"/>
+							<tag xmi:id="EAID_E4EE276D_503C_1b50_A8E5_5335C1C9693F" name="definition (en)" value="&lt;memo&gt;" notes="definition type på engelsk"/>
+							<tag xmi:id="EAID_B8C86F50_B27F_deb2_98D2_821624A63F14" name="example (en)" value="&lt;memo&gt;" notes="eksempel type på engelsk"/>
+							<tag xmi:id="EAID_6D3BD817_1B46_521b_870A_7F914E0656EE" name="comment (en)" value="&lt;memo&gt;" notes="kommentar type på engelsk"/>
+							<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_9904_24EA62E8B71C" name="applicationNote (en)" value="&lt;memo&gt;" notes="applikationsnote type på engelsk"/>
+							<tag xmi:id="EAID_CC387636_7B65_467b_99F8_38E18E84EF01" name="legalSource" value="juridisk kilde type"/>
+							<tag xmi:id="EAID_145BFAB1_46A0_c746_B13C_DDF9EA8D5A85" name="source" value="kilde type"/>
+						</tags>
+						<xrefs value="$XREFPROP=$XID={BB609519-4AD5-428f-A807-8399958F8AC8}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKEgenskab;FQName=Grunddata2::DKEgenskab;@ENDSTEREO;$DES;$CLT={840B4697-4A18-4d07-9207-1E023E02CABA}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+					</attribute>
+				</attributes>
+				<links>
+					<Association xmi:id="EAID_0D467508_0484_4a26_B670_7A54ABB7F73D" start="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4" end="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+				</links>
+			</element>
+			<element xmi:idref="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85" xmi:type="uml:Class" name="DKObjekttype2" scope="public">
+				<model package="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" tpos="0" ea_localid="1352" ea_eleType="element"/>
+				<properties isSpecification="false" sType="Class" nType="0" scope="public" stereotype="DKObjekttype" isRoot="false" isLeaf="false" isAbstract="false" isActive="false"/>
+				<project author="B004114" version="1.0" phase="1.0" created="2024-07-09 14:36:05" modified="2024-07-09 14:36:05" complexity="1" status="Proposed"/>
+				<code gentype="&lt;none&gt;"/>
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+				<tags>
+					<tag xmi:id="EAID_CD817B17_0006_0e00_B0DB_B16223708F31" name="altLabel (da)" value="altLabel objekttype2 på dansk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_CD818105_05F4_0e05_81A2_4F1DB44E6886" name="altLabel (en)" value="altLabel objekttype2 på engelsk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_59BB15E0_F7EF_aef7_AB8E_F2FDB7F7F3F9" name="applicationNote (da)" value="&lt;memo&gt;#NOTES#applikationsnote objekttype2 på dansk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_9ED2_55E9941921BB" name="applicationNote (en)" value="&lt;memo&gt;#NOTES#applikationsnote objekttype2 på engelsk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_6D3BD229_1558_5215_959A_C10CC3376562" name="comment (da)" value="&lt;memo&gt;#NOTES#kommentar objekttype2 på dansk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_6D3BD817_1B46_521b_B093_1D82AE9901D3" name="comment (en)" value="&lt;memo&gt;#NOTES#kommentar objekttype2 på engelsk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_97CD_E3C4D8AEF6DC" name="definition (da)" value="&lt;memo&gt;#NOTES#definition objekttype2 på dansk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_E4EE276D_503C_1b50_AB7F_09C6992DCA12" name="definition (en)" value="&lt;memo&gt;#NOTES#definition objekttype2 på engelsk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_82378FC7_6DD6_676d_AA6D_C0D2CEA94973" name="deprecatedLabel (da)" value="deprecatedLabel objekttype2 på dansk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_823795B5_73C4_6773_97DF_E729CAD44652" name="deprecatedLabel (en)" value="deprecatedLabel objekttype2 på engelsk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_B8C86962_AC91_deac_A9E7_4676B01AFC27" name="example (da)" value="&lt;memo&gt;#NOTES#eksempel objekttype2 på dansk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_B8C86F50_B27F_deb2_AF2A_712692CB23D4" name="example (en)" value="&lt;memo&gt;#NOTES#eksempel objekttype2 på engelsk" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_5B500E3E_57A2_f757_ACB6_020D1AD80644" name="historikmodel" value="registreringshistorik#NOTES#Values: registreringshistorik,bitemporalitet&#xA;" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_CC387636_7B65_467b_A0B8_D62DA32549D0" name="legalSource" value="juridisk kilde objekttype2" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_5D30DBE3_82B2_9282_B31F_F4CAD59348DD" name="prefLabel (da)" value="objekttype2" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_5D30E1D1_88A0_9288_BB94_14AEFCD8C748" name="prefLabel (en)" value="object type 2" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_145BFAB1_46A0_c746_8604_47D0F1A20A4B" name="source" value="kilde objekttype2rolle" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_99A72BDB_554B_42d0_B547_C74B6D0F7F86" name="testtag" value="test value DKObjekttype2" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+					<tag xmi:id="EAID_000200D0_AEBF_b3ae_A495_1703547A9453" name="URI" value="https://uri.objekttype2" modelElement="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+				</tags>
+				<xrefs value="$XREFPROP=$XID={E88D369E-9147-4aa2-B6A0-D9AC5A616EB8}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKObjekttype;FQName=Grunddata2::DKObjekttype;@ENDSTEREO;$DES;$CLT={FB7F8A23-ACE6-4bee-AC0A-0C334F53EF85}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={B7E2911E-1149-4923-8594-E99A204D7A65}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=_tagGroupings@ENDNAME;@TYPE=string@ENDTYPE;@VALU=URI=Identification;prefLabel (da)=Danish annotations;altLabel (da)=Danish annotations;deprecatedLabel (da)=Danish annotations;label (da)=Danish annotations;definition (da)=Danish annotations;example (da)=Danish annotations;comment (da)=Danish annotations;applicationNote (da)=Danish annotations;prefLabel (en)=English annotations;altLabel (en)=English annotations;deprecatedLabel (en)=English annotations;label (en)=English annotations;definition (en)=English annotations;example (en)=English annotations;comment (en)=English annotations;applicationNote (en)=English annotations;legalSource=Provenance;source=Provenance;isDefinedBy=Provenance;wasDerivedFrom=Provenance;@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroups@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification,Danish annotations,English annotations,Provenance@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroupStates@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification=open;Danish annotations=open;English annotations=closed;Provenance=open@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={FB7F8A23-ACE6-4bee-AC0A-0C334F53EF85}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+				<extendedProperties tagged="0" package_name="MinModel_GDv22"/>
+				<links>
+					<Association xmi:id="EAID_0D467508_0484_4a26_B670_7A54ABB7F73D" start="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4" end="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85"/>
+				</links>
+			</element>
+			<element xmi:idref="EAID_76740982_592B_4a05_BB27_633D16AAE2D4" xmi:type="uml:Enumeration" name="DKEnumeration1" scope="public">
+				<model package="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" tpos="0" ea_localid="1350" ea_eleType="element"/>
+				<properties isSpecification="false" sType="Enumeration" nType="0" scope="public" stereotype="DKEnumeration" isRoot="false" isLeaf="false" isAbstract="false"/>
+				<project author="B004114" version="1.0" phase="1.0" created="2024-07-09 13:44:39" modified="2024-07-09 13:44:39" complexity="1" status="Proposed"/>
+				<code gentype="&lt;none&gt;"/>
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+				<tags>
+					<tag xmi:id="EAID_CD817B17_0006_0e00_838A_64640982F198" name="altLabel (da)" value="altLabel enumeration1 på dansk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_CD818105_05F4_0e05_A2CD_0DE0E28CC383" name="altLabel (en)" value="altLabel enumeration1 på engelsk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_59BB15E0_F7EF_aef7_9C26_747172137009" name="applicationNote (da)" value="&lt;memo&gt;#NOTES#applikationsnote enumeration1 på dansk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_AAE4_9F03D1E0364B" name="applicationNote (en)" value="&lt;memo&gt;#NOTES#applikationsnote enumeration1 på engelsk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_6D3BD229_1558_5215_8D9F_6A88FD168F43" name="comment (da)" value="&lt;memo&gt;#NOTES#kommentar enumeration1 på dansk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_6D3BD817_1B46_521b_A1EA_2D9E4D47FEC3" name="comment (en)" value="&lt;memo&gt;#NOTES#kommentar enumeration1 på engelsk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_AD97_0F579607D62F" name="definition (da)" value="&lt;memo&gt;#NOTES#definition enumeration1 på dansk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_E4EE276D_503C_1b50_9F96_18418904A83E" name="definition (en)" value="&lt;memo&gt;#NOTES#definition enumeration1 på engelsk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_82378FC7_6DD6_676d_9A08_113B1672C64E" name="deprecatedLabel (da)" value="deprecatedLabel enumeration1 på dansk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_823795B5_73C4_6773_89AE_563BA4812457" name="deprecatedLabel (en)" value="deprecatedLabel enumeration1 på engelsk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_B8C86962_AC91_deac_A820_0F73E0F72ED3" name="example (da)" value="&lt;memo&gt;#NOTES#eksempel enumeration1 på dansk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_B8C86F50_B27F_deb2_834F_4BA978AAAC53" name="example (en)" value="&lt;memo&gt;#NOTES#eksempel enumeration1 på engelsk" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_CC387636_7B65_467b_8514_17FA2CA36C02" name="legalSource" value="juridisk kilde enumeration1" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_5D30DBE3_82B2_9282_83A5_CDCC96D2D95A" name="prefLabel (da)" value="enumeration1" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_5D30E1D1_88A0_9288_A9C8_3348E3A0BAC0" name="prefLabel (en)" value="enumeration1" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_145BFAB1_46A0_c746_A7B8_4C6E8989330B" name="source" value="kilde enumeration1" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+					<tag xmi:id="EAID_000200D0_AEBF_b3ae_B901_CDDAEDC7A3F0" name="URI" value="https://uri.enumeration1" modelElement="EAID_76740982_592B_4a05_BB27_633D16AAE2D4"/>
+				</tags>
+				<xrefs value="$XREFPROP=$XID={2062B027-B999-49e6-B0CA-F9B496BFFBCC}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKEnumeration;FQName=Grunddata2::DKEnumeration;@ENDSTEREO;$DES;$CLT={76740982-592B-4a05-BB27-633D16AAE2D4}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={65036AA8-1CCB-4e76-9D60-749738F8C2DA}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=_tagGroupings@ENDNAME;@TYPE=string@ENDTYPE;@VALU=URI=Identification;prefLabel (da)=Danish annotations;altLabel (da)=Danish annotations;deprecatedLabel (da)=Danish annotations;label (da)=Danish annotations;definition (da)=Danish annotations;example (da)=Danish annotations;comment (da)=Danish annotations;applicationNote (da)=Danish annotations;prefLabel (en)=English annotations;altLabel (en)=English annotations;deprecatedLabel (en)=English annotations;label (en)=English annotations;definition (en)=English annotations;example (en)=English annotations;comment (en)=English annotations;applicationNote (en)=English annotations;legalSource=Provenance;source=Provenance;isDefinedBy=Provenance;wasDerivedFrom=Provenance;@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroups@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification,Danish annotations,English annotations,Provenance@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroupStates@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification=open;Danish annotations=open;English annotations=closed;Provenance=open@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={76740982-592B-4a05-BB27-633D16AAE2D4}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+				<extendedProperties tagged="0" package_name="MinModel_GDv22" ea_attsclassified="{840B4697-4A18-4d07-9207-1E023E02CABA}"/>
+				<attributes>
+					<attribute xmi:idref="EAID_7318E431_AB6C_46ce_B8C1_DFEBB35A90EE" name="værdi1" scope="Public">
+						<initial/>
+						<documentation/>
+						<model ea_localid="2100" ea_guid="{7318E431-AB6C-46ce-B8C1-DFEBB35A90EE}"/>
+						<properties derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable"/>
+						<coords ordered="0" scale="0"/>
+						<containment containment="Not Specified" position="0"/>
+						<stereotype stereotype="DKEnumværdi"/>
+						<bounds lower="1" upper="1"/>
+						<options/>
+						<style/>
+						<styleex value="IsLiteral=1;volatile=0;union=0;"/>
+						<tags>
+							<tag xmi:id="EAID_000200D0_AEBF_b3ae_87A2_F7064F2167A1" name="URI" value="https://uri.værdi1"/>
+							<tag xmi:id="EAID_5D30DBE3_82B2_9282_9884_6DD103F2CAAB" name="prefLabel (da)" value="værdi1"/>
+							<tag xmi:id="EAID_CD817B17_0006_0e00_A42E_6F95035B17FB" name="altLabel (da)" value="altLabel værdi1 på dansk"/>
+							<tag xmi:id="EAID_82378FC7_6DD6_676d_8A8C_556C9FC9AAA5" name="deprecatedLabel (da)" value="deprecatedLabel værdi1 på dansk"/>
+							<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_9BDA_16B9B995A489" name="definition (da)" value="&lt;memo&gt;" notes="definition værdi1 på dansk"/>
+							<tag xmi:id="EAID_B8C86962_AC91_deac_A74C_9513E5EF533A" name="example (da)" value="&lt;memo&gt;" notes="eksempel værdi1 på dansk"/>
+							<tag xmi:id="EAID_6D3BD229_1558_5215_9ABB_442256B53992" name="comment (da)" value="&lt;memo&gt;" notes="kommentar værdi1 på dansk"/>
+							<tag xmi:id="EAID_59BB15E0_F7EF_aef7_8FB0_39F19A5217B9" name="applicationNote (da)" value="&lt;memo&gt;" notes="applikationsnote værdi1 på dansk"/>
+							<tag xmi:id="EAID_5D30E1D1_88A0_9288_9629_302C80F7F222" name="prefLabel (en)" value="value1"/>
+							<tag xmi:id="EAID_CD818105_05F4_0e05_8CE5_E742A2F3E67E" name="altLabel (en)" value="altLabel værdi1 på engelsk"/>
+							<tag xmi:id="EAID_823795B5_73C4_6773_B2AF_83D6961EBC5C" name="deprecatedLabel (en)" value="deprecatedLabel værdi1 på engelsk"/>
+							<tag xmi:id="EAID_E4EE276D_503C_1b50_86EB_F04516974275" name="definition (en)" value="&lt;memo&gt;" notes="definition værdi1 på engelsk"/>
+							<tag xmi:id="EAID_B8C86F50_B27F_deb2_9946_55DFEC75FAB0" name="example (en)" value="&lt;memo&gt;" notes="eksempel værdi1 på engelsk"/>
+							<tag xmi:id="EAID_6D3BD817_1B46_521b_9C2F_C1DFDBC467B9" name="comment (en)" value="&lt;memo&gt;" notes="kommentar værdi1 på engelsk"/>
+							<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_8CEB_0307C6AFB005" name="applicationNote (en)" value="&lt;memo&gt;" notes="applikationsnote værdi1 på engelsk"/>
+							<tag xmi:id="EAID_CC387636_7B65_467b_AF48_C4C2054AC9A2" name="legalSource" value="juridisk kilde værdi1"/>
+							<tag xmi:id="EAID_145BFAB1_46A0_c746_BB8A_AC507C7C7950" name="source" value="kilde værdi1"/>
+						</tags>
+						<xrefs value="$XREFPROP=$XID={D10F580D-6AD4-4501-9FF5-4FD5A4CF4CA6}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKEnumværdi;FQName=Grunddata2::DKEnumværdi;@ENDSTEREO;$DES;$CLT={7318E431-AB6C-46ce-B8C1-DFEBB35A90EE}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+					</attribute>
+					<attribute xmi:idref="EAID_1C3ED97C_3A76_4a2c_8D51_CE28D7131DD4" name="værdi2" scope="Public">
+						<initial/>
+						<documentation/>
+						<model ea_localid="2101" ea_guid="{1C3ED97C-3A76-4a2c-8D51-CE28D7131DD4}"/>
+						<properties derived="0" precision="0" collection="false" length="0" static="0" duplicates="0" changeability="changeable"/>
+						<coords ordered="0" scale="0"/>
+						<containment containment="Not Specified" position="0"/>
+						<stereotype stereotype="DKEnumværdi"/>
+						<bounds lower="1" upper="1"/>
+						<options/>
+						<style/>
+						<styleex value="IsLiteral=1;volatile=0;union=0;"/>
+						<tags>
+							<tag xmi:id="EAID_000200D0_AEBF_b3ae_957F_1620F177628E" name="URI" value="https://uri.værdi2"/>
+							<tag xmi:id="EAID_5D30DBE3_82B2_9282_A3E6_57E2C49E7742" name="prefLabel (da)" value="værdi2"/>
+							<tag xmi:id="EAID_CD817B17_0006_0e00_9D38_FF5DE35C56D2" name="altLabel (da)" value="altLabel værdi2 på dansk"/>
+							<tag xmi:id="EAID_82378FC7_6DD6_676d_A0F2_9184B5A28C69" name="deprecatedLabel (da)" value="deprecatedLabel værdi2 på dansk"/>
+							<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_A7E5_7C6623974C73" name="definition (da)" value="&lt;memo&gt;" notes="definition værdi2 på dansk"/>
+							<tag xmi:id="EAID_B8C86962_AC91_deac_8E5D_6F7F63E5487F" name="example (da)" value="&lt;memo&gt;" notes="eksempel værdi2 på dansk"/>
+							<tag xmi:id="EAID_6D3BD229_1558_5215_AE0C_D2D25C84C71F" name="comment (da)" value="&lt;memo&gt;" notes="kommentar værdi2 på dansk"/>
+							<tag xmi:id="EAID_59BB15E0_F7EF_aef7_9617_ACE0A4F08BAD" name="applicationNote (da)" value="&lt;memo&gt;" notes="applikationsnote værdi2 på dansk"/>
+							<tag xmi:id="EAID_5D30E1D1_88A0_9288_BB8C_2FD6EE934E14" name="prefLabel (en)" value="value2"/>
+							<tag xmi:id="EAID_CD818105_05F4_0e05_8F69_E1910A6CDB4A" name="altLabel (en)" value="altLabel værdi2 på engelsk"/>
+							<tag xmi:id="EAID_823795B5_73C4_6773_B097_BBA13089DC62" name="deprecatedLabel (en)" value="deprecatedLabel værdi2 på engelsk"/>
+							<tag xmi:id="EAID_E4EE276D_503C_1b50_9103_E3A521A6390E" name="definition (en)" value="&lt;memo&gt;" notes="definition værdi2 på engelsk"/>
+							<tag xmi:id="EAID_B8C86F50_B27F_deb2_A0A4_8A64803DDB4F" name="example (en)" value="&lt;memo&gt;" notes="eksempel værdi2 på engelsk"/>
+							<tag xmi:id="EAID_6D3BD817_1B46_521b_BF74_BAD62448B322" name="comment (en)" value="&lt;memo&gt;" notes="kommentar værdi2 på engelsk"/>
+							<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_9EF6_4D0ABF6D4AFA" name="applicationNote (en)" value="&lt;memo&gt;" notes="applikationsnote værdi2 på engelsk"/>
+							<tag xmi:id="EAID_CC387636_7B65_467b_9FE1_1F2C3C0B4BAF" name="legalSource" value="juridisk kilde værdi2"/>
+							<tag xmi:id="EAID_145BFAB1_46A0_c746_974D_B949268B29F0" name="source" value="kilde værdi2"/>
+						</tags>
+						<xrefs value="$XREFPROP=$XID={215E146B-3B42-4a54-A158-52F01E4D7ED0}$XID;$NAM=Stereotypes$NAM;$TYP=attribute property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKEnumværdi;FQName=Grunddata2::DKEnumværdi;@ENDSTEREO;$DES;$CLT={1C3ED97C-3A76-4a2c-8D51-CE28D7131DD4}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+					</attribute>
+				</attributes>
+			</element>
+			<element xmi:idref="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC" xmi:type="uml:Enumeration" name="DKKodeliste1" scope="public">
+				<model package="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" tpos="0" ea_localid="1351" ea_eleType="element"/>
+				<properties isSpecification="false" sType="Enumeration" nType="0" scope="public" stereotype="DKKodeliste" isRoot="false" isLeaf="false" isAbstract="false"/>
+				<project author="B004114" version="1.0" phase="1.0" created="2024-07-09 13:44:40" modified="2024-07-09 13:44:41" complexity="1" status="Proposed"/>
+				<code gentype="&lt;none&gt;"/>
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+				<tags>
+					<tag xmi:id="EAID_CD817B17_0006_0e00_B29B_E7F02F063343" name="altLabel (da)" value="altLabel kodeliste1 på dansk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_CD818105_05F4_0e05_92CB_4515D3EEA07A" name="altLabel (en)" value="altLabel kodeliste1 på engelsk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_59BB15E0_F7EF_aef7_B5F1_DC4588ABE2F9" name="applicationNote (da)" value="&lt;memo&gt;#NOTES#applikationsnote kodeliste1 på dansk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_8297_1D4185309CFA" name="applicationNote (en)" value="&lt;memo&gt;#NOTES#applikationsnote kodeliste1 på engelsk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_6D3BD229_1558_5215_814C_669D61B78F6C" name="comment (da)" value="&lt;memo&gt;#NOTES#kommentar kodeliste1 på dansk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_6D3BD817_1B46_521b_BEB1_B42E94CDFC59" name="comment (en)" value="&lt;memo&gt;#NOTES#kommentar kodeliste1 på engelsk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_937B_2D9D2FEE0C1C" name="definition (da)" value="&lt;memo&gt;#NOTES#definition kodeliste1 på dansk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_E4EE276D_503C_1b50_96B9_E680580C5C3E" name="definition (en)" value="&lt;memo&gt;#NOTES#definition kodeliste1 på engelsk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_82378FC7_6DD6_676d_8429_1AC1216B6889" name="deprecatedLabel (da)" value="deprecatedLabel kodeliste1 på dansk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_823795B5_73C4_6773_913B_C03324BD82C3" name="deprecatedLabel (en)" value="deprecatedLabel kodeliste1 på engelsk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_B8C86962_AC91_deac_AC98_47D9FC401AF6" name="example (da)" value="&lt;memo&gt;#NOTES#eksempel kodeliste1 på dansk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_B8C86F50_B27F_deb2_9805_53E238071D22" name="example (en)" value="&lt;memo&gt;#NOTES#eksempel kodeliste1 på engelsk" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_CC387636_7B65_467b_9A65_915495B46855" name="legalSource" value="juridisk kilde kodeliste1" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_5D30DBE3_82B2_9282_94D0_40BF932296A4" name="prefLabel (da)" value="kodeliste1" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_5D30E1D1_88A0_9288_8515_35A7F245B745" name="prefLabel (en)" value="code list 1" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_145BFAB1_46A0_c746_A711_99EE025A1359" name="source" value="kilde kodeliste1" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_000200D0_AEBF_b3ae_9E20_36C1F4AE3EC5" name="URI" value="https://uri.kodeliste1" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+					<tag xmi:id="EAID_D98B1C92_EF39_e8ef_B44C_57C30F4E0030" name="vokabularium" value="https://link.til.vokabularium#NOTES#Description: reference til en online, maskin- og menneskelæsbar klassifikation i et klassifikationsregister&#xA;" modelElement="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC"/>
+				</tags>
+				<xrefs value="$XREFPROP=$XID={2A19EA06-F315-432a-A260-9DC196EF276F}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKKodeliste;FQName=Grunddata2::DKKodeliste;@ENDSTEREO;$DES;$CLT={91A4860B-5771-4091-9337-7DCBF2DD3FAC}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={0F768E40-707D-4e10-9CBB-7101DCE8B271}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=_tagGroupings@ENDNAME;@TYPE=string@ENDTYPE;@VALU=URI=Identification;prefLabel (da)=Danish annotations;altLabel (da)=Danish annotations;deprecatedLabel (da)=Danish annotations;label (da)=Danish annotations;definition (da)=Danish annotations;example (da)=Danish annotations;comment (da)=Danish annotations;applicationNote (da)=Danish annotations;prefLabel (en)=English annotations;altLabel (en)=English annotations;deprecatedLabel (en)=English annotations;label (en)=English annotations;definition (en)=English annotations;example (en)=English annotations;comment (en)=English annotations;applicationNote (en)=English annotations;legalSource=Provenance;source=Provenance;isDefinedBy=Provenance;wasDerivedFrom=Provenance;@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroups@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification,Danish annotations,English annotations,Provenance@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroupStates@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification=open;Danish annotations=open;English annotations=closed;Provenance=open@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={91A4860B-5771-4091-9337-7DCBF2DD3FAC}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+				<extendedProperties tagged="0" package_name="MinModel_GDv22" ea_attsclassified="{03CDA8A0-8F47-4b20-8C1C-603D967D6078}"/>
+			</element>
+		</elements>
+		<connectors>
+			<connector xmi:idref="EAID_0D467508_0484_4a26_B670_7A54ABB7F73D" name="erRelateretTil">
+				<source xmi:idref="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4">
+					<model ea_localid="1349" type="Class" name="DKObjekttype1"/>
+					<role visibility="Public" targetScope="instance"/>
+					<type aggregation="none" containment="Unspecified"/>
+					<constraints/>
+					<modifiers isOrdered="false" changeable="none" isNavigable="false"/>
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Non-Navigable;"/>
+					<documentation/>
+					<xrefs/>
+					<tags>
+						<tag xmi:id="EAID_389E2C3A_CDA8_4453_958C_4DC11C66849E" name="testtag" value="test value src erRelateretTil"/>
+					</tags>
+				</source>
+				<target xmi:idref="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85">
+					<model ea_localid="1352" type="Class" name="DKObjekttype2"/>
+					<role name="dkObjekttype2" stereotype="DKEgenskab" visibility="Public" targetScope="instance"/>
+					<type aggregation="none" containment="Unspecified"/>
+					<constraints/>
+					<modifiers isOrdered="false" changeable="none" isNavigable="true"/>
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;"/>
+					<documentation/>
+					<xrefs value="$XREFPROP=$XID={F1DAF156-F74B-4969-BEE9-0BCA224A526A}$XID;$NAM=Stereotypes$NAM;$TYP=connectorDestEnd property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKEgenskab;FQName=Grunddata2::DKEgenskab;@ENDSTEREO;$DES;$CLT={0D467508-0484-4a26-B670-7A54ABB7F73D}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+					<tags>
+						<tag xmi:id="EAID_0001B448_64AB_5e64_B98E_024A512EDCAD" name="CRS"/>
+						<tag xmi:id="EAID_000200D0_AEBF_b3ae_966A_65E9FFF29CBA" name="URI" value="https://uri.objekttype2rolle"/>
+						<tag xmi:id="EAID_145BFAB1_46A0_c746_B3EB_371D2B878313" name="source" value="kilde objekttype2"/>
+						<tag xmi:id="EAID_2005CA58_601B_ef60_9E3F_1A5A9F7FBAE0" name="Z-used"/>
+						<tag xmi:id="EAID_59BB15E0_F7EF_aef7_913A_80E4C62564E8" name="applicationNote (da)" value="&lt;memo&gt;$ea_notes=applikationsnote objekttype2rolle på dansk"/>
+						<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_8B5A_B4D74A7B8F5D" name="applicationNote (en)" value="&lt;memo&gt;$ea_notes=applikationsnote objekttype2rolle på engelsk"/>
+						<tag xmi:id="EAID_5D30DBE3_82B2_9282_A677_7D2868F5ABD9" name="prefLabel (da)" value="objekttype2rolle"/>
+						<tag xmi:id="EAID_5D30E1D1_88A0_9288_B4C5_AD51D57C057B" name="prefLabel (en)" value="object type 2 role"/>
+						<tag xmi:id="EAID_6D3BD229_1558_5215_A81E_AFDEA5DF463E" name="comment (da)" value="&lt;memo&gt;$ea_notes=kommentar objekttype2rolle på dansk"/>
+						<tag xmi:id="EAID_6D3BD817_1B46_521b_B800_DACFD5FF241C" name="comment (en)" value="&lt;memo&gt;$ea_notes=kommentar objekttype2rolle på engelsk"/>
+						<tag xmi:id="EAID_82378FC7_6DD6_676d_B26C_C86BF9BC8E4F" name="deprecatedLabel (da)" value="deprecatedLabel objekttype2rolle på dansk"/>
+						<tag xmi:id="EAID_823795B5_73C4_6773_8951_B82FE3D21A17" name="deprecatedLabel (en)" value="deprecatedLabel objekttype2rolle på engelsk"/>
+						<tag xmi:id="EAID_B8C86962_AC91_deac_9CA0_F41F82AA86E0" name="example (da)" value="&lt;memo&gt;$ea_notes=eksempel objekttype2rolle på dansk"/>
+						<tag xmi:id="EAID_B8C86F50_B27F_deb2_BE24_F39CF3DF896B" name="example (en)" value="&lt;memo&gt;$ea_notes=eksempel objekttype2rolle på engelsk"/>
+						<tag xmi:id="EAID_CC387636_7B65_467b_8C3A_CAC6B3659AFD" name="legalSource" value="juridisk kilde objekttype2rolle"/>
+						<tag xmi:id="EAID_CD817B17_0006_0e00_9B7B_73AF82842FE7" name="altLabel (da)" value="altLabel objekttype2rolle på dansk"/>
+						<tag xmi:id="EAID_CD818105_05F4_0e05_BF23_41717A5599E4" name="altLabel (en)" value="altLabel objekttype2rolle på engelsk"/>
+						<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_A779_DE2C634F18E9" name="definition (da)" value="&lt;memo&gt;$ea_notes=definition objekttype2rolle på dansk"/>
+						<tag xmi:id="EAID_E4EE276D_503C_1b50_B777_9604DB20447E" name="definition (en)" value="&lt;memo&gt;$ea_notes=definition objekttype2rolle på engelsk"/>
+					</tags>
+				</target>
+				<model ea_localid="894"/>
+				<properties ea_type="Association" direction="Source -&gt; Destination"/>
+				<modifiers isRoot="false" isLeaf="false"/>
+				<parameterSubstitutions/>
+				<documentation/>
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0"/>
+				<labels mt="erRelateretTil" rt="dkObjekttype2&#xA;«DKEgenskab»"/>
+				<extendedProperties virtualInheritance="0"/>
+				<style/>
+				<xrefs/>
+				<tags/>
+			</connector>
+			<connector xmi:idref="EAID_1F93E66C_4D90_4ab1_8E2B_DF070A0CCD2A">
+				<source xmi:idref="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8">
+					<model ea_localid="1348" type="Package" name="MinModel_GDv22"/>
+					<role visibility="Public" targetScope="instance"/>
+					<type aggregation="none" containment="Unspecified"/>
+					<constraints/>
+					<modifiers isOrdered="false" changeable="none" isNavigable="false"/>
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Non-Navigable;"/>
+					<documentation/>
+					<xrefs/>
+					<tags/>
+				</source>
+				<target xmi:idref="EAID_BBEF980E_D59E_469d_9164_7A94E1F503C7">
+					<model ea_localid="1187" type="Package" name="ISO 19107 Edition 1"/>
+					<role visibility="Public" targetScope="instance"/>
+					<type aggregation="none" containment="Unspecified"/>
+					<constraints/>
+					<modifiers isOrdered="false" changeable="none" isNavigable="true"/>
+					<style value="Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Navigable;"/>
+					<documentation/>
+					<xrefs/>
+					<tags/>
+				</target>
+				<model ea_localid="895"/>
+				<properties ea_type="Usage" direction="Source -&gt; Destination"/>
+				<modifiers isRoot="false" isLeaf="false"/>
+				<documentation/>
+				<appearance linemode="3" linecolor="-1" linewidth="0" seqno="0" headStyle="0" lineStyle="0"/>
+				<labels mb="«use»"/>
+				<extendedProperties conditional="«use»" virtualInheritance="0"/>
+				<style/>
+				<xrefs/>
+				<tags/>
+			</connector>
+		</connectors>
+		<primitivetypes>
+			<packagedElement xmi:type="uml:Package" xmi:id="EAPrimitiveTypesPackage" name="EA_PrimitiveTypes_Package"/>
+		</primitivetypes>
+		<profiles>
+			<uml:Profile xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:xmi="http://www.omg.org/spec/XMI/20161101" xmi:id="thecustomprofile" nsPrefix="thecustomprofile" name="thecustomprofile" metamodelReference="mmref01">
+				<ownedComment xmi:type="uml:Comment" xmi:id="comment01" annotatedElement="thecustomprofile">
+					<body> Version:1.0</body>
+				</ownedComment>
+				<packageImport xmi:id="mmref01">
+					<importedPackage href="http://www.omg.org/spec/UML/20161101"/>
+				</packageImport>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="testtag" name="testtag">
+					<ownedAttribute xmi:type="uml:Property" xmi:id="testtag-base_Class" name="base_Class" association="Class_testtag">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Class"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="testtag-testtag" name="testtag">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Class_testtag" name="A_Class_testtag" memberEnd="extension_testtag testtag-base_Class">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_testtag" name="extension_testtag" type="testtag" isComposite="true" lower="0" upper="1" memberEnd="extension_testtag testtag-base_Class"/>
+				</packagedElement>
+			</uml:Profile>
+			<uml:Profile xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:xmi="http://www.omg.org/spec/XMI/20161101" xmi:id="557545CC-2" nsPrefix="Grunddata2" name="Grunddata2" metamodelReference="mmref01">
+				<ownedComment xmi:type="uml:Comment" xmi:id="comment01" annotatedElement="557545CC-2">
+					<body>Grunddata2 Version:1.0</body>
+				</ownedComment>
+				<packageImport xmi:id="mmref01">
+					<importedPackage href="http://www.omg.org/spec/UML/20161101"/>
+				</packageImport>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKEnumeration" name="DKEnumeration">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKEnumeration_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEnumeration-base_Enumeration" name="base_Enumeration" association="Enumeration_DKEnumeration">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Enumeration"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Enumeration_DKEnumeration" name="A_Enumeration_DKEnumeration" memberEnd="extension_DKEnumeration DKEnumeration-base_Enumeration">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKEnumeration" name="extension_DKEnumeration" type="DKEnumeration" isComposite="true" lower="0" upper="1" memberEnd="extension_DKEnumeration DKEnumeration-base_Enumeration"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKEnumværdi" name="DKEnumværdi">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKEnumværdi_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEnumværdi-base_Attribute" name="base_Attribute" association="Attribute_DKEnumværdi">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Attribute"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Attribute_DKEnumværdi" name="A_Attribute_DKEnumværdi" memberEnd="extension_DKEnumværdi DKEnumværdi-base_Attribute">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKEnumværdi" name="extension_DKEnumværdi" type="DKEnumværdi" isComposite="true" lower="0" upper="1" memberEnd="extension_DKEnumværdi DKEnumværdi-base_Attribute"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKDomænemodel" name="DKDomænemodel">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKDomænemodel_Model_generalization" general="Model"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKDomænemodel-base_Package" name="base_Package" association="Package_DKDomænemodel">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Package"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Package_DKDomænemodel" name="A_Package_DKDomænemodel" memberEnd="extension_DKDomænemodel DKDomænemodel-base_Package">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKDomænemodel" name="extension_DKDomænemodel" type="DKDomænemodel" isComposite="true" lower="0" upper="1" memberEnd="extension_DKDomænemodel DKDomænemodel-base_Package"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="Model" name="Model" isAbstract="true">
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-base_Package" name="base_Package" association="Package_Model">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Package"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-modified" name="modified">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-legalSource" name="legalSource">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-versionNotes (en)" name="versionNotes (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-namespace" name="namespace">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-description (en)" name="description (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-description (da)" name="description (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-modelScope" name="modelScope">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-responsibleEntity" name="responsibleEntity">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-language" name="language">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-approvedBy" name="approvedBy">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-modelStatus" name="modelStatus">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-source" name="source">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-namespacePrefix" name="namespacePrefix">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-title (da)" name="title (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-title (en)" name="title (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-theme" name="theme">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-approvalStatus" name="approvalStatus">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-versionInfo" name="versionInfo">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-versionNotes (da)" name="versionNotes (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Package_Model" name="A_Package_Model" memberEnd="extension_Model Model-base_Package">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_Model" name="extension_Model" type="Model" isComposite="true" lower="0" upper="1" memberEnd="extension_Model Model-base_Package"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKDatatype" name="DKDatatype">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKDatatype_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKDatatype-base_DataType" name="base_DataType" association="DataType_DKDatatype">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#DataType"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="DataType_DKDatatype" name="A_DataType_DKDatatype" memberEnd="extension_DKDatatype DKDatatype-base_DataType">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKDatatype" name="extension_DKDatatype" type="DKDatatype" isComposite="true" lower="0" upper="1" memberEnd="extension_DKDatatype DKDatatype-base_DataType"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKKlassifikationsmodel" name="DKKlassifikationsmodel">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKKlassifikationsmodel_Model_generalization" general="Model"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKKlassifikationsmodel-base_Package" name="base_Package" association="Package_DKKlassifikationsmodel">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Package"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Package_DKKlassifikationsmodel" name="A_Package_DKKlassifikationsmodel" memberEnd="extension_DKKlassifikationsmodel DKKlassifikationsmodel-base_Package">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKKlassifikationsmodel" name="extension_DKKlassifikationsmodel" type="DKKlassifikationsmodel" isComposite="true" lower="0" upper="1" memberEnd="extension_DKKlassifikationsmodel DKKlassifikationsmodel-base_Package"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKKodeliste" name="DKKodeliste">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKKodeliste_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKKodeliste-base_Enumeration" name="base_Enumeration" association="Enumeration_DKKodeliste">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Enumeration"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKKodeliste-vokabularium" name="vokabularium">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Enumeration_DKKodeliste" name="A_Enumeration_DKKodeliste" memberEnd="extension_DKKodeliste DKKodeliste-base_Enumeration">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKKodeliste" name="extension_DKKodeliste" type="DKKodeliste" isComposite="true" lower="0" upper="1" memberEnd="extension_DKKodeliste DKKodeliste-base_Enumeration"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKEgenskab" name="DKEgenskab">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKEgenskab_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEgenskab-base_Property" name="base_Property" association="Property_DKEgenskab">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Property"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEgenskab-Z-used" name="Z-used">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEgenskab-CRS" name="CRS">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Property_DKEgenskab" name="A_Property_DKEgenskab" memberEnd="extension_DKEgenskab DKEgenskab-base_Property">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKEgenskab" name="extension_DKEgenskab" type="DKEgenskab" isComposite="true" lower="0" upper="1" memberEnd="extension_DKEgenskab DKEgenskab-base_Property"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKObjekttype" name="DKObjekttype">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKObjekttype_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKObjekttype-base_Class" name="base_Class" association="Class_DKObjekttype">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Class"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKObjekttype-historikmodel" name="historikmodel">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Class_DKObjekttype" name="A_Class_DKObjekttype" memberEnd="extension_DKObjekttype DKObjekttype-base_Class">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKObjekttype" name="extension_DKObjekttype" type="DKObjekttype" isComposite="true" lower="0" upper="1" memberEnd="extension_DKObjekttype DKObjekttype-base_Class"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="ModelElement" name="ModelElement" isAbstract="true">
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-base_Element" name="base_Element" association="Element_ModelElement">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Element"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-legalSource" name="legalSource">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-prefLabel (en)" name="prefLabel (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-definition (en)" name="definition (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-altLabel (da)" name="altLabel (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-deprecatedLabel (da)" name="deprecatedLabel (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-prefLabel (da)" name="prefLabel (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-deprecatedLabel (en)" name="deprecatedLabel (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-applicationNote (da)" name="applicationNote (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-definition (da)" name="definition (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-applicationNote (en)" name="applicationNote (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-source" name="source">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-example (en)" name="example (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-example (da)" name="example (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-comment (da)" name="comment (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-comment (en)" name="comment (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-URI" name="URI">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-altLabel (en)" name="altLabel (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Element_ModelElement" name="A_Element_ModelElement" memberEnd="extension_ModelElement ModelElement-base_Element">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_ModelElement" name="extension_ModelElement" type="ModelElement" isComposite="true" lower="0" upper="1" memberEnd="extension_ModelElement ModelElement-base_Element"/>
+				</packagedElement>
+			</uml:Profile>
+		</profiles>
+		<diagrams>
+			<diagram xmi:id="EAID_FB8F26C0_FEE0_4d99_B846_5EC67E4F5B71">
+				<model package="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" localID="472" owner="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+				<properties name="Oversigtsdiagram MinModel_GDv22" type="Logical"/>
+				<project author="B004114" version="1.0" created="2024-07-09 13:44:29" modified="2024-07-12 14:03:38"/>
+				<style1 value="ShowPrivate=1;ShowProtected=1;ShowPublic=1;HideRelationships=0;Locked=0;Border=1;HighlightForeign=1;PackageContents=1;SequenceNotes=0;ScalePrintImage=0;PPgs.cx=0;PPgs.cy=0;DocSize.cx=1138;DocSize.cy=1622;ShowDetails=0;Orientation=P;Zoom=100;ShowTags=0;OpParams=1;VisibleAttributeDetail=0;ShowOpRetType=1;ShowIcons=1;CollabNums=0;HideProps=0;ShowReqs=0;ShowCons=0;PaperSize=8;HideParents=0;UseAlias=0;HideAtts=0;HideOps=0;HideStereo=0;HideElemStereo=0;ShowTests=0;ShowMaint=0;ConnectorNotation=UML 2.1;ExplicitNavigability=0;ShowShape=1;AllDockable=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;SPT=1;ShowNotes=0;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;"/>
+				<style2 value="ExcludeRTF=0;DocAll=0;HideQuals=1;AttPkg=1;ShowTests=0;ShowMaint=0;SuppressFOC=1;MatrixActive=0;SwimlanesActive=1;KanbanActive=0;MatrixLineWidth=1;MatrixLineClr=0;MatrixLocked=0;TConnectorNotation=UML 2.1;TExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;SPT=1;MDGDgm=Grunddatadiagrammer::Oversigtsdiagram;STBLDgm=;ShowNotes=0;VisibleAttributeDetail=0;ShowOpRetType=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;SuppressedCompartments=;Theme=:119;SaveTag=523D957A;"/>
+				<swimlanes value="locked=false;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;"/>
+				<matrixitems value="locked=false;matrixactive=false;swimlanesactive=true;kanbanactive=false;width=1;clrLine=0;"/>
+				<extendedProperties/>
+				<persistentstyle value="DGS=On=0:CNT=8:W=120:H=40:SG=0:SGH=0:AEB=0:;AR=0;DCL=0;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;Swimlanes=locked=false;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;"/>
+				<xrefs/>
+				<elements>
+					<element geometry="Left=54;Top=241;Right=173;Bottom=311;" subject="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85" seqno="1" style="DUID=8DCE632F;HideIcon=0;"/>
+					<element geometry="Left=299;Top=246;Right=418;Bottom=306;" subject="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC" seqno="2" style="DUID=44A52B1A;HideIcon=0;"/>
+					<element geometry="Left=299;Top=74;Right=418;Bottom=176;" subject="EAID_76740982_592B_4a05_BB27_633D16AAE2D4" seqno="3" style="DUID=C56F5519;HideIcon=0;"/>
+					<element geometry="Left=54;Top=74;Right=173;Bottom=176;" subject="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4" seqno="4" style="DUID=FDA7C99B;HideIcon=0;"/>
+					<element geometry="SX=0;SY=0;EX=0;EY=0;EDGE=3;$LLB=;LLT=;LMT=CX=54:CY=14:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=0:DIR=1:ROT=0;LMB=;LRT=CX=61:CY=27:OX=138:OY=-17:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_0D467508_0484_4a26_B670_7A54ABB7F73D" style="Mode=3;EOID=8DCE632F;SOID=FDA7C99B;Color=-1;LWidth=0;Hidden=0;"/>
+				</elements>
+			</diagram>
+			<diagram xmi:id="EAID_B6BDF7C9_5A64_4a48_8CF2_D2E6569861B0">
+				<model package="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" localID="473" owner="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8"/>
+				<properties name="MinModel_GDv22" type="Package"/>
+				<project author="B004114" version="1.0" created="2024-07-11 14:15:25" modified="2024-07-11 14:17:47"/>
+				<style1 value="ShowPrivate=1;ShowProtected=1;ShowPublic=1;HideRelationships=0;Locked=0;Border=1;HighlightForeign=1;PackageContents=0;SequenceNotes=0;ScalePrintImage=0;PPgs.cx=0;PPgs.cy=0;DocSize.cx=1138;DocSize.cy=1622;ShowDetails=0;Orientation=P;Zoom=100;ShowTags=0;OpParams=1;VisibleAttributeDetail=0;ShowOpRetType=1;ShowIcons=1;CollabNums=0;HideProps=0;ShowReqs=0;ShowCons=1;PaperSize=8;HideParents=0;UseAlias=0;HideAtts=0;HideOps=0;HideStereo=0;HideElemStereo=0;ShowTests=0;ShowMaint=0;ConnectorNotation=UML 2.1;ExplicitNavigability=0;ShowShape=1;AllDockable=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;SPT=1;ShowNotes=0;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;"/>
+				<style2 value="ExcludeRTF=0;DocAll=0;HideQuals=0;AttPkg=1;ShowTests=0;ShowMaint=0;SuppressFOC=1;MatrixActive=0;SwimlanesActive=1;KanbanActive=0;MatrixLineWidth=1;MatrixLineClr=0;MatrixLocked=0;TConnectorNotation=UML 2.1;TExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;SPT=1;MDGDgm=Grunddatadiagrammer::Pakkediagram;STBLDgm=;ShowNotes=0;VisibleAttributeDetail=0;ShowOpRetType=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;SuppressedCompartments=;Theme=:119;SaveTag=73F0AAE9;"/>
+				<swimlanes value="locked=false;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;"/>
+				<matrixitems value="locked=false;matrixactive=false;swimlanesactive=true;kanbanactive=false;width=1;clrLine=0;"/>
+				<extendedProperties/>
+				<persistentstyle value="DGS=On=0:CNT=8:W=120:H=40:SG=0:SGH=0:AEB=0:;AR=0;DCL=0;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;Swimlanes=locked=false;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;"/>
+				<xrefs/>
+				<elements>
+					<element geometry="Left=294;Top=53;Right=424;Bottom=278;" subject="EAID_BBEF980E_D59E_469d_9164_7A94E1F503C7" seqno="1" style="DUID=27F21729;NSL=0;BCol=-1;BFol=-1;LCol=-1;LWth=-1;fontsz=0;bold=0;black=0;italic=0;ul=0;charset=0;pitch=0;"/>
+					<element geometry="Left=49;Top=53;Right=179;Bottom=138;" subject="EAID_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" seqno="2" style="DUID=EC4D34A4;NSL=0;BCol=-1;BFol=-1;LCol=-1;LWth=-1;fontsz=0;bold=0;black=0;italic=0;ul=0;charset=0;pitch=0;"/>
+					<element geometry="SX=0;SY=0;EX=-64;EY=70;EDGE=2;$LLB=;LLT=;LMT=;LMB=CX=25:CY=14:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=1:DIR=0:ROT=0;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_1F93E66C_4D90_4ab1_8E2B_DF070A0CCD2A" style="Mode=3;EOID=27F21729;SOID=EC4D34A4;Color=-1;LWidth=0;Hidden=0;"/>
+				</elements>
+			</diagram>
+		</diagrams>
+		<EAStub xmi:id="EAID_3CC5A3E8_2ECA_4e42_B09C_935BD5D3B64A" name="GM_Point" UMLType="Class"/>
+	</xmi:Extension>
+	<Grunddata2:DKObjekttype base_Class="EAID_0D440DBC_36E8_42bb_97D2_4256F71BABE4" legalSource="juridisk kilde objekttype1" prefLabel__en_="object type 1" definition__en_="definition objekttype1 på engelsk" altLabel__da_="altLabel objekttype1 på dansk" deprecatedLabel__da_="deprecatedLabel objekttype1 på dansk" prefLabel__da_="objekttype1" deprecatedLabel__en_="deprecatedLabel objekttype1 på engelsk" applicationNote__da_="applikationsnote objekttype1 på dansk" definition__da_="definition objekttype1 på dansk" applicationNote__en_="applikationsnote objekttype1 på engelsk" source="kilde objekttype1" example__en_="eksempel objekttype1 på engelsk" example__da_="eksempel objekttype1 på dansk" comment__da_="kommentar objekttype1 på dansk" comment__en_="kommentar objekttype1 på engelsk" URI="https://uri.objekttype1" historikmodel="registreringshistorik" altLabel__en_="altLabel objekttype1 på engelsk"/>
+	<Grunddata2:DKEgenskab base_Property="EAID_D913CDA7_D596_48db_838F_9789E0E3E7B0"/>
+	<Grunddata2:DKEgenskab base_Property="EAID_03CDA8A0_8F47_4b20_8C1C_603D967D6078"/>
+	<Grunddata2:DKEgenskab base_Property="EAID_840B4697_4A18_4d07_9207_1E023E02CABA"/>
+	<Grunddata2:DKEgenskab base_Property="EAID_dst467508_0484_4a26_B670_7A54ABB7F73D"/>
+	<Grunddata2:DKObjekttype base_Class="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85" legalSource="juridisk kilde objekttype2" prefLabel__en_="object type 2" definition__en_="definition objekttype2 på engelsk" altLabel__da_="altLabel objekttype2 på dansk" deprecatedLabel__da_="deprecatedLabel objekttype2 på dansk" prefLabel__da_="objekttype2" deprecatedLabel__en_="deprecatedLabel objekttype2 på engelsk" applicationNote__da_="applikationsnote objekttype2 på dansk" definition__da_="definition objekttype2 på dansk" applicationNote__en_="applikationsnote objekttype2 på engelsk" source="kilde objekttype2rolle" example__en_="eksempel objekttype2 på engelsk" example__da_="eksempel objekttype2 på dansk" comment__da_="kommentar objekttype2 på dansk" comment__en_="kommentar objekttype2 på engelsk" URI="https://uri.objekttype2" historikmodel="registreringshistorik" altLabel__en_="altLabel objekttype2 på engelsk"/>
+	<thecustomprofile:testtag base_Class="EAID_FB7F8A23_ACE6_4bee_AC0A_0C334F53EF85" testtag="test value DKObjekttype2"/>
+	<Grunddata2:DKEnumeration base_Enumeration="EAID_76740982_592B_4a05_BB27_633D16AAE2D4" legalSource="juridisk kilde enumeration1" prefLabel__en_="enumeration1" definition__en_="definition enumeration1 på engelsk" altLabel__da_="altLabel enumeration1 på dansk" deprecatedLabel__da_="deprecatedLabel enumeration1 på dansk" prefLabel__da_="enumeration1" deprecatedLabel__en_="deprecatedLabel enumeration1 på engelsk" applicationNote__da_="applikationsnote enumeration1 på dansk" definition__da_="definition enumeration1 på dansk" applicationNote__en_="applikationsnote enumeration1 på engelsk" source="kilde enumeration1" example__en_="eksempel enumeration1 på engelsk" example__da_="eksempel enumeration1 på dansk" comment__da_="kommentar enumeration1 på dansk" comment__en_="kommentar enumeration1 på engelsk" URI="https://uri.enumeration1" altLabel__en_="altLabel enumeration1 på engelsk"/>
+	<Grunddata2:DKEnumværdi base_Element="EAID_7318E431_AB6C_46ce_B8C1_DFEBB35A90EE"/>
+	<Grunddata2:DKEnumværdi base_Element="EAID_1C3ED97C_3A76_4a2c_8D51_CE28D7131DD4"/>
+	<Grunddata2:DKKodeliste base_Enumeration="EAID_91A4860B_5771_4091_9337_7DCBF2DD3FAC" legalSource="juridisk kilde kodeliste1" prefLabel__en_="code list 1" definition__en_="definition kodeliste1 på engelsk" altLabel__da_="altLabel kodeliste1 på dansk" deprecatedLabel__da_="deprecatedLabel kodeliste1 på dansk" prefLabel__da_="kodeliste1" deprecatedLabel__en_="deprecatedLabel kodeliste1 på engelsk" applicationNote__da_="applikationsnote kodeliste1 på dansk" definition__da_="definition kodeliste1 på dansk" applicationNote__en_="applikationsnote kodeliste1 på engelsk" source="kilde kodeliste1" example__en_="eksempel kodeliste1 på engelsk" example__da_="eksempel kodeliste1 på dansk" comment__da_="kommentar kodeliste1 på dansk" comment__en_="kommentar kodeliste1 på engelsk" URI="https://uri.kodeliste1" altLabel__en_="altLabel kodeliste1 på engelsk" vokabularium="https://link.til.vokabularium"/>
+	<Grunddata2:DKDomænemodel base_Package="EAPK_3ADDD564_7961_445f_B0A0_E0DC4AF152D8" modelScope="application model" language="da" approvalStatus="approved" versionInfo="1.0.0"/>
+</xmi:XMI>

@@ -77,7 +77,7 @@ public class VocabularyExporterImplTests {
 
   @AfterAll
   public static void deleteTestDirectory() {
-    // FileUtils.deleteQuietly(folderForTest);
+    FileUtils.deleteQuietly(folderForTest);
   }
 
   /**
