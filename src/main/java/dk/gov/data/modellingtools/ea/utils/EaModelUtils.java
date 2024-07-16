@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -188,7 +189,7 @@ public final class EaModelUtils {
    * Returns those connector ends that involve the given element and that are part of an
    * association, aggregation or composition.
    */
-  public static Collection<EaConnectorEnd> getAssocationConnectorEnds(Element element) {
+  public static Collection<EaConnectorEnd> getAssociationConnectorEnds(Element element) {
     return CollectionUtils.select(EaConnectorEnd.createConnectorEnds(element),
         new Predicate<EaConnectorEnd>() {
 
@@ -254,10 +255,50 @@ public final class EaModelUtils {
       return toString((Attribute) object);
     } else if (object instanceof ConnectorEnd) {
       return toString((ConnectorEnd) object);
+    } else if (object instanceof Connector) {
+      return toString((Connector) object);
     } else { // TODO add more types
       throw new UnsupportedOperationException(
           "Cannot call this method for object of type " + object.getClass());
     }
+  }
+
+  /**
+   * Find the connector end with the given GUID via the collection of associations.
+   */
+  public static ConnectorEnd findConnectorEnd(Collection<Connector> associations,
+      String connectorEndGuid) throws ModellingToolsException {
+    Connector association = IterableUtils.find(associations, new Predicate<Connector>() {
+
+      @Override
+      public boolean evaluate(Connector connector) {
+        // see also class EaConnectorEnd for more information about the logic
+        // example of connector GUID: {0D467508-0484-4a26-B670-7A54ABB7F73D}
+        // example of connector end GUID: {src467508-0484-4a26-B670-7A54ABB7F73D}
+        return connector.GetConnectorGUID().substring(3).equals(connectorEndGuid.substring(4));
+      }
+    });
+    if (association == null) {
+      throw new ModellingToolsException(
+          "No association found with a connector GUID that matches " + connectorEndGuid);
+    }
+    ConnectorEnd connectorEnd;
+    // see also class EaConnectorEnd for more information about the logic
+    // example of connectorEndGuid: {src467508-0484-4a26-B670-7A54ABB7F73D}
+    switch (connectorEndGuid.substring(1, 4)) {
+      case EaConnectorEnd.ID_PREFIX_SOURCE:
+        connectorEnd = association.GetClientEnd();
+        break;
+      case EaConnectorEnd.ID_PREFIX_TARGET:
+        connectorEnd = association.GetSupplierEnd();
+        break;
+      default:
+        throw new ModellingToolsException(
+            "Unknown prefix in GUID " + connectorEndGuid + ": " + connectorEndGuid.substring(0, 4));
+    }
+    LOGGER.debug("Found {} and {}", EaModelUtils.toString(association),
+        EaModelUtils.toString(connectorEnd));
+    return connectorEnd;
   }
 
 }

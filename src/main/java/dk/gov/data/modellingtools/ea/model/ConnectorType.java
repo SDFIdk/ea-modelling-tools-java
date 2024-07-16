@@ -14,7 +14,7 @@ public enum ConnectorType {
    * 
    * Not all connector types are present as enum value here (can be added if needed).
    */
-  ASSOCIATION("Assocation"), AGGREGATION("Aggregation"), DEPENDENCY("Dependency"), GENERALIZATION(
+  ASSOCIATION("Association"), AGGREGATION("Aggregation"), DEPENDENCY("Dependency"), GENERALIZATION(
       "Generalization"), MANIFEST(
           "Manifest"), NOTELINK("NoteLink"), PACKAGE("Package"), USAGE("Usage");
 

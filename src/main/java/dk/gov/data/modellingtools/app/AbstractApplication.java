@@ -35,6 +35,8 @@ public abstract class AbstractApplication {
   public static final String OPTION_EA_PROCESS_ID = "eapid";
   public static final String OPTION_PAUSE = "p";
   public static final String OPTION_INPUT_FOLDER = "i";
+  // use same for input folder and input file, are not used at the same time
+  public static final String OPTION_INPUT_FILE = "i";
   public static final String OPTION_OUTPUT_FOLDER = "o";
   public static final String OPTION_PACKAGE = "pkg";
   public static final String OPTION_INPUT_FORMAT = "f";
@@ -57,16 +59,15 @@ public abstract class AbstractApplication {
   }
 
   protected final void addCommonOptions() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_EA_PROCESS_ID)
-        .longOpt("ea-process-id").hasArg().argName("EA process id").required()
+    options.addOption(Option.builder(OPTION_EA_PROCESS_ID).longOpt("ea-process-id").hasArg()
+        .argName("EA process id").required()
         .desc("process id of the running EA instance (required)").build());
     /*
      * Pause option: The script in EA closes the command line window as soon as the Java application
      * has finished running. Sometimes we want to study the output in that window.
      */
-    options.addOption(Option.builder(AbstractApplication.OPTION_PAUSE).longOpt("pause-at-end")
-        .hasArg().argName("seconds")
-        .desc("number of seconds this application should be paused at the end"
+    options.addOption(Option.builder(OPTION_PAUSE).longOpt("pause-at-end").hasArg()
+        .argName("seconds").desc("number of seconds this application should be paused at the end"
             + " (useful when calling Java from EA) (optional)")
         .build());
   }
@@ -80,72 +81,80 @@ public abstract class AbstractApplication {
    * Adds a required option for an input folder.
    */
   protected final void addOptionInputFolder() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_INPUT_FOLDER)
-        .longOpt("input-folder").hasArg().argName("folder path").argName("folder").type(File.class)
-        .required().desc("specifies the input folder path (required)").build());
+    options.addOption(Option.builder(OPTION_INPUT_FOLDER).longOpt("input-folder").hasArg()
+        .argName("folder path").argName("folder").type(File.class).required()
+        .desc("specifies the input folder path (required)").build());
+  }
+
+  /**
+   * Adds a required option for an input file.
+   */
+  protected final void addOptionInputFile() {
+    options.addOption(Option.builder(OPTION_INPUT_FILE).longOpt("input-file").hasArg()
+        .argName("file path").argName("file").type(File.class).required()
+        .desc("specifies the input file path (required)").build());
   }
 
   /**
    * Adds a required option for an output folder.
    */
   protected final void addOptionOutputFolder() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_OUTPUT_FOLDER)
-        .longOpt("output-folder").hasArg().argName("folder path").argName("folder").type(File.class)
-        .required().desc("specifies the output folder path for the output (required)").build());
+    options.addOption(Option.builder(OPTION_OUTPUT_FOLDER).longOpt("output-folder").hasArg()
+        .argName("folder path").argName("folder").type(File.class).required()
+        .desc("specifies the output folder path for the output (required)").build());
   }
 
   /**
    * Adds a required option for a package.
    */
   protected final void addOptionPackage() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_PACKAGE).longOpt("package-guid")
-        .hasArg().argName("UML package GUID").type(String.class).required()
-        .desc("GUID of the package in the model").build());
+    options.addOption(
+        Option.builder(OPTION_PACKAGE).longOpt("package-guid").hasArg().argName("UML package GUID")
+            .type(String.class).required().desc("GUID of the package in the model").build());
   }
 
   /**
    * Adds an optional option for a package.
    */
   protected final void addOptionalOptionPackage() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_PACKAGE).longOpt("package-guid")
-        .hasArg().argName("UML package GUID").type(String.class).required(false)
-        .desc("GUID of the package in the model").build());
+    options.addOption(
+        Option.builder(OPTION_PACKAGE).longOpt("package-guid").hasArg().argName("UML package GUID")
+            .type(String.class).required(false).desc("GUID of the package in the model").build());
   }
 
   /**
    * Adds a required option for an input format.
    */
   protected final void addOptionInputFormat() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_INPUT_FORMAT).longOpt("from-format")
-        .hasArg().argName("format name").type(String.class).desc("input file format").required()
-        .build());
+    options.addOption(Option.builder(OPTION_INPUT_FORMAT).longOpt("from-format").hasArg()
+        .argName("format name").type(String.class).desc("input file format").required().build());
   }
 
   /**
    * Adds a required option for an output format.
    */
   protected final void addOptionOutputFormat() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_OUTPUT_FORMAT).longOpt("to-format")
-        .hasArg().argName("format name").type(String.class).desc("file format to be exported to")
-        .required().build());
+    options.addOption(
+        Option.builder(OPTION_OUTPUT_FORMAT).longOpt("to-format").hasArg().argName("format name")
+            .type(String.class).desc("file format to be exported to").required().build());
   }
 
   /**
    * Adds an optional option for a language.
    */
   protected final void addOptionLanguage() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_LANGUAGE).longOpt("language")
-        .hasArg().argName("2-letter language code").type(String.class)
-        .desc("language for the output").required(false).build());
+    options.addOption(Option.builder(OPTION_LANGUAGE).longOpt("language").hasArg()
+        .argName("2-letter language code").type(String.class).desc("language for the output")
+        .required(false).build());
   }
 
   /**
    * Adds an optional option for the strictness mode.
    */
   protected final void addOptionStrictnessMode() {
-    options.addOption(Option.builder(AbstractApplication.OPTION_STRICTNESS_MODE).longOpt("mode")
-        .hasArg().argName("strictness mode").type(String.class)
-        .desc("'strict', 'moderate' or 'lenient'").required(false).build());
+    options.addOption(
+        Option.builder(OPTION_STRICTNESS_MODE).longOpt("mode").hasArg().argName("strictness mode")
+            .type(String.class).desc("'strict', 'moderate' or 'lenient'").required(false).build());
   }
 
   private HelpFormatter getHelpFormatter() {
@@ -252,8 +261,7 @@ public abstract class AbstractApplication {
 
   private EnterpriseArchitectWrapper createEaWrapper(CommandLine commandLine)
       throws ModellingToolsException {
-    String eaProcessIdFromCommandLine =
-        commandLine.getOptionValue(AbstractApplication.OPTION_EA_PROCESS_ID);
+    String eaProcessIdFromCommandLine = commandLine.getOptionValue(OPTION_EA_PROCESS_ID);
     EnterpriseArchitectWrapper eaWrapper;
     if (eaProcessIdFromCommandLine == null) {
       eaWrapper = new EnterpriseArchitectWrapperImpl();
@@ -267,8 +275,8 @@ public abstract class AbstractApplication {
   }
 
   private void pauseApplicationIfRequested(CommandLine commandLine) throws ModellingToolsException {
-    if (commandLine.hasOption(AbstractApplication.OPTION_PAUSE)) {
-      long seconds = Long.parseLong(commandLine.getOptionValue(AbstractApplication.OPTION_PAUSE));
+    if (commandLine.hasOption(OPTION_PAUSE)) {
+      long seconds = Long.parseLong(commandLine.getOptionValue(OPTION_PAUSE));
       pauseApplication(seconds);
     }
   }

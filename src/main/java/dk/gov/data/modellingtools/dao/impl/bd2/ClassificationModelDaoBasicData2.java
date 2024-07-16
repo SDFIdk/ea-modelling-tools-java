@@ -3,7 +3,6 @@ package dk.gov.data.modellingtools.dao.impl.bd2;
 import dk.gov.data.modellingtools.constants.BasicData2Constants;
 import dk.gov.data.modellingtools.dao.LogicalDataModelDao;
 import dk.gov.data.modellingtools.ea.EnterpriseArchitectWrapper;
-import java.util.Collection;
 
 /**
  * Implementation of {@link LogicalDataModelDao} for classification models of Basic Data modelling
@@ -18,12 +17,6 @@ public class ClassificationModelDaoBasicData2 extends AbstractLogicalDataModelDa
   @Override
   protected String getFqStereotypeLogicalDataModel() {
     return BasicData2Constants.FQ_STEREOTYPE_CLASSIFICATION_MODEL;
-  }
-
-  @Override
-  protected Collection<String> getTagsLogicalDataModel() {
-    return BasicData2Constants.getTagsPerStereotype()
-        .get(BasicData2Constants.FQ_STEREOTYPE_CLASSIFICATION_MODEL);
   }
 
 }

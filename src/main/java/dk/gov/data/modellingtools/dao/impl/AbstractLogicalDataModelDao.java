@@ -10,7 +10,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sparx.Package;
 
 /**
@@ -18,6 +19,8 @@ import org.sparx.Package;
  * based on the tagged values of an EA package.
  */
 public abstract class AbstractLogicalDataModelDao implements LogicalDataModelDao {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractLogicalDataModelDao.class);
 
   protected EnterpriseArchitectWrapper eaWrapper;
 
@@ -39,17 +42,32 @@ public abstract class AbstractLogicalDataModelDao implements LogicalDataModelDao
   protected abstract LogicalDataModel createLogicalDataModel(Package umlPackage,
       Map<String, String> taggedValues) throws ModellingToolsException;
 
+  protected LogicalDataModel createLogicalDataModel(Package umlPackage,
+      Map<String, String> taggedValues, String tag) {
+    LogicalDataModel logicalDataModel = new LogicalDataModel();
+    logicalDataModel.setName(umlPackage.GetName());
+    String versionFromTag = taggedValues.get(tag);
+    String versionFromModel = umlPackage.GetVersion();
+    String version;
+    if (StringUtils.isBlank(versionFromTag)) {
+
+      LOGGER.warn("{} does not have tag {} set, taking the version set on the package itself",
+          EaModelUtils.toString(umlPackage), tag);
+
+      version = versionFromModel;
+    } else {
+      version = versionFromTag;
+    }
+    logicalDataModel.setVersion(version);
+    return logicalDataModel;
+  }
+
   protected LogicalDataModel validateAndFindByPackageGuid(String packageGuid)
       throws ModellingToolsException {
     Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
     Collection<String> packageFqStereotypes = eaWrapper.retrievePackageFqStereotypes(umlPackage);
     if (packageFqStereotypes.contains(getFqStereotypeLogicalDataModel())) {
       Map<String, String> taggedValues = TaggedValueUtils.getTaggedValues(umlPackage.GetElement());
-      Validate.isTrue(taggedValues.keySet().containsAll(getTagsLogicalDataModel()), EaModelUtils
-          .toString(umlPackage)
-          + " does not contain all expected tags, synchronize the stereotypes in your EA model. "
-          + "\r\nexpected tags: " + StringUtils.join(getTagsLogicalDataModel() + ";\r\nfound tags: "
-              + StringUtils.join(taggedValues.keySet())));
       return createLogicalDataModel(umlPackage, taggedValues);
     } else {
       throw new ModellingToolsException(EaModelUtils.toString(umlPackage)
@@ -58,7 +76,5 @@ public abstract class AbstractLogicalDataModelDao implements LogicalDataModelDao
   }
 
   protected abstract String getFqStereotypeLogicalDataModel();
-
-  protected abstract Collection<String> getTagsLogicalDataModel();
 
 }

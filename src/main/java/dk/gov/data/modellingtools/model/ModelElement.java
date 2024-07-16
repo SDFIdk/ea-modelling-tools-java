@@ -126,7 +126,7 @@ public class ModelElement {
    * Type of model element.
    */
   public enum ModelElementType {
-    CLASS("class", "Class"), ATTRIBUTE("attribute"), ASSOCIATION_END(
+    CLASS("class", "Class"), ATTRIBUTE("attribute"), ASSOCIATION("association"), ASSOCIATION_END(
         "association end"), ENUMERATION_LITERAL("enumeration literal"), ENUMERATION("enumeration",
             "Enumeration"), DATA_TYPE("data type", "DataType"), INTERFACE("interface", "Interface");
 

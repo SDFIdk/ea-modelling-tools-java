@@ -32,6 +32,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sparx.Attribute;
 import org.sparx.Connector;
 import org.sparx.Element;
 import org.sparx.Package;
@@ -41,7 +42,7 @@ import org.sparx.Services;
 /**
  * Implementation of the wrapper for Enterprise Architect.
  */
-public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrapper {
+public final class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrapper {
 
   private static final Logger LOGGER =
       LoggerFactory.getLogger(EnterpriseArchitectWrapperImpl.class);
@@ -88,11 +89,21 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   }
 
   /**
+   * Constructor.
+   */
+  public EnterpriseArchitectWrapperImpl(Repository eaRepository) {
+    super();
+    this.eaRepository = eaRepository;
+    this.packages = new HashMap<>();
+  }
+
+  /**
    * Constructor to be used when no Windows process id is available, e.g. because EA is not yet
    * running.
    */
   public EnterpriseArchitectWrapperImpl() {
     this.eaRepository = new Repository();
+    this.packages = new HashMap<>();
   }
 
   /**
@@ -221,6 +232,21 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
   @Override
   public Element getElementById(int id) {
     return this.eaRepository.GetElementByID(id);
+  }
+
+  @Override
+  public Element getElementByGuid(String packageGuid) {
+    return this.eaRepository.GetElementByGuid(packageGuid);
+  }
+
+  @Override
+  public Attribute getAttributeByGuid(String attributeGuid) {
+    return this.eaRepository.GetAttributeByGuid(attributeGuid);
+  }
+
+  @Override
+  public Connector getConnectorByGuid(String connectorGuid) {
+    return this.eaRepository.GetConnectorByGuid(connectorGuid);
   }
 
   @Override
@@ -371,6 +397,17 @@ public class EnterpriseArchitectWrapperImpl implements EnterpriseArchitectWrappe
     eaRepository.Exit();
     eaRepository.destroy();
     eaRepository = null;
+  }
+
+  @Override
+  public String getMdgVersion(String mdgId) {
+    return eaRepository.GetTechnologyVersion(mdgId);
+  }
+
+  @Override
+  public void reloadPackage(Package umlPackage) {
+    LOGGER.info("Reloading " + EaModelUtils.toString(umlPackage));
+    eaRepository.RefreshModelView(umlPackage.GetPackageID());
   }
 
 }

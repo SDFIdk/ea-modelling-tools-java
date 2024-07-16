@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Manages scripts.
  */
-public class ScriptManagerImpl implements ScriptManager {
+public final class ScriptManagerImpl implements ScriptManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScriptManagerImpl.class);
 

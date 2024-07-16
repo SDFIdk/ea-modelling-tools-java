@@ -129,7 +129,7 @@ Provide that process id as option `-eapid` to the main class you want to run.
 
 ### Building the tools
 
-[Maven](http://maven.apache.org/download.cgi) version 3.6 or later is needed to build the project, see also pom.xml.
+[Maven](http://maven.apache.org/download.cgi) version 3.6.3 or later is needed to build the project, see also pom.xml.
 
 The project has a dependency on the Enterprise Architect Java API, which can be installed by executing the following command:
 

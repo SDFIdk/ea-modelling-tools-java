@@ -3,6 +3,7 @@ package dk.gov.data.modellingtools.ea;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import java.util.Collection;
 import org.apache.commons.collections4.MultiValuedMap;
+import org.sparx.Attribute;
 import org.sparx.Connector;
 import org.sparx.Element;
 import org.sparx.Package;
@@ -26,6 +27,12 @@ public interface EnterpriseArchitectWrapper {
   Package getPackageByGuid(String packageGuid) throws ModellingToolsException;
 
   Element getElementById(int id);
+
+  Element getElementByGuid(String elementGuid);
+
+  Attribute getAttributeByGuid(String attributeGuid);
+
+  Connector getConnectorByGuid(String connectorGuid);
 
   Collection<String> retrievePackageFqStereotypes(Package umlPackage)
       throws ModellingToolsException;
@@ -76,5 +83,14 @@ public interface EnterpriseArchitectWrapper {
    */
   void terminate();
 
+  /**
+   * Returns the version of the MDG that is used by the EA repository.
+   */
+  String getMdgVersion(String mdgId);
+
+  /**
+   * Reloads the given package (the user interface is updated).
+   */
+  void reloadPackage(Package umlPackage);
 
 }

@@ -120,8 +120,9 @@ public abstract class AbstractExporter {
       throw new ModellingToolsException(
           "Could not write content to " + outputFile.getAbsolutePath() + ": " + e.getMessage(), e);
     } catch (TemplateException e) {
-      throw new ModellingToolsException(
-          "Could not process template " + e.getTemplateSourceName() + ": " + e.getMessage(), e);
+      throw new ModellingToolsException("Could not process template " + e.getTemplateSourceName()
+          + ". Possible causes are that the template does not gets the values it expects (solution: synchronize the profile in EA, or use the MDG version the data model was created with), or that the template is misconfigured. Original message for more information: "
+          + e.getMessage(), e);
     }
   }
 
