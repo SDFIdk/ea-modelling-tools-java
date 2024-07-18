@@ -1,0 +1,327 @@
+<?xml  version='1.0' encoding='UTF-8' ?>
+<xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:umldi="http://www.omg.org/spec/UML/20161101/UMLDI" xmlns:dc="http://www.omg.org/spec/UML/20161101/UMLDC" xmlns:Grunddata2="http://www.sparxsystems.com/profiles/Grunddata2/1.0">
+	<xmi:Documentation exporter="Enterprise Architect" exporterVersion="6.5" exporterID="1628"/>
+	<uml:Model xmi:type="uml:Model" name="EA_Model">
+		<packagedElement xmi:type="uml:Package" xmi:id="EAPK_059D1119_74DE_4049_9238_3CD619778679" name="MinModel_GDv22_TestQuotesNewLines">
+			<packagedElement xmi:type="uml:Class" xmi:id="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577" name="DKObjekttype1"/>
+		</packagedElement>
+		<umldi:Diagram xmi:type="umldi:UMLClassDiagram" xmi:id="EAID_97233A74_10A0_47f8_A0F1_41B820FB6B6C" isFrame="false" modelElement="EAPK_059D1119_74DE_4049_9238_3CD619778679">
+			<ownedElement xmi:type="umldi:UMLClassifierShape" xmi:id="EAID_97233A74_10A0_47f8_95C2_E5EDA2136577" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577">
+				<ownedElement xmi:type="umldi:UMLKeywordLabel" xmi:id="EAID_KL000000_10A0_47f8_95C2_E5EDA2136577" text="DKObjekttype"/>
+				<ownedElement xmi:type="umldi:UMLNameLabel" xmi:id="EAID_NL000000_10A0_47f8_95C2_E5EDA2136577" text="DKObjekttype1"/>
+				<bounds xmi:type="dc:bounds" xmi:id="EAID_DB000000_10A0_47f8_95C2_E5EDA2136577" x="67" y="48" width="90" height="70"/>
+			</ownedElement>
+		</umldi:Diagram>
+		<profileApplication xmi:type="uml:ProfileApplication" xmi:id="profileap_557545CC-2">
+			<appliedProfile xmi:type="uml:Profile" href="http://www.sparxsystems.com/profiles/Grunddata2/1.0#557545CC-2"/>
+		</profileApplication>
+	</uml:Model>
+	<xmi:Extension extender="Enterprise Architect" extenderID="6.5">
+		<elements>
+			<element xmi:idref="EAPK_059D1119_74DE_4049_9238_3CD619778679" xmi:type="uml:Package" name="MinModel_GDv22_TestQuotesNewLines" scope="public">
+				<model package2="EAID_059D1119_74DE_4049_9238_3CD619778679" package="EAPK_D42F9A71_87C2_4c7a_B2D7_8919D15C2DC5" tpos="0" ea_localid="282" ea_eleType="package"/>
+				<properties isSpecification="false" sType="Package" nType="0" scope="public" stereotype="DKDomænemodel"/>
+				<project author="B004114" version="1.0" phase="1.0" created="2024-07-18 09:34:16" modified="2024-07-18 10:54:11" complexity="1" status="Proposed"/>
+				<code gentype="&lt;none&gt;"/>
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+				<tags>
+					<tag xmi:id="EAID_7FCB66C9_F24E_31f2_AA4C_41B4B10894C7" name="approvalStatus" value="approved#NOTES#Values: approved&#xA;Default: approved&#xA;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_2E2BA05C_3161_d731_A7DB_A4136EB04DB7" name="approvedBy" value="#NOTES#Values: Grunddata Arkitekturforum,Grunddata Modelsekretariatet&#xA;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_D6671B7A_385F_d938_8E52_DEC15AEE5C33" name="description (da)" value="&lt;memo&gt;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_D6672168_3E4D_d93e_ADC1_984199F8F691" name="description (en)" value="&lt;memo&gt;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_DEB7F7C4_FFA9_c1ff_A8A0_4824E0F8FB91" name="language" value="da#NOTES#Default: da&#xA;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_CC387636_9BDB_b19b_8A53_79C7A6BD37F5" name="legalSource" value="&lt;memo&gt;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_E72C40EB_C5F0_94c5_B4E2_9C24283CF9FC" name="modelScope" value="application model#NOTES#Values: application model&#xA;Default: application model&#xA;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_CDE06515_8ABA_598a_9A66_4A80D8397008" name="modelStatus" value="#NOTES#Values: development,stable&#xA;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_E971A201_A9E6_7ba9_B028_026DCF30153C" name="modified" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_4CEF338D_3812_3a38_8EA9_968501520403" name="namespace" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_51A6BB5B_3B80_813b_A202_C8609E19CA06" name="namespacePrefix" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_14B44E23_F388_c4f3_A6EE_149421A31311" name="responsibleEntity" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_145BFAB1_C556_08c5_8AB1_0C721A810D51" name="source" value="&lt;memo&gt;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_086DDDF3_67F8_a967_A9C3_6EAE588FA5E7" name="theme" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_112DF098_85BD_d985_ABD8_F3697BD4713D" name="title (da)" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_112DF686_8BAB_d98b_880D_D4A1CD4895AC" name="title (en)" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_AF754732_F4D7_81f4_832F_0BC33AD90091" name="versionInfo" value="1.0.0" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_A40EE5C5_7B2A_727b_BE07_45B04A6C4240" name="versionNotes (da)" value="&lt;memo&gt;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+					<tag xmi:id="EAID_A40EEBB3_8118_7281_96B9_9FEC9471EEC8" name="versionNotes (en)" value="&lt;memo&gt;" modelElement="EAID_059D1119_74DE_4049_9238_3CD619778679"/>
+				</tags>
+				<xrefs value="$XREFPROP=$XID={09E490F3-4C18-44aa-B2C2-CE6B23A5445B}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKDomænemodel;FQName=Grunddata2::DKDomænemodel;@ENDSTEREO;$DES;$CLT={059D1119-74DE-4049-9238-3CD619778679}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+				<extendedProperties tagged="0" package_name="View"/>
+				<packageproperties version="1.0"/>
+				<paths/>
+				<times created="2024-07-18 09:34:16" modified="2024-07-18 10:54:11"/>
+				<flags iscontrolled="0" isprotected="0" usedtd="0" logxml="0"/>
+			</element>
+			<element xmi:idref="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577" xmi:type="uml:Class" name="DKObjekttype1" scope="public">
+				<model package="EAPK_059D1119_74DE_4049_9238_3CD619778679" tpos="0" ea_localid="1373" ea_eleType="element"/>
+				<properties isSpecification="false" sType="Class" nType="0" scope="public" stereotype="DKObjekttype" isRoot="false" isLeaf="false" isAbstract="false" isActive="false"/>
+				<project author="B004114" version="1.0" phase="1.0" created="2024-07-18 09:34:58" modified="2024-07-18 13:14:18" complexity="1" status="Proposed"/>
+				<code gentype="&lt;none&gt;"/>
+				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
+				<tags>
+					<tag xmi:id="EAID_CD817B17_0006_0e00_84AD_4D70717FDEB4" name="altLabel (da)" value="test &quot;altLabel&quot;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_CD818105_05F4_0e05_A886_F24FF59DEB2C" name="altLabel (en)" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_59BB15E0_F7EF_aef7_A869_65D344F65638" name="applicationNote (da)" value="&lt;memo&gt;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_59BB1BCE_FDDD_aefd_8159_A7326941ABCC" name="applicationNote (en)" value="&lt;memo&gt;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_6D3BD229_1558_5215_A9BD_2F654DE8A52C" name="comment (da)" value="&lt;memo&gt;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_6D3BD817_1B46_521b_8C42_639916E8A2F0" name="comment (en)" value="&lt;memo&gt;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_E4EE217F_4A4E_1b4a_A442_4CC2A955423C" name="definition (da)" value="&lt;memo&gt;#NOTES#test &quot;definition (da)&quot;&#xA;newline" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_E4EE276D_503C_1b50_A7EC_5C88B00F0D8D" name="definition (en)" value="&lt;memo&gt;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_82378FC7_6DD6_676d_B187_88D8BDE9AA9B" name="deprecatedLabel (da)" value="test &quot;deprecatedLabel (da)&quot;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_823795B5_73C4_6773_AEA5_7A1688CD037C" name="deprecatedLabel (en)" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_B8C86962_AC91_deac_9D58_3D1A8BF88A49" name="example (da)" value="&lt;memo&gt;#NOTES#test &quot;example (da)&quot;&#xA;&#xA;newline and empty line before it" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_B8C86F50_B27F_deb2_8417_0E5D07A09CC2" name="example (en)" value="&lt;memo&gt;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_5B500E3E_57A2_f757_8F6E_BD40A85D9F9C" name="historikmodel" value="#NOTES#Values: registreringshistorik,bitemporalitet&#xA;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_CC387636_7B65_467b_90FF_93F40C8633AA" name="legalSource" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_5D30DBE3_82B2_9282_8555_A20301931B17" name="prefLabel (da)" value="test &quot;prefLabel&quot;" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_5D30E1D1_88A0_9288_B6DE_23B6AFBD0D6E" name="prefLabel (en)" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_145BFAB1_46A0_c746_B26B_47A2C27E1447" name="source" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+					<tag xmi:id="EAID_000200D0_AEBF_b3ae_9A52_644C971B9C0F" name="URI" modelElement="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577"/>
+				</tags>
+				<xrefs value="$XREFPROP=$XID={760C5A15-18AC-4af9-AC50-9CF08C9C466B}$XID;$NAM=Stereotypes$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@STEREO;Name=DKObjekttype;FQName=Grunddata2::DKObjekttype;@ENDSTEREO;$DES;$CLT={85EC2B00-D48A-48fd-95C2-E5EDA2136577}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;$XREFPROP=$XID={A6F7721C-1C22-4746-AAB2-7960336272E0}$XID;$NAM=CustomProperties$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PROP=@NAME=_tagGroupings@ENDNAME;@TYPE=string@ENDTYPE;@VALU=URI=Identification;prefLabel (da)=Danish annotations;altLabel (da)=Danish annotations;deprecatedLabel (da)=Danish annotations;label (da)=Danish annotations;definition (da)=Danish annotations;example (da)=Danish annotations;comment (da)=Danish annotations;applicationNote (da)=Danish annotations;prefLabel (en)=English annotations;altLabel (en)=English annotations;deprecatedLabel (en)=English annotations;label (en)=English annotations;definition (en)=English annotations;example (en)=English annotations;comment (en)=English annotations;applicationNote (en)=English annotations;legalSource=Provenance;source=Provenance;isDefinedBy=Provenance;wasDerivedFrom=Provenance;@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroups@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification,Danish annotations,English annotations,Provenance@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;@PROP=@NAME=_tagGroupStates@ENDNAME;@TYPE=string@ENDTYPE;@VALU=Identification=open;Danish annotations=open;English annotations=closed;Provenance=open@ENDVALU;@PRMT=@ENDPRMT;@ENDPROP;$DES;$CLT={85EC2B00-D48A-48fd-95C2-E5EDA2136577}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
+				<extendedProperties tagged="0" package_name="MinModel_GDv22_TestQuotesNewLines"/>
+			</element>
+		</elements>
+		<connectors/>
+		<primitivetypes>
+			<packagedElement xmi:type="uml:Package" xmi:id="EAPrimitiveTypesPackage" name="EA_PrimitiveTypes_Package"/>
+		</primitivetypes>
+		<profiles>
+			<uml:Profile xmlns:uml="http://www.omg.org/spec/UML/20161101" xmlns:xmi="http://www.omg.org/spec/XMI/20161101" xmi:id="557545CC-2" nsPrefix="Grunddata2" name="Grunddata2" metamodelReference="mmref01">
+				<ownedComment xmi:type="uml:Comment" xmi:id="comment01" annotatedElement="557545CC-2">
+					<body>Grunddata2 Version:1.0</body>
+				</ownedComment>
+				<packageImport xmi:id="mmref01">
+					<importedPackage href="http://www.omg.org/spec/UML/20161101"/>
+				</packageImport>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKEnumeration" name="DKEnumeration">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKEnumeration_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEnumeration-base_Enumeration" name="base_Enumeration" association="Enumeration_DKEnumeration">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Enumeration"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Enumeration_DKEnumeration" name="A_Enumeration_DKEnumeration" memberEnd="extension_DKEnumeration DKEnumeration-base_Enumeration">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKEnumeration" name="extension_DKEnumeration" type="DKEnumeration" isComposite="true" lower="0" upper="1" memberEnd="extension_DKEnumeration DKEnumeration-base_Enumeration"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKEnumværdi" name="DKEnumværdi">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKEnumværdi_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEnumværdi-base_Attribute" name="base_Attribute" association="Attribute_DKEnumværdi">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Attribute"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Attribute_DKEnumværdi" name="A_Attribute_DKEnumværdi" memberEnd="extension_DKEnumværdi DKEnumværdi-base_Attribute">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKEnumværdi" name="extension_DKEnumværdi" type="DKEnumværdi" isComposite="true" lower="0" upper="1" memberEnd="extension_DKEnumværdi DKEnumværdi-base_Attribute"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKDomænemodel" name="DKDomænemodel">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKDomænemodel_Model_generalization" general="Model"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKDomænemodel-base_Package" name="base_Package" association="Package_DKDomænemodel">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Package"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Package_DKDomænemodel" name="A_Package_DKDomænemodel" memberEnd="extension_DKDomænemodel DKDomænemodel-base_Package">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKDomænemodel" name="extension_DKDomænemodel" type="DKDomænemodel" isComposite="true" lower="0" upper="1" memberEnd="extension_DKDomænemodel DKDomænemodel-base_Package"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="Model" name="Model" isAbstract="true">
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-base_Package" name="base_Package" association="Package_Model">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Package"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-modified" name="modified">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-legalSource" name="legalSource">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-versionNotes (en)" name="versionNotes (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-namespace" name="namespace">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-description (en)" name="description (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-description (da)" name="description (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-modelScope" name="modelScope">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-responsibleEntity" name="responsibleEntity">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-language" name="language">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-approvedBy" name="approvedBy">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-modelStatus" name="modelStatus">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-source" name="source">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-namespacePrefix" name="namespacePrefix">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-title (da)" name="title (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-title (en)" name="title (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-theme" name="theme">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-approvalStatus" name="approvalStatus">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-versionInfo" name="versionInfo">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="Model-versionNotes (da)" name="versionNotes (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Package_Model" name="A_Package_Model" memberEnd="extension_Model Model-base_Package">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_Model" name="extension_Model" type="Model" isComposite="true" lower="0" upper="1" memberEnd="extension_Model Model-base_Package"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKDatatype" name="DKDatatype">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKDatatype_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKDatatype-base_DataType" name="base_DataType" association="DataType_DKDatatype">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#DataType"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="DataType_DKDatatype" name="A_DataType_DKDatatype" memberEnd="extension_DKDatatype DKDatatype-base_DataType">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKDatatype" name="extension_DKDatatype" type="DKDatatype" isComposite="true" lower="0" upper="1" memberEnd="extension_DKDatatype DKDatatype-base_DataType"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKKlassifikationsmodel" name="DKKlassifikationsmodel">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKKlassifikationsmodel_Model_generalization" general="Model"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKKlassifikationsmodel-base_Package" name="base_Package" association="Package_DKKlassifikationsmodel">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Package"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Package_DKKlassifikationsmodel" name="A_Package_DKKlassifikationsmodel" memberEnd="extension_DKKlassifikationsmodel DKKlassifikationsmodel-base_Package">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKKlassifikationsmodel" name="extension_DKKlassifikationsmodel" type="DKKlassifikationsmodel" isComposite="true" lower="0" upper="1" memberEnd="extension_DKKlassifikationsmodel DKKlassifikationsmodel-base_Package"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKKodeliste" name="DKKodeliste">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKKodeliste_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKKodeliste-base_Enumeration" name="base_Enumeration" association="Enumeration_DKKodeliste">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Enumeration"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKKodeliste-vokabularium" name="vokabularium">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Enumeration_DKKodeliste" name="A_Enumeration_DKKodeliste" memberEnd="extension_DKKodeliste DKKodeliste-base_Enumeration">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKKodeliste" name="extension_DKKodeliste" type="DKKodeliste" isComposite="true" lower="0" upper="1" memberEnd="extension_DKKodeliste DKKodeliste-base_Enumeration"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKEgenskab" name="DKEgenskab">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKEgenskab_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEgenskab-base_Property" name="base_Property" association="Property_DKEgenskab">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Property"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEgenskab-Z-used" name="Z-used">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKEgenskab-CRS" name="CRS">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Property_DKEgenskab" name="A_Property_DKEgenskab" memberEnd="extension_DKEgenskab DKEgenskab-base_Property">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKEgenskab" name="extension_DKEgenskab" type="DKEgenskab" isComposite="true" lower="0" upper="1" memberEnd="extension_DKEgenskab DKEgenskab-base_Property"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="DKObjekttype" name="DKObjekttype">
+					<generalization xmi:type="uml:Generalization" xmi:id="DKObjekttype_ModelElement_generalization" general="ModelElement"/>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKObjekttype-base_Class" name="base_Class" association="Class_DKObjekttype">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Class"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="DKObjekttype-historikmodel" name="historikmodel">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Class_DKObjekttype" name="A_Class_DKObjekttype" memberEnd="extension_DKObjekttype DKObjekttype-base_Class">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_DKObjekttype" name="extension_DKObjekttype" type="DKObjekttype" isComposite="true" lower="0" upper="1" memberEnd="extension_DKObjekttype DKObjekttype-base_Class"/>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Stereotype" xmi:id="ModelElement" name="ModelElement" isAbstract="true">
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-base_Element" name="base_Element" association="Element_ModelElement">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#Element"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-legalSource" name="legalSource">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-prefLabel (en)" name="prefLabel (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-definition (en)" name="definition (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-altLabel (da)" name="altLabel (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-deprecatedLabel (da)" name="deprecatedLabel (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-prefLabel (da)" name="prefLabel (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-deprecatedLabel (en)" name="deprecatedLabel (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-applicationNote (da)" name="applicationNote (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-definition (da)" name="definition (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-applicationNote (en)" name="applicationNote (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-source" name="source">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-example (en)" name="example (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-example (da)" name="example (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-comment (da)" name="comment (da)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-comment (en)" name="comment (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-URI" name="URI">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+					<ownedAttribute xmi:type="uml:Property" xmi:id="ModelElement-altLabel (en)" name="altLabel (en)">
+						<type href="http://www.omg.org/spec/UML/20161101/UML.xmi#String"/>
+					</ownedAttribute>
+				</packagedElement>
+				<packagedElement xmi:type="uml:Extension" xmi:id="Element_ModelElement" name="A_Element_ModelElement" memberEnd="extension_ModelElement ModelElement-base_Element">
+					<ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="extension_ModelElement" name="extension_ModelElement" type="ModelElement" isComposite="true" lower="0" upper="1" memberEnd="extension_ModelElement ModelElement-base_Element"/>
+				</packagedElement>
+			</uml:Profile>
+		</profiles>
+		<diagrams>
+			<diagram xmi:id="EAID_97233A74_10A0_47f8_A0F1_41B820FB6B6C">
+				<model package="EAPK_059D1119_74DE_4049_9238_3CD619778679" localID="477" owner="EAPK_059D1119_74DE_4049_9238_3CD619778679"/>
+				<properties name="MinModel_GDv22_docquotes" type="Logical"/>
+				<project author="B004114" version="1.0" created="2024-07-18 09:34:55" modified="2024-07-18 09:35:02"/>
+				<style1 value="ShowPrivate=1;ShowProtected=1;ShowPublic=1;HideRelationships=0;Locked=0;Border=1;HighlightForeign=1;PackageContents=1;SequenceNotes=0;ScalePrintImage=0;PPgs.cx=0;PPgs.cy=0;DocSize.cx=1138;DocSize.cy=1622;ShowDetails=0;Orientation=P;Zoom=100;ShowTags=0;OpParams=1;VisibleAttributeDetail=0;ShowOpRetType=1;ShowIcons=1;CollabNums=0;HideProps=0;ShowReqs=0;ShowCons=1;PaperSize=8;HideParents=0;UseAlias=0;HideAtts=0;HideOps=0;HideStereo=0;HideElemStereo=0;ShowTests=0;ShowMaint=0;ConnectorNotation=UML 2.1;ExplicitNavigability=0;ShowShape=1;AllDockable=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;SPT=1;ShowNotes=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;"/>
+				<style2 value="ExcludeRTF=0;DocAll=0;HideQuals=0;AttPkg=1;ShowTests=0;ShowMaint=0;SuppressFOC=1;MatrixActive=0;SwimlanesActive=1;KanbanActive=0;MatrixLineWidth=1;MatrixLineClr=0;MatrixLocked=0;TConnectorNotation=UML 2.1;TExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;SPT=1;MDGDgm=Grunddatadiagrammer::Objekttypediagram;STBLDgm=;ShowNotes=1;VisibleAttributeDetail=0;ShowOpRetType=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;SuppressedCompartments=;Theme=:119;SaveTag=87EDD9F4;"/>
+				<swimlanes value="locked=false;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;"/>
+				<matrixitems value="locked=false;matrixactive=false;swimlanesactive=true;kanbanactive=false;width=1;clrLine=0;"/>
+				<extendedProperties/>
+				<persistentstyle value="DGS=On=0:CNT=8:W=120:H=40:SG=0:SGH=0:AEB=0:;AR=0;DCL=0;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;Swimlanes=locked=false;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;;"/>
+				<xrefs/>
+				<elements>
+					<element geometry="Left=67;Top=48;Right=157;Bottom=118;" subject="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577" seqno="1" style="DUID=D0B3A0D1;HideIcon=0;"/>
+				</elements>
+			</diagram>
+		</diagrams>
+	</xmi:Extension>
+	<Grunddata2:DKObjekttype base_Class="EAID_85EC2B00_D48A_48fd_95C2_E5EDA2136577" altLabel__da_="test &quot;altLabel&quot;" deprecatedLabel__da_="test &quot;deprecatedLabel (da)&quot;" prefLabel__da_="test &quot;prefLabel&quot;" definition__da_="test &quot;definition (da)&quot;&#xA;newline" example__da_="test &quot;example (da)&quot;&#xA;&#xA;newline and empty line before it"/>
+	<Grunddata2:DKDomænemodel base_Package="EAPK_059D1119_74DE_4049_9238_3CD619778679" modelScope="application model" language="da" approvalStatus="approved" versionInfo="1.0.0"/>
+</xmi:XMI>

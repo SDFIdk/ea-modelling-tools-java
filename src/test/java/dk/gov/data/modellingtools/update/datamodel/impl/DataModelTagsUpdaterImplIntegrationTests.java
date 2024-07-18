@@ -1,4 +1,4 @@
-package dk.gov.data.modellingtools.update.datamodel;
+package dk.gov.data.modellingtools.update.datamodel.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,7 +11,6 @@ import dk.gov.data.modellingtools.ea.utils.EaModelUtils;
 import dk.gov.data.modellingtools.ea.utils.TaggedValueUtils;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.export.datamodel.impl.DataModelExporterImplIntegrationTests;
-import dk.gov.data.modellingtools.update.datamodel.impl.DataModelTagsUpdaterImpl;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -39,7 +38,7 @@ public class DataModelTagsUpdaterImplIntegrationTests extends AbstractEaTest {
 
   private Repository repository;
 
-  private DataModelTagsUpdater dataModelTagsUpdater;
+  private DataModelTagsUpdaterImpl dataModelTagsUpdaterImpl;
 
 
   private Package viewPackage;
@@ -89,11 +88,12 @@ public class DataModelTagsUpdaterImplIntegrationTests extends AbstractEaTest {
     URL dataModelUrl =
         DataModelExporterImplIntegrationTests.class.getResource("/datamodel/MinModel_GDv22.xmi");
     String importedPackageGuid = importXmiInPackage(dataModelUrl, repository, viewPackage);
-    dataModelTagsUpdater =
+    dataModelTagsUpdaterImpl =
         new DataModelTagsUpdaterImpl(new EnterpriseArchitectWrapperImpl(repository));
     File inputFile = FileUtils.toFile(DataModelTagsUpdaterImplIntegrationTests.class
         .getResource("/update/datamodel/MinModel_GDv22_v1.0.0-update-profiletags.csv"));
-    dataModelTagsUpdater.updateDataModel(importedPackageGuid, inputFile, TagUpdateMode.UPDATE_ONLY);
+    dataModelTagsUpdaterImpl.updateDataModel(importedPackageGuid, inputFile,
+        TagUpdateMode.UPDATE_ONLY);
 
     LOGGER.info("Update data model, now test whether it has been updated as expected.");
 
@@ -152,15 +152,75 @@ public class DataModelTagsUpdaterImplIntegrationTests extends AbstractEaTest {
   }
 
   @Test
+  public void testUpdateProfileTagsNewLineLineFeedOnly() throws ModellingToolsException {
+    assumeMdgWithVersionInstalled(repository, BasicData2Constants.MDG_ID, "2.2");
+
+    URL dataModelUrl = DataModelExporterImplIntegrationTests.class
+        .getResource("/datamodel/MinModel_GDv22_TestQuotesNewLines.xmi");
+    String importedPackageGuid = importXmiInPackage(dataModelUrl, repository, viewPackage);
+    dataModelTagsUpdaterImpl =
+        new DataModelTagsUpdaterImpl(new EnterpriseArchitectWrapperImpl(repository));
+    /*
+     * Use a string, not a file, because the version control of files using git will change the
+     * end-of-line encoding!
+     */
+    String csvString =
+        "GUID,TYPE,Grunddata2::ModelElement::definition (da),Grunddata2::ModelElement::example (da)\n{85EC2B00-D48A-48fd-95C2-E5EDA2136577},CLASS,\"UPDATED test \"\"definition (da)\"\"\nUPDATED newline\",\"UPDATED test \"\"example (da)\"\"\n\nUPDATED newline and empty line before it\"";
+    dataModelTagsUpdaterImpl.updateDataModel(importedPackageGuid, csvString,
+        TagUpdateMode.UPDATE_ONLY);
+
+    LOGGER.info("Updated data model, now test whether it has been updated as expected.");
+
+    testDkObjekttype1QuotesNewLines();
+  }
+
+  @Test
+  public void testUpdateProfileTagsNewLineCarriageReturnAndLineFeed()
+      throws ModellingToolsException, IOException {
+    assumeMdgWithVersionInstalled(repository, BasicData2Constants.MDG_ID, "2.2");
+
+    URL dataModelUrl = DataModelExporterImplIntegrationTests.class
+        .getResource("/datamodel/MinModel_GDv22_TestQuotesNewLines.xmi");
+    String importedPackageGuid = importXmiInPackage(dataModelUrl, repository, viewPackage);
+    dataModelTagsUpdaterImpl =
+        new DataModelTagsUpdaterImpl(new EnterpriseArchitectWrapperImpl(repository));
+    /*
+     * Use a string, not a file, because the version control of files using git will change the
+     * end-of-line encoding!
+     */
+    String csvString =
+        "GUID,TYPE,Grunddata2::ModelElement::definition (da),Grunddata2::ModelElement::example (da)\r\n{85EC2B00-D48A-48fd-95C2-E5EDA2136577},CLASS,\"UPDATED test \"\"definition (da)\"\"\r\nUPDATED newline\",\"UPDATED test \"\"example (da)\"\"\r\n\r\nUPDATED newline and empty line before it\"";
+    dataModelTagsUpdaterImpl.updateDataModel(importedPackageGuid, csvString,
+        TagUpdateMode.UPDATE_ONLY);
+
+    LOGGER.info("Updated data model, now test whether it has been updated as expected.");
+
+    testDkObjekttype1QuotesNewLines();
+  }
+
+  private void testDkObjekttype1QuotesNewLines() {
+    Element dkObjekttype1 = repository.GetElementByGuid("{85EC2B00-D48A-48fd-95C2-E5EDA2136577}");
+    assertNotNull(dkObjekttype1);
+    assertEquals("UPDATED test \"definition (da)\"\r\nUPDATED newline",
+        TaggedValueUtils.getTaggedValueValue(dkObjekttype1,
+            "Grunddata2::ModelElement::definition (da)"),
+        "Wrong tagged value definition (da), check the newlines");
+    assertEquals("UPDATED test \"example (da)\"\r\n\r\nUPDATED newline and empty line before it",
+        TaggedValueUtils.getTaggedValueValue(dkObjekttype1,
+            "Grunddata2::ModelElement::example (da)"),
+        "Wrong tagged value example (da), check the newlines");
+  }
+
+  @Test
   public void testUpdateCustom() throws ModellingToolsException {
     URL dataModelUrl =
         DataModelExporterImplIntegrationTests.class.getResource("/datamodel/MinModel_GDv22.xmi");
     String importedPackageGuid = importXmiInPackage(dataModelUrl, repository, viewPackage);
-    dataModelTagsUpdater =
+    dataModelTagsUpdaterImpl =
         new DataModelTagsUpdaterImpl(new EnterpriseArchitectWrapperImpl(repository));
     File inputFile = FileUtils.toFile(DataModelTagsUpdaterImplIntegrationTests.class
         .getResource("/update/datamodel/MinModel_GDv22_v1.0.0-update-customtags.csv"));
-    dataModelTagsUpdater.updateDataModel(importedPackageGuid, inputFile,
+    dataModelTagsUpdaterImpl.updateDataModel(importedPackageGuid, inputFile,
         TagUpdateMode.UPDATE_ADD_DELETE);
 
     LOGGER.info("Update data model, now test whether it has been updated as expected.");
@@ -216,5 +276,4 @@ public class DataModelTagsUpdaterImplIntegrationTests extends AbstractEaTest {
         TaggedValueUtils.getTaggedValueValue(erRelateretTil, taggedValueNameTestTag));
 
   }
-
 }

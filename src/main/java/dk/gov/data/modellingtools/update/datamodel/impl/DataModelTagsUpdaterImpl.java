@@ -58,104 +58,141 @@ public class DataModelTagsUpdaterImpl implements DataModelTagsUpdater {
 
     LOGGER.info("Import data from file {} into package with GUID {}", file, packageGuid);
     try {
-      CSVParser csvParser = CSVParser.parse(new FileReader(file, StandardCharsets.UTF_8),
-          CSVFormat.RFC4180.builder().setHeader().setSkipHeaderRecord(true).build());
+      CSVParser csvParser =
+          CSVParser.parse(new FileReader(file, StandardCharsets.UTF_8), getCsvFormat());
 
-      final List<String> allHeaders = csvParser.getHeaderNames();
-      final List<String> minimumExpectedHeaders = List.of("GUID", "TYPE");
-      final List<String> standardHeaders =
-          List.of("GUID", "UML-NAVN", "NAMESPACE", "TYPE", "STEREOTYPE");
-      Validate.isTrue(allHeaders.containsAll(minimumExpectedHeaders),
-          "Expected the following headers to be present: %1$", minimumExpectedHeaders);
-      final List<String> nonStandardHeaders = ListUtils.removeAll(allHeaders, standardHeaders);
-      LOGGER.info("Found the following tags in the file: {}", nonStandardHeaders.toString());
-
-      Collection<Connector> associations =
-          EaModelUtils.getAllAssociationsOfPackageAndSubpackages(umlPackage);
-
-      for (CSVRecord record : csvParser.getRecords()) {
-        String modelElementGuid = record.get("GUID");
-        if (StringUtils.isEmpty(modelElementGuid)) {
-          /*
-           * The "Copy Selected to Clipboard" functionality
-           * (https://sparxsystems.com/eahelp/model_search_context_menu.html) generates
-           * semicolon-separated values, and a empty second line. When that contents is copied into
-           * LibreOffice Calc and then saved as a CSV file, the second line in the file will only
-           * consist of comma's. Therefore, ignore any records with an empty GUID. This way, this
-           * class is lenient towards users forgetting to remove that empty line.
-           */
-          LOGGER.info("Ignoring line with empty GUID");
-        } else {
-          String type = record.get("TYPE");
-          LOGGER.debug("Processing model element with GUID {} and type ", modelElementGuid, type);
-          Object object = null;
-          ModelElementType modelElementType = ModelElementType.valueOf(type);
-          switch (modelElementType) {
-            case CLASS:
-            case DATA_TYPE:
-            case ENUMERATION:
-            case INTERFACE:
-              object = eaWrapper.getElementByGuid(modelElementGuid);
-              break;
-            case ATTRIBUTE:
-            case ENUMERATION_LITERAL:
-              object = eaWrapper.getAttributeByGuid(modelElementGuid);
-              break;
-            case ASSOCIATION_END:
-              object = EaModelUtils.findConnectorEnd(associations, modelElementGuid);
-              break;
-            case ASSOCIATION:
-              object = eaWrapper.getConnectorByGuid(modelElementGuid);
-              break;
-            default:
-              throw new ModellingToolsException(
-                  "Cannot deal with object of type " + modelElementType);
-          }
-          Map<String, String> taggedValues = TaggedValueUtils.getTaggedValues(object);
-          List<String> headersToUse;
-          boolean createIfNotPresentAndDeleteIfEmptyString;
-          switch (tagUpdateMode) {
-            case UPDATE_ONLY:
-              headersToUse = ListUtils.retainAll(nonStandardHeaders, taggedValues.keySet());
-              createIfNotPresentAndDeleteIfEmptyString = false;
-              break;
-            case UPDATE_ADD_DELETE:
-              headersToUse = nonStandardHeaders;
-              createIfNotPresentAndDeleteIfEmptyString = true;
-              break;
-            default:
-              throw new ModellingToolsException(
-                  "Cannot deal with tag update mode " + tagUpdateMode);
-          }
-          /*
-           * remove all the tagged values from the map that are not present in the header of the
-           * file to import
-           */
-          Set<String> presentTaggedValues = Set.copyOf(taggedValues.keySet());
-          for (String taggedValueName : presentTaggedValues) {
-            if (!headersToUse.contains(taggedValueName)) {
-              taggedValues.remove(taggedValueName);
-            }
-          }
-
-          // now update the map with tagged values from the file...
-          for (String headerName : headersToUse) {
-            taggedValues.put(headerName, record.get(headerName));
-          }
-
-          /*
-           * ... and save them into the underlying database, but taking into account the value of
-           * createIfNotPresentAndDeleteIfEmptyString
-           */
-          TaggedValueUtils.setTaggedValues(object, taggedValues,
-              createIfNotPresentAndDeleteIfEmptyString);
-          LOGGER.info("Updated tagged values of {}", EaModelUtils.toString(object));
-        }
-      }
+      processCsv(umlPackage, csvParser, tagUpdateMode);
     } catch (IOException e) {
       throw new ModellingToolsException("Could not parse file " + file.getAbsolutePath(), e);
     }
 
+  }
+
+  private CSVFormat getCsvFormat() {
+    return CSVFormat.RFC4180.builder().setHeader().setSkipHeaderRecord(true).build();
+  }
+
+  /**
+   * Reads the CSV data from a string instead of from a file. This is useful in unit testing any
+   * newlines issues, as we cannot be sure that the newlines in the files are not changed by the
+   * version control system or the system containing a working copy. See also
+   * https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_formatting_and_whitespace.
+   */
+  void updateDataModel(String packageGuid, String csvString, TagUpdateMode tagUpdateMode)
+      throws ModellingToolsException {
+    Objects.requireNonNull(packageGuid);
+    org.sparx.Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
+    Validate.notNull(umlPackage, "No package found with GUID %1$s", packageGuid);
+
+    try {
+      CSVParser csvParser = CSVParser.parse(csvString, getCsvFormat());
+
+      processCsv(umlPackage, csvParser, tagUpdateMode);
+    } catch (IOException e) {
+      throw new ModellingToolsException("Could not parse string " + csvString, e);
+    }
+
+  }
+
+  private void processCsv(org.sparx.Package umlPackage, CSVParser csvParser,
+      TagUpdateMode tagUpdateMode) throws ModellingToolsException {
+    final List<String> allHeaders = csvParser.getHeaderNames();
+    final List<String> minimumExpectedHeaders = List.of("GUID", "TYPE");
+    final List<String> standardHeaders =
+        List.of("GUID", "UML-NAVN", "NAMESPACE", "TYPE", "STEREOTYPE");
+    Validate.isTrue(allHeaders.containsAll(minimumExpectedHeaders),
+        "Expected the following headers to be present: %1$", minimumExpectedHeaders);
+    final List<String> nonStandardHeaders = ListUtils.removeAll(allHeaders, standardHeaders);
+    LOGGER.info("Found the following tags in the file: {}", nonStandardHeaders.toString());
+
+    Collection<Connector> associations =
+        EaModelUtils.getAllAssociationsOfPackageAndSubpackages(umlPackage);
+
+    for (CSVRecord record : csvParser.getRecords()) {
+      String modelElementGuid = record.get("GUID");
+      if (StringUtils.isEmpty(modelElementGuid)) {
+        /*
+         * The "Copy Selected to Clipboard" functionality
+         * (https://sparxsystems.com/eahelp/model_search_context_menu.html) generates
+         * semicolon-separated values, and a empty second line. When that contents is copied into
+         * LibreOffice Calc and then saved as a CSV file, the second line in the file will only
+         * consist of comma's. Therefore, ignore any records with an empty GUID. This way, this
+         * class is lenient towards users forgetting to remove that empty line.
+         */
+        LOGGER.info("Ignoring line with empty GUID");
+      } else {
+        String type = record.get("TYPE");
+        LOGGER.debug("Processing model element with GUID {} and type ", modelElementGuid, type);
+        Object object = null;
+        ModelElementType modelElementType = ModelElementType.valueOf(type);
+        switch (modelElementType) {
+          case CLASS:
+          case DATA_TYPE:
+          case ENUMERATION:
+          case INTERFACE:
+            object = eaWrapper.getElementByGuid(modelElementGuid);
+            break;
+          case ATTRIBUTE:
+          case ENUMERATION_LITERAL:
+            object = eaWrapper.getAttributeByGuid(modelElementGuid);
+            break;
+          case ASSOCIATION_END:
+            object = EaModelUtils.findConnectorEnd(associations, modelElementGuid);
+            break;
+          case ASSOCIATION:
+            object = eaWrapper.getConnectorByGuid(modelElementGuid);
+            break;
+          default:
+            throw new ModellingToolsException(
+                "Cannot deal with object of type " + modelElementType);
+        }
+        Map<String, String> taggedValues = TaggedValueUtils.getTaggedValues(object);
+        List<String> headersToUse;
+        boolean createIfNotPresentAndDeleteIfEmptyString;
+        switch (tagUpdateMode) {
+          case UPDATE_ONLY:
+            headersToUse = ListUtils.retainAll(nonStandardHeaders, taggedValues.keySet());
+            createIfNotPresentAndDeleteIfEmptyString = false;
+            break;
+          case UPDATE_ADD_DELETE:
+            headersToUse = nonStandardHeaders;
+            createIfNotPresentAndDeleteIfEmptyString = true;
+            break;
+          default:
+            throw new ModellingToolsException("Cannot deal with tag update mode " + tagUpdateMode);
+        }
+        /*
+         * remove all the tagged values from the map that are not present in the header of the file
+         * to import
+         */
+        Set<String> presentTaggedValues = Set.copyOf(taggedValues.keySet());
+        for (String taggedValueName : presentTaggedValues) {
+          if (!headersToUse.contains(taggedValueName)) {
+            taggedValues.remove(taggedValueName);
+          }
+        }
+
+        // now update the map with tagged values from the file...
+        for (String headerName : headersToUse) {
+          String valueFromRecord = record.get(headerName);
+          /*
+           * Any newline has to be as a carriage return (\r) plus a line feed (\n), otherwise EA
+           * will not process it as expected. LibreOffice Calc, often used to edit CSV files, saves
+           * a newline in a cell as only a line feed.
+           */
+          String valueToSave = valueFromRecord.replaceAll("(?<!\r)\n", "\r\n");
+          taggedValues.put(headerName, valueToSave);
+        }
+
+        /*
+         * ... and save them into the underlying database, but taking into account the value of
+         * createIfNotPresentAndDeleteIfEmptyString
+         */
+        TaggedValueUtils.setTaggedValues(object, taggedValues,
+            createIfNotPresentAndDeleteIfEmptyString);
+        LOGGER.info("Updated tagged values of {}", EaModelUtils.toString(object));
+      }
+    }
   }
 
 

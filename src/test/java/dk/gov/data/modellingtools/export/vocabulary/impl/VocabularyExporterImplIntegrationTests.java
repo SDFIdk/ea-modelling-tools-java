@@ -9,7 +9,6 @@ import dk.gov.data.modellingtools.ea.impl.EnterpriseArchitectWrapperImpl;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.export.datamodel.impl.DataModelExporterImplIntegrationTests;
 import dk.gov.data.modellingtools.export.vocabulary.VocabularyExporter;
-import dk.gov.data.modellingtools.update.datamodel.DataModelTagsUpdaterImplIntegrationTests;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -48,7 +47,7 @@ public class VocabularyExporterImplIntegrationTests extends AbstractEaTest {
   @BeforeAll
   public static void createTestDirectory() {
     folderForTest = new File(FileUtils.getTempDirectory(),
-        DataModelTagsUpdaterImplIntegrationTests.class.getSimpleName());
+        VocabularyExporterImplIntegrationTests.class.getSimpleName());
     LOGGER.debug("Testing in {}", folderForTest);
     boolean mkdir = folderForTest.mkdir();
     LOGGER.debug("{} created: {}", folderForTest.getAbsolutePath(), mkdir);
