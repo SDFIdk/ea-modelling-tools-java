@@ -10,6 +10,6 @@ GUID,UML-NAVN,NAMESPACE,TYPE,definition,note,eksempel,alternativtNavn,lovgrundla
 <#assign defaultValue = "" >
 </#if>
 <#list modelElements as modelElement>
-"${modelElement.eaGuid}","${modelElement.umlName}","${modelElement.namespaceName}","${modelElement.umlModelElementType.name()}","${modelElement.taggedValues["definition"]!defaultValue?replace("\"", "\"\"")}","${modelElement.taggedValues["note"]!defaultValue?replace("\"", "\"\"")}","${modelElement.taggedValues["eksempel"]!defaultValue?replace("\"", "\"\"")}","${modelElement.taggedValues["alternativtNavn"]!defaultValue?replace("\"", "\"\"")}","${modelElement.taggedValues["lovgrundlag"]!defaultValue?replace("\"", "\"\"")}"
+"${modelElement.eaGuid}","${modelElement.umlName}","${modelElement.namespaceName}","${modelElement.umlModelElementType.name()}","${(modelElement.taggedValues["definition"]!defaultValue)?replace('"', '""')}","${(modelElement.taggedValues["note"]!defaultValue)?replace('"', '""')}","${(modelElement.taggedValues["eksempel"]!defaultValue)?replace('"', '""')}","${(modelElement.taggedValues["alternativtNavn"]!defaultValue)?replace('"', '""')}","${(modelElement.taggedValues["lovgrundlag"]!defaultValue)?replace('"', '""')}"
 </#list>
 </#if>

@@ -120,6 +120,32 @@ public class DataModelExporterImplIntegrationTests extends AbstractEaTest {
         actualOutputFileRelativePath, strictnessMode);
   }
 
+  @Test
+  public void testExportDataModelBasicData22NewLinesQuotes_da_strict()
+      throws ModellingToolsException, IOException {
+    String resourcePathDataModel = "/datamodel/MinModel_GDv22_TestQuotesNewLines.xmi";
+    String languageTag = "da";
+    String resourcePathExpectedOutput =
+        "/export/datamodel/MinModel_GDv22_TestQuotesNewLines_v1.0.0-da.csv";
+    String actualOutputFileRelativePath = "MinModel_GDv22_TestQuotesNewLines_v1.0.0.csv";
+    StrictnessMode strictnessMode = StrictnessMode.STRICT;
+    textExportDataModelBasicData22(resourcePathDataModel, languageTag, resourcePathExpectedOutput,
+        actualOutputFileRelativePath, strictnessMode);
+  }
+
+  @Test
+  public void testExportDataModelBasicData22NewLinesQuotes_da_lenient()
+      throws ModellingToolsException, IOException {
+    String resourcePathDataModel = "/datamodel/MinModel_GDv22_TestQuotesNewLines.xmi";
+    String languageTag = "da";
+    String resourcePathExpectedOutput =
+        "/export/datamodel/MinModel_GDv22_TestQuotesNewLines_v1.0.0-da.csv";
+    String actualOutputFileRelativePath = "MinModel_GDv22_TestQuotesNewLines_v1.0.0.csv";
+    StrictnessMode strictnessMode = StrictnessMode.LENIENT;
+    textExportDataModelBasicData22(resourcePathDataModel, languageTag, resourcePathExpectedOutput,
+        actualOutputFileRelativePath, strictnessMode);
+  }
+
   private void textExportDataModelBasicData22(String resourcePathDataModel, String languageTag,
       String resourcePathExpectedOutput, String actualOutputFileRelativePath,
       StrictnessMode strictnessMode)

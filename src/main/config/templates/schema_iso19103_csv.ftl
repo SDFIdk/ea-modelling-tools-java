@@ -10,6 +10,6 @@ GUID,UML-NAVN,NAMESPACE,TYPE,STEREOTYPE,ISO19103::GI_Element::designation,ISO191
 <#assign defaultValue = "" >
 </#if>
 <#list modelElements as modelElement>
-"${modelElement.eaGuid}","${modelElement.umlName}","${modelElement.namespaceName}","${modelElement.umlModelElementType.name()}","${modelElement.fqStereotype}","${modelElement.taggedValues["ISO19103::GI_Element::designation"]!defaultValue?replace("\"", "\"\"")}","${modelElement.taggedValues["ISO19103::GI_Element::definition"]!defaultValue?replace("\"", "\"\"")}","${modelElement.taggedValues["ISO19103::GI_Element::description"]!defaultValue?replace("\"", "\"\"")}","${modelElement.taggedValues["ISO19103::GI_Element::description"]!defaultValue?replace("\"", "\"\"")}","${modelElement.taggedValues["ISO19103::GI_Element::IRI"]!defaultValue?replace("\"", "\"\"")}"
+"${modelElement.eaGuid}","${modelElement.umlName}","${modelElement.namespaceName}","${modelElement.umlModelElementType.name()}","${modelElement.fqStereotype}","${(modelElement.taggedValues["ISO19103::GI_Element::designation"]!defaultValue)?replace('"', '""')}","${(modelElement.taggedValues["ISO19103::GI_Element::definition"]!defaultValue)?replace('"', '""')}","${(modelElement.taggedValues["ISO19103::GI_Element::description"]!defaultValue)?replace('"', '""')}","${(modelElement.taggedValues["ISO19103::GI_Element::description"]!defaultValue)?replace('"', '""')}","${(modelElement.taggedValues["ISO19103::GI_Element::IRI"]!defaultValue)?replace('"', '""')}"
 </#list>
 </#if>

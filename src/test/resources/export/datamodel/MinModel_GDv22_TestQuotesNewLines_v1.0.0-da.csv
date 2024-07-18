@@ -1,0 +1,5 @@
+GUID,UML-NAVN,NAMESPACE,TYPE,STEREOTYPE,Grunddata2::ModelElement::prefLabel (da),Grunddata2::ModelElement::definition (da),Grunddata2::ModelElement::comment (da),Grunddata2::ModelElement::applicationNote (da),Grunddata2::ModelElement::example (da),Grunddata2::ModelElement::altLabel (da),Grunddata2::ModelElement::deprecatedLabel (da),Grunddata2::ModelElement::source,Grunddata2::ModelElement::legalSource,Grunddata2::ModelElement::URI,Grunddata2::DKObjekttype::historikmodel,Grunddata2::DKKodeliste::vokabularium,Grunddata2::DKEgenskab::CRS,Grunddata2::DKEgenskab::Z-used
+"{85EC2B00-D48A-48fd-95C2-E5EDA2136577}","DKObjekttype1","MinModel_GDv22_TestQuotesNewLines","CLASS","Grunddata2::DKObjekttype","test ""prefLabel""","test ""definition (da)""
+newline","","","test ""example (da)""
+
+newline and empty line before it","test ""altLabel""","test ""deprecatedLabel (da)""","","","","","","",""
