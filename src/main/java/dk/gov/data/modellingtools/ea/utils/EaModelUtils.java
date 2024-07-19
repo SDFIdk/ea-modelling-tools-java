@@ -151,8 +151,11 @@ public final class EaModelUtils {
 
     for (Element element : elements) {
       for (Connector connector : element.GetConnectors()) {
-        if (!connectors.containsKey(connector.GetConnectorGUID())) {
-          connectors.put(null, connector);
+        if ("Association".equals(connector.GetType())
+            || "Aggregation".equals(connector.GetType())) {
+          if (!connectors.containsKey(connector.GetConnectorGUID())) {
+            connectors.put(connector.GetConnectorGUID(), connector);
+          }
         }
       }
     }
@@ -268,6 +271,8 @@ public final class EaModelUtils {
    */
   public static ConnectorEnd findConnectorEnd(Collection<Connector> associations,
       String connectorEndGuid) throws ModellingToolsException {
+    LOGGER.trace("Trying to find connector GUID that matches {} in {}", connectorEndGuid,
+        associations);
     Connector association = IterableUtils.find(associations, new Predicate<Connector>() {
 
       @Override
@@ -275,7 +280,10 @@ public final class EaModelUtils {
         // see also class EaConnectorEnd for more information about the logic
         // example of connector GUID: {0D467508-0484-4a26-B670-7A54ABB7F73D}
         // example of connector end GUID: {src467508-0484-4a26-B670-7A54ABB7F73D}
-        return connector.GetConnectorGUID().substring(3).equals(connectorEndGuid.substring(4));
+        String lastPartConnectorGuid = connector.GetConnectorGUID().substring(3);
+        String lastPartConnectorEndGuid = connectorEndGuid.substring(4);
+        LOGGER.trace("Comparing {} to {}", lastPartConnectorGuid, lastPartConnectorEndGuid);
+        return lastPartConnectorGuid.equals(lastPartConnectorEndGuid);
       }
     });
     if (association == null) {
