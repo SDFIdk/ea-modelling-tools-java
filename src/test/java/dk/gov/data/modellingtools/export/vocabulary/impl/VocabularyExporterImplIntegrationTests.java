@@ -10,14 +10,11 @@ import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.export.datamodel.impl.DataModelExporterImplIntegrationTests;
 import dk.gov.data.modellingtools.export.vocabulary.VocabularyExporter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -95,12 +92,9 @@ public class VocabularyExporterImplIntegrationTests extends AbstractEaTest {
     File actualOutputFile = new File(folderForTest, "MinModel_GDv22_v1.0.0.csv");
     assertTrue(actualOutputFile.exists(),
         "Expected the following file to be created " + actualOutputFile.getAbsolutePath());
-    try (InputStream actualInputStream = new FileInputStream(actualOutputFile)) {
-      InputStream expectedExportedInputStream = DataModelExporterImplIntegrationTests.class
-          .getResourceAsStream("/export/vocabulary/MinModel_GDv22_v1.0.0-da.csv");
-      assertTrue(IOUtils.contentEquals(expectedExportedInputStream, actualInputStream),
-          "The exported file did not contain the expected contents.");
-    }
+
+    String resourcePathExpectedOutput = "/export/vocabulary/MinModel_GDv22_v1.0.0-da.csv";
+    compareFileDisregardingLineOrder(resourcePathExpectedOutput, actualOutputFile);
   }
 
   @Test
@@ -119,12 +113,9 @@ public class VocabularyExporterImplIntegrationTests extends AbstractEaTest {
     File actualOutputFile = new File(folderForTest, "MinModel_GDv1_v1.0.0.csv");
     assertTrue(actualOutputFile.exists(),
         "Expected the following file to be created " + actualOutputFile.getAbsolutePath());
-    try (InputStream actualInputStream = new FileInputStream(actualOutputFile)) {
-      InputStream expectedExportedInputStream = DataModelExporterImplIntegrationTests.class
-          .getResourceAsStream("/export/vocabulary/MinModel_GDv1_v1.0.0.csv");
-      assertTrue(IOUtils.contentEquals(expectedExportedInputStream, actualInputStream),
-          "The exported file did not contain the expected contents.");
-    }
+
+    String resourcePathExpectedOutput = "/export/vocabulary/MinModel_GDv1_v1.0.0.csv";
+    compareFileDisregardingLineOrder(resourcePathExpectedOutput, actualOutputFile);
   }
 
 }

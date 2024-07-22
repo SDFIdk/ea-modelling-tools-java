@@ -228,6 +228,10 @@ public final class ScriptManagerImpl implements ScriptManager {
             script.getFileName(), 1);
 
     List<Node> nodes = new ArrayList<>();
+    /*
+     * TODO Replace with org.apache.commons.collections4 classes, and remove commons-validator (that
+     * uses the old org.apache.commons.collections.) from pom.xml
+     */
     CollectionUtils.addAll(nodes, parsedScript.iterator());
     Predicate predicateExpressionStatement = object -> object instanceof ExpressionStatement;
     int numberOfExpressionStatements =

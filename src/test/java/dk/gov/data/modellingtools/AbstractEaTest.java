@@ -1,12 +1,17 @@
 package dk.gov.data.modellingtools;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import dk.gov.data.modellingtools.constants.BasicData2Constants;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Objects;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.exec.OS;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -65,7 +70,8 @@ public class AbstractEaTest {
     repository = null;
   }
 
-  protected String importXmiInPackage(File dataModelFile, Repository repository, Package packageToImportIn) {
+  protected String importXmiInPackage(File dataModelFile, Repository repository,
+      Package packageToImportIn) {
     Objects.requireNonNull(dataModelFile);
     Objects.requireNonNull(packageToImportIn);
     String xmiModelFilePath = dataModelFile.getAbsolutePath();
@@ -78,11 +84,26 @@ public class AbstractEaTest {
     return importedPackageGuid;
   }
 
-  protected String importXmiInPackage(URL dataModelUrl, Repository repository, Package packageToImportIn) {
+  protected String importXmiInPackage(URL dataModelUrl, Repository repository,
+      Package packageToImportIn) {
     Objects.requireNonNull(dataModelUrl);
     Objects.requireNonNull(packageToImportIn);
     File dataModelFile = FileUtils.toFile(dataModelUrl);
     return importXmiInPackage(dataModelFile, repository, packageToImportIn);
+  }
+
+  protected void compareFileDisregardingLineOrder(String resourcePathExpectedOutput,
+      File actualOutputFile) throws IOException {
+    try (FileReader actualFileReader = new FileReader(actualOutputFile, StandardCharsets.UTF_8);) {
+      // order is not important in the exported file.
+      List<String> actualLines = FileUtils.readLines(actualOutputFile, StandardCharsets.UTF_8);
+      List<String> expectedLines = FileUtils.readLines(
+          FileUtils.toFile(this.getClass().getResource(resourcePathExpectedOutput)),
+          StandardCharsets.UTF_8);
+      assertEquals(expectedLines.size(), actualLines.size(), "Wrong amount of lines");
+      assertTrue(CollectionUtils.isEqualCollection(expectedLines, actualLines),
+          "The exported file did not contain the expected contents.");
+    }
   }
 
 }

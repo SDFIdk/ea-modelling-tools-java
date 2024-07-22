@@ -9,14 +9,11 @@ import dk.gov.data.modellingtools.ea.impl.EnterpriseArchitectWrapperImpl;
 import dk.gov.data.modellingtools.exception.ModellingToolsException;
 import dk.gov.data.modellingtools.export.datamodel.DataModelExporter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -162,12 +159,8 @@ public class DataModelExporterImplIntegrationTests extends AbstractEaTest {
     File actualOutputFile = new File(folderForTest, actualOutputFileRelativePath);
     assertTrue(actualOutputFile.exists(),
         "Expected the following file to be created " + actualOutputFile.getAbsolutePath());
-    try (InputStream actualInputStream = new FileInputStream(actualOutputFile)) {
-      InputStream expectedExportedInputStream = DataModelExporterImplIntegrationTests.class
-          .getResourceAsStream(resourcePathExpectedOutput);
-      assertTrue(IOUtils.contentEquals(expectedExportedInputStream, actualInputStream),
-          "The exported file did not contain the expected contents.");
-    }
+
+    compareFileDisregardingLineOrder(resourcePathExpectedOutput, actualOutputFile);
   }
 
   // TODO add tests for model with missing tag
