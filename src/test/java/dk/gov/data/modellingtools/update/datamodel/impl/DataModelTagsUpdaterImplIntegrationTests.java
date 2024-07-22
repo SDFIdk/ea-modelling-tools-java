@@ -105,6 +105,8 @@ public class DataModelTagsUpdaterImplIntegrationTests extends AbstractEaTest {
         .getTaggedValueValue(dkObjekttype1, "Grunddata2::ModelElement::definition (en)"));
     assertEquals("applikationsnote objekttype1 på dansk UPDATED", TaggedValueUtils
         .getTaggedValueValue(dkObjekttype1, "Grunddata2::ModelElement::applicationNote (da)"));
+    assertEquals("kilde objekttype1 UPDATED",
+        TaggedValueUtils.getTaggedValueValue(dkObjekttype1, "Grunddata2::ModelElement::source"));
     assertEquals("juridisk kilde objekttype1 UPDATED", TaggedValueUtils
         .getTaggedValueValue(dkObjekttype1, "Grunddata2::ModelElement::legalSource"));
 
@@ -148,6 +150,13 @@ public class DataModelTagsUpdaterImplIntegrationTests extends AbstractEaTest {
     Element dkKodeliste1 = repository.GetElementByGuid("{91A4860B-5771-4091-9337-7DCBF2DD3FAC}");
     assertEquals("https://UPDATED.uri.kodeliste1", TaggedValueUtils
         .getTaggedValueValue(dkKodeliste1, "Grunddata2::DKKodeliste::vokabularium"));
+
+    ConnectorEnd andenAssociationsende = EaModelUtils.findConnectorEnd(
+        EaModelUtils.getAllAssociationsOfPackageAndSubpackages(
+            repository.GetPackageByGuid(importedPackageGuid)),
+        "{dst25174A-D6DF-4432-B90E-67EC6BD2D5E0}");
+    assertEquals("https://UPDATED.uri.andenAssociationsend", TaggedValueUtils
+        .getTaggedValueValue(andenAssociationsende, "Grunddata2::ModelElement::URI"));
 
   }
 

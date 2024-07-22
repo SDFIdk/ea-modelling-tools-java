@@ -68,10 +68,6 @@ public class DataModelTagsUpdaterImpl implements DataModelTagsUpdater {
 
   }
 
-  private CSVFormat getCsvFormat() {
-    return CSVFormat.RFC4180.builder().setHeader().setSkipHeaderRecord(true).build();
-  }
-
   /**
    * Reads the CSV data from a string instead of from a file. This is useful in unit testing any
    * newlines issues, as we cannot be sure that the newlines in the files are not changed by the
@@ -83,15 +79,19 @@ public class DataModelTagsUpdaterImpl implements DataModelTagsUpdater {
     Objects.requireNonNull(packageGuid);
     org.sparx.Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
     Validate.notNull(umlPackage, "No package found with GUID %1$s", packageGuid);
-
+  
     try {
       CSVParser csvParser = CSVParser.parse(csvString, getCsvFormat());
-
+  
       processCsv(umlPackage, csvParser, tagUpdateMode);
     } catch (IOException e) {
       throw new ModellingToolsException("Could not parse string " + csvString, e);
     }
+  
+  }
 
+  private CSVFormat getCsvFormat() {
+    return CSVFormat.RFC4180.builder().setHeader().setSkipHeaderRecord(true).build();
   }
 
   private void processCsv(org.sparx.Package umlPackage, CSVParser csvParser,
