@@ -151,11 +151,9 @@ public final class EaModelUtils {
 
     for (Element element : elements) {
       for (Connector connector : element.GetConnectors()) {
-        if ("Association".equals(connector.GetType())
-            || "Aggregation".equals(connector.GetType())) {
-          if (!connectors.containsKey(connector.GetConnectorGUID())) {
-            connectors.put(connector.GetConnectorGUID(), connector);
-          }
+        if (("Association".equals(connector.GetType()) || "Aggregation".equals(connector.GetType()))
+            && !connectors.containsKey(connector.GetConnectorGUID())) {
+          connectors.put(connector.GetConnectorGUID(), connector);
         }
       }
     }
