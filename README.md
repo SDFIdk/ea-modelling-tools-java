@@ -17,7 +17,10 @@ This repository contains a set of tools, written in Java, to support model drive
 ### Installation
 
 1. **Download**:
-    1. Go to the "Releases", where you can find a link to a zip file containing the packaged modelling tools. Find more information about viewing releases on GitLab instances in the [GitLab Docs](https://docs.gitlab.com/ee/user/project/releases/#view-releases) and about viewing releases on GitHub in the [GitHub Docs](https://docs.github.com/en/repositories/releasing-projects-on-github/viewing-your-repositorys-releases-and-tags#viewing-releases).
+    1. Go to [the latest release](http://sdfe-git/DAT/ea-modelling-tools-java/-/releases/permalink/latest), where you can find information about where to find a zip file containing the packaged modelling tools.
+       
+       ⚠ The link above only works when viewing this page in the internal, central repository, not in the mirror repository on GitHub, which does not contain any releases. The reason for this is to avoid any issues with license incompatibility. See [Building the tools](#building-the-tools) for creating the zip file yourself.
+       
     2. Download the modelling tools and unzip the zip file.
     3. Place the contents somewhere in a suitable location, in a folder called `ea-modelling-tools-java` (so without the version number).
 
@@ -49,7 +52,7 @@ This repository contains a set of tools, written in Java, to support model drive
    2. **(required)** `EA_JAVA_API` must point to the folder Java API in your EA installation folder (see also the prerequisites) and is used in the .bat-files. This environment variable is defined by the EA Modelling Tools.
    3. **(conditional)** **Only if** another java.exe is to be used than the one invoked by calling `java` on the command line, `JAVACMD` must point to the java.exe that is to be used for running the tools. `JAVACMD` must not contain whitespace. `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
    
-      💡 Get all the details of the default java by calling `java -XshowSettings:properties --version` on the command line.
+      💡 Get all the details of the default java by calling `java -XshowSettings:properties -version` on the command line.
 
 
    ```bat
@@ -61,7 +64,7 @@ This repository contains a set of tools, written in Java, to support model drive
    rem Set conditional user environment variable JAVACMD, make sure that it does not contain whitespace!
    rem If environment variable JAVA_HOME is set, it can be used in the specification of JAVACMD if the java it points to is to be used for running the tools.
    rem setx JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
-   setx JAVACMD %JAVA_HOME%\bin\java.exe
+   setx JAVACMD %JAVA_HOME%bin\java.exe
    ```
 
 3. Close the command line window and open a **new** one. Verify using `echo`, that the environment variables are set correctly. The input should show the chosen paths:
@@ -69,6 +72,7 @@ This repository contains a set of tools, written in Java, to support model drive
    ```bat
    echo %EAMT_HOME%
    echo %EA_JAVA_API%
+   rem The presence of user environment variable JAVACMD is conditional, see above
    echo %JAVACMD% 
    ```
 
