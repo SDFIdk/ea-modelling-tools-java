@@ -50,9 +50,11 @@ This repository contains a set of tools, written in Java, to support model drive
 2. **User environment variables**: Set user environment variables `EAMT_HOME` (required), `EA_JAVA_API` (required), `JAVACMD` (conditional), for example by using the [`setx`](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx "setx | Microsoft Docs") command on the Windows command line.
    1. **(required)** `EAMT_HOME` must point to the ea-modelling-tools-java folder and is used when invoking the .bat-files from within a script in Enterprise Architect. This environment variable is defined by the EA Modelling Tools.
    2. **(required)** `EA_JAVA_API` must point to the folder Java API in your EA installation folder (see also the prerequisites) and is used in the .bat-files. This environment variable is defined by the EA Modelling Tools.
-   3. **(conditional)** **Only if** another java.exe is to be used than the one invoked by calling `java` on the command line, `JAVACMD` must point to the java.exe that is to be used for running the tools. `JAVACMD` must not contain whitespace. `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
+   3. **(conditional)** **Only if** another java.exe is to be used than the one invoked by calling `java` on the command line, `JAVACMD` must point to the java.exe that is to be used for running the tools. `JAVACMD` is used in the .bat-files. This environment variable is defined by the [appassembler-maven-plugin](https://github.com/mojohaus/appassembler).
    
       💡 Get all the details of the default java by calling `java -XshowSettings:properties -version` on the command line.
+      
+      ⚠ `JAVACMD` must not contain spaces. The [8.3 filename, also called short filename](https://en.wikipedia.org/wiki/8.3_filename) of a folder with a space in its long file name can be found by using the [`dir /x`](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/dir) command on the Windows command line, that filename can then be used instead in the definition of `JAVACMD`.
 
 
    ```bat
