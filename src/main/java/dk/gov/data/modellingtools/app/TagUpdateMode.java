@@ -10,7 +10,7 @@ public enum TagUpdateMode {
   UPDATE_ONLY,
   /**
    * Existing tags are updated if the new value is not empty and are deleted if the new value is
-   * empty; tags are added if the new value is a completely new tag.
+   * empty; tags are added if the new value is a completely new tag and the new value is not empty.
    */
   UPDATE_ADD_DELETE;
 }
