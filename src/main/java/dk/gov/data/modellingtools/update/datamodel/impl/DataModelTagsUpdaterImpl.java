@@ -79,15 +79,15 @@ public class DataModelTagsUpdaterImpl implements DataModelTagsUpdater {
     Objects.requireNonNull(packageGuid);
     org.sparx.Package umlPackage = eaWrapper.getPackageByGuid(packageGuid);
     Validate.notNull(umlPackage, "No package found with GUID %1$s", packageGuid);
-  
+
     try {
       CSVParser csvParser = CSVParser.parse(csvString, getCsvFormat());
-  
+
       processCsv(umlPackage, csvParser, tagUpdateMode);
     } catch (IOException e) {
       throw new ModellingToolsException("Could not parse string " + csvString, e);
     }
-  
+
   }
 
   private CSVFormat getCsvFormat() {
@@ -190,7 +190,7 @@ public class DataModelTagsUpdaterImpl implements DataModelTagsUpdater {
          */
         TaggedValueUtils.setTaggedValues(object, taggedValues,
             createIfNotPresentAndDeleteIfEmptyString);
-        LOGGER.info("Updated tagged values of {}", EaModelUtils.toString(object));
+        LOGGER.info("Processed tagged values of {}", EaModelUtils.toString(object));
       }
     }
   }

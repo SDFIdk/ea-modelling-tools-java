@@ -130,7 +130,7 @@ public class TaggedValueUtils {
             }
           });
       if (taggedValueToUpdate == null) {
-        if (createIfNotPresentAndDeleteIfEmptyString) {
+        if (createIfNotPresentAndDeleteIfEmptyString && StringUtils.isNotEmpty(taggedValueValue)) {
           addTaggedValueToElement(element, taggedValueName, taggedValueValue);
         } else {
           LOGGER.warn("No tag found with name {} on {}", taggedValueName,
@@ -170,7 +170,7 @@ public class TaggedValueUtils {
             }
           });
       if (taggedValueToUpdate == null) {
-        if (createIfNotPresentAndDeleteIfEmptyString) {
+        if (createIfNotPresentAndDeleteIfEmptyString && StringUtils.isNotEmpty(taggedValueValue)) {
           addTaggedValueToAttribute(attribute, taggedValueName, taggedValueValue);
         } else {
           LOGGER.warn("No tag found with name {} on {}", taggedValueName,
@@ -211,7 +211,7 @@ public class TaggedValueUtils {
             }
           });
       if (taggedValueToUpdate == null) {
-        if (createIfNotPresentAndDeleteIfEmptyString) {
+        if (createIfNotPresentAndDeleteIfEmptyString && StringUtils.isNotEmpty(taggedValueValue)) {
           addTaggedValueToConnectorEnd(connectorEnd, taggedValueName, taggedValueValue);
         } else {
           LOGGER.warn("No tag found with name {} on {}", taggedValueName,
@@ -252,7 +252,7 @@ public class TaggedValueUtils {
             }
           });
       if (taggedValueToUpdate == null) {
-        if (createIfNotPresentAndDeleteIfEmptyString) {
+        if (createIfNotPresentAndDeleteIfEmptyString && StringUtils.isNotEmpty(taggedValueValue)) {
           addTaggedValueToConnector(connector, taggedValueName, taggedValueValue);
         } else {
           LOGGER.warn("No tag found with name {} on {}", taggedValueName,
