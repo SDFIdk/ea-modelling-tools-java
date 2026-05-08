@@ -17,7 +17,7 @@ This repository contains a set of tools, written in Java, to support model drive
 ### Installation
 
 1. **Download**:
-    1. Go to [the latest release](http://sdfe-git/DAT/ea-modelling-tools-java/-/releases/permalink/latest), where you can find information about where to find a zip file containing the packaged modelling tools.
+    1. Go to [the latest release](https://gitlab.kds.internal/DAT/ea-modelling-tools-java/-/releases/permalink/latest), where you can find information about where to find a zip file containing the packaged modelling tools.
        
        ⚠ The link above only works when viewing this page in the internal, central repository, not in the mirror repository on GitHub, which does not contain any releases. The reason for this is to avoid any issues with license incompatibility. See [Building the tools](#building-the-tools) for creating the zip file yourself.
        
@@ -63,10 +63,8 @@ This repository contains a set of tools, written in Java, to support model drive
    rem Set required user environment variable EA_JAVA_API
    setx EA_JAVA_API "C:\path\to\EA\installation\folder\Java API"
    rem The next command is only needed when another java installation than the default one should be used!
-   rem Set conditional user environment variable JAVACMD, make sure that it does not contain whitespace!
-   rem If environment variable JAVA_HOME is set, it can be used in the specification of JAVACMD if the java it points to is to be used for running the tools.
+   rem Uncomment the next line to set conditional user environment variable JAVACMD, make sure that it does not contain whitespace!
    rem setx JAVACMD "C:\path\to\jre\or\jdk\bin\java.exe"
-   setx JAVACMD %JAVA_HOME%bin\java.exe
    ```
 
 3. Close the command line window and open a **new** one. Verify using `echo`, that the environment variables are set correctly. The input should show the chosen paths:
@@ -74,8 +72,8 @@ This repository contains a set of tools, written in Java, to support model drive
    ```bat
    echo %EAMT_HOME%
    echo %EA_JAVA_API%
-   rem The presence of user environment variable JAVACMD is conditional, see above
-   echo %JAVACMD% 
+   rem The presence of user environment variable JAVACMD is conditional. Uncomment the next line if needed.
+   rem echo %JAVACMD% 
    ```
 
 4. Restart Enterprise Architect, if it is open.
@@ -174,9 +172,9 @@ Find more information about Maven's build lifecyle on [Introduction to the Build
 
 `mvn versions:display-dependency-updates` identifies the dependencies that should be updated because a newer release is available.
 
-`mvn versions:use-latest-releases` updates the dependency versions. The plugin versions and the versions of any dependencies of the plugins have to be updated manually, see next goal.
+`mvn versions:use-latest-releases` updates the dependency versions identified by `mvn versions:display-dependency-updates`.
 
-`mvn versions:display-plugin-updates` identifies the plugin versions that should be updated because a newer release is available.
+`mvn versions:display-plugin-updates` identifies the plugin versions that should be updated because a newer release is available. The plugin versions and the versions of any dependencies of the plugins have to be updated manually, by updating the pom.xml manually with the version numbers identified by `mvn versions:display-plugin-updates`.
 
 Read more about the [Versions Maven Plugin](https://www.mojohaus.org/versions/versions-maven-plugin/index.html).
 
